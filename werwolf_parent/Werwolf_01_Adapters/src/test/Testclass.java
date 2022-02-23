@@ -5,11 +5,15 @@ import java.sql.*;
 public class Testclass {
 	
 	public static void main(String[] args) {
-		//Testen zum Verbinden der db - funktioniert aktuell nur lokal I guess
 		
-		String url = "jdbc:mysql://localhost:3306/werwolf";
-		String user = "root";
-		String password = "penispenis123";
+		//IP HIER EINGEBEN
+		String ip = "";
+				
+		String url = "jdbc:mysql://" + ip + "/s1440177";
+		
+		// BENUTZERKENNUNG HIER EINGEBEN
+		String user = "";
+		String password = "";
 		
 		try (Connection con = DriverManager.getConnection(url, user, password)) {
 			
@@ -18,7 +22,7 @@ public class Testclass {
 			
 			//Datensaetze ausgeben
 			
-			String qry = "SELECT * FROM rolle";
+			String qry = "SELECT * FROM Rolle";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(qry);
 			
