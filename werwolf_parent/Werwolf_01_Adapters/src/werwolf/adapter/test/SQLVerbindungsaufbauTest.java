@@ -1,5 +1,5 @@
 
-package test;
+package werwolf.adapter.test;
 import java.sql.*;
 
 /**

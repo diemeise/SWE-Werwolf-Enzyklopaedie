@@ -43,16 +43,20 @@ public class SQLRollenRepository implements RollenRepository{
 		try {
 			while (resultSet.next()) {
 				this.rollen.put(resultSet.getString("Name"), new Rolle(
-																							resultSet.getString("Name"),
-																							resultSet.getString("Funktion"),
-																							"test",
-																							true,
-																							true));
+																		resultSet.getString("Name"),
+																		resultSet.getString("Funktion"),
+																		"test",
+																		true,
+																		true));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
+//	public void erstelleRolle(Map<String, String> map) {
+//		
+//	
 
 	@Override
 	public void ladeRollenAusSpeicher() {
