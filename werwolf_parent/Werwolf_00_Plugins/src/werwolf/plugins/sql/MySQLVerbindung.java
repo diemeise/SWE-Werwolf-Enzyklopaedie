@@ -18,7 +18,7 @@ public class MySQLVerbindung implements SQLVerbindung {
 	
 	//private Konstruktor für Testzwecke
 	public MySQLVerbindung() throws SQLException {		
-		this("jdbc:mysql://46.20.34.173/s1440177","s1440177","vitafriona");
+		this("jdbc:mysql://46.20.34.173/s1440177","","");
 	}
 	
 	public MySQLVerbindung(String url, String benutzer, String passwort) throws SQLException {
@@ -31,7 +31,7 @@ public class MySQLVerbindung implements SQLVerbindung {
 	
 	
 	@Override
-	public ResultSet führeAus(Map<String, String> queryTable) {
+	public ResultSet fuehreAus(Map<String, String> queryTable) {
 		String queryString= erstelleQuery(queryTable);
 		Statement statement;
 
