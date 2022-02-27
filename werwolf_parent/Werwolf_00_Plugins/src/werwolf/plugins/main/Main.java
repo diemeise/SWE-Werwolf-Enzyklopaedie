@@ -8,18 +8,31 @@ import werwolf.adapter.sql.SQLRollenRepository;
 import werwolf.adapter.sql.SQLVerbindung;
 import werwolf.domain.game.content.KartenRepository;
 import werwolf.domain.game.content.RollenRepository;
+import werwolf.plugins.sql.MySQLAuthentifizierung;
 import werwolf.plugins.sql.MySQLVerbindung;
 
 public class Main {
-
+	
+	private static String url;
+	private static String nutzer;
+	private static String passwort;
+	
+	private static String datei;
+	
 	
 
 	public static void main(String[] args) {
 		
+		datei = "C:\\Users\\tamar\\eclipse-workspace\\SWE-Werwolf-Enzyklopaedie\\auth.txt";
+		MySQLAuthentifizierung.ladeDatei(datei);
+		
+		url = MySQLAuthentifizierung.getUrl();
+		nutzer = MySQLAuthentifizierung.getNutzer();
+		passwort = MySQLAuthentifizierung.getPw();
 	 
 		//Fehler kann ignoriert werden?
 		try{
-			SQLVerbindung mysql = new MySQLVerbindung();
+			SQLVerbindung mysql = new MySQLVerbindung(url, nutzer, passwort);
 			LibraryManager gameLibrary= new LibraryManager(new SQLKartenRespository(mysql), new SQLRollenRepository(mysql));
 			gameLibrary.initialisiereLibrary();
 			System.out.println("meep moop");

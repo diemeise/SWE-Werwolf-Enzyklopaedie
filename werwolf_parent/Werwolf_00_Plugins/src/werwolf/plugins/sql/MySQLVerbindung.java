@@ -13,13 +13,17 @@ import java.util.List;
 import java.util.Map;
 
 public class MySQLVerbindung implements SQLVerbindung {
+	
 
 	private  Connection verbindung;
+
 	
 	//private Konstruktor für Testzwecke
-	public MySQLVerbindung() throws SQLException {		
-		this("jdbc:mysql://46.20.34.173/s1440177","","");
-	}
+//	public MySQLVerbindung() throws SQLException {	
+//		
+//		
+//		this("jdbc:mysql://46.20.34.173/s1440177",nutzer,passwort);
+//	}
 	
 	public MySQLVerbindung(String url, String benutzer, String passwort) throws SQLException {
 		this.verbindung= this.connectTo(url,  benutzer, passwort);
