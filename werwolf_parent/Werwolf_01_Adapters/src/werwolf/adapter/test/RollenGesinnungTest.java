@@ -21,6 +21,8 @@ public class RollenGesinnungTest {
 		EasyMock.expect(rs.getString("Name")).andReturn("Dorfbewohner");
 		EasyMock.expect(rs.getString("Name")).andReturn("Dorfbewohner");
 		EasyMock.expect(rs.getString("Funktion")).andReturn("Lebt");
+		EasyMock.expect(rs.getBoolean("istBoese")).andReturn(false);
+		EasyMock.expect(rs.getBoolean("istSpezial")).andReturn(false);
 		EasyMock.expect(rs.next()).andReturn(false);
 		EasyMock.replay(rs);
 				
@@ -47,6 +49,8 @@ public class RollenGesinnungTest {
 		EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
 		EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
 		EasyMock.expect(rs.getString("Funktion")).andReturn("Frisst Dorfbewohner");
+		EasyMock.expect(rs.getBoolean("istBoese")).andReturn(true);
+		EasyMock.expect(rs.getBoolean("istSpezial")).andReturn(true);
 		EasyMock.expect(rs.next()).andReturn(false);
 		EasyMock.replay(rs);
 				
@@ -71,6 +75,8 @@ public class RollenGesinnungTest {
 		EasyMock.expect(rs.getString("Name")).andReturn("Weißer Werwolf");
 		EasyMock.expect(rs.getString("Name")).andReturn("Weißer Werwolf");
 		EasyMock.expect(rs.getString("Funktion")).andReturn("Frisst Dorfbewohner und Werwölfe");
+		EasyMock.expect(rs.getBoolean("istBoese")).andReturn(true);
+		EasyMock.expect(rs.getBoolean("istSpezial")).andReturn(true);
 		EasyMock.expect(rs.next()).andReturn(false);
 		EasyMock.replay(rs);
 				
@@ -95,6 +101,8 @@ public class RollenGesinnungTest {
 				EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
 				EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
 				EasyMock.expect(rs.getString("Funktion")).andReturn("Frisst Dorfbewohner");
+				EasyMock.expect(rs.getBoolean("istBoese")).andReturn(false);
+				EasyMock.expect(rs.getBoolean("istSpezial")).andReturn(false);
 				EasyMock.expect(rs.next()).andReturn(false);
 				EasyMock.replay(rs);
 						

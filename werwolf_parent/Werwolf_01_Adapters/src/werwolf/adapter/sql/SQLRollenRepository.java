@@ -46,8 +46,8 @@ public class SQLRollenRepository implements RollenRepository{
 																		resultSet.getString("Name"),
 																		resultSet.getString("Funktion"),
 																		"test",
-																		true,
-																		true));
+																		resultSet.getBoolean("istBoese"),
+																		resultSet.getBoolean("istSpezial")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
