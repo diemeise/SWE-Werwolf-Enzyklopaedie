@@ -10,10 +10,10 @@ public class MySQLAuthentifizierung {
 	private static String nutzer;
 	private static String pw;
 	
-//    public static void main(String[] args) {
-//        String dateiName = "C:\\Users\\tamar\\eclipse-workspace\\SWE-Werwolf-Enzyklopaedie\\auth.txt";
-//        ladeDatei(dateiName);
-//    } 
+    public static void main(String[] args) {
+        String dateiName = "C:\\Users\\tamar\\eclipse-workspace\\SWE-Werwolf-Enzyklopaedie\\auth.txt";
+        ladeDatei(dateiName);
+    } 
 	
 	public static void ladeDatei(String datei) {
 		
