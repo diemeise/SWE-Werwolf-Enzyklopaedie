@@ -61,7 +61,7 @@ public class SQLRollenRepository implements RollenRepository{
 		ladeRollenArgs.put("Tabellen","Rolle");
 		ladeRollenArgs.put("Spalten","Rolle.Name, Rolle.Funktion, Rolle.Name");
 		
-		initialisiereRollen(verbindung.führeAus(ladeRollenArgs));
+		initialisiereRollen(verbindung.fuehreAus(ladeRollenArgs));
 	}
 
 	

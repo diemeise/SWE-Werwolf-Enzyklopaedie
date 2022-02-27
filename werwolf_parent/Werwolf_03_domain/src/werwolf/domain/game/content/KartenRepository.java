@@ -14,5 +14,5 @@ public interface KartenRepository {
 	
 	public void ladeKartenAusSpeicher();
 	
-	public void verknüpfeKartenMit(RollenRepository rollenRepository);
+	public void verknuepfeKartenMit(RollenRepository rollenRepository);
 }

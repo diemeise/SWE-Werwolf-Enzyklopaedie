@@ -6,7 +6,7 @@ public class Rolle {
 	private final String funktion;
 	private final String beschreibung;
 	private final boolean istSpezial;
-	private boolean istBöse;
+	private boolean istBoese;
 	
 	
 	public Rolle() {
@@ -14,24 +14,24 @@ public class Rolle {
 		this.funktion = "";
 		this.beschreibung = "";
 		this.istSpezial = false;
-		this.istBöse = false;
+		this.istBoese = false;
 	}
 	
 
 	
-	public Rolle(String name, String funktion, String beschreibung, boolean istSpezial, boolean istBöse) {
+	public Rolle(String name, String funktion, String beschreibung, boolean istSpezial, boolean istBoese) {
 		super();
 		this.name = name;
 		this.funktion = funktion;
 		this.beschreibung = beschreibung;
 		this.istSpezial = istSpezial;
-		this.istBöse = istBöse;
+		this.istBoese = istBoese;
 	}
 
 
 
 	public void setAlignment(boolean alignment) {
-		this.istBöse = alignment;
+		this.istBoese = alignment;
 	}
 	
 	
@@ -59,8 +59,8 @@ public class Rolle {
 	}
 
 
-	public boolean istBöse() {
-		return istBöse;
+	public boolean istBoese() {
+		return istBoese;
 	}
 	
 	

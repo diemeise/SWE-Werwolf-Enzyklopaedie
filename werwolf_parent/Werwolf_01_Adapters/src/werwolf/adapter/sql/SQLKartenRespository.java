@@ -59,7 +59,7 @@ public class SQLKartenRespository implements KartenRepository{
 
 	//Karten werden vor initialisiert, danach wird nur noch die Rolle verlinkt
 	@Override
-	public void verknüpfeKartenMit(RollenRepository rollenRepository) {
+	public void verknuepfeKartenMit(RollenRepository rollenRepository) {
 		//key = Karten-Name = Rollen-Name
 		for (String key: karten.keySet()) {
 			Optional<Rolle>passendeRolle = rollenRepository.findeDurch(key);
@@ -76,7 +76,7 @@ public class SQLKartenRespository implements KartenRepository{
 		ladeKartenArgs.put("Spalten","Rolle.Name, Rolle.Funktion, Karte.idKarte");
 		ladeKartenArgs.put("Join", "Rolle");
 		ladeKartenArgs.put("JoinArgument", "Karte.Rolle_idRolle = Rolle.idRolle");
-		initialisiereKarten(verbindung.führeAus(ladeKartenArgs));
+		initialisiereKarten(verbindung.fuehreAus(ladeKartenArgs));
 	}
 
 	

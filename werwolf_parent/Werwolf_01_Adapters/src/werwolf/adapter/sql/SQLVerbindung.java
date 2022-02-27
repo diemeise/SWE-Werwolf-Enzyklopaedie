@@ -5,5 +5,5 @@ import java.util.Map;
 
 public interface SQLVerbindung {
 
-	public ResultSet führeAus(Map<String,String> queryTable);
+	public ResultSet fuehreAus(Map<String,String> queryTable);
 }

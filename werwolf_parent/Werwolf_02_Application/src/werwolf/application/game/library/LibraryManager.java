@@ -17,7 +17,7 @@ public class LibraryManager {
 	public void initialisiereLibrary() {
 		rollenRepository.ladeRollenAusSpeicher();
 		kartenRepository.ladeKartenAusSpeicher();
-		kartenRepository.verknüpfeKartenMit(rollenRepository);
+		kartenRepository.verknuepfeKartenMit(rollenRepository);
 	}
 	
 	
