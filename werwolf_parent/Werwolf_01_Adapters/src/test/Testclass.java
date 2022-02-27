@@ -7,13 +7,13 @@ public class Testclass {
 	public static void main(String[] args) {
 		
 		//IP HIER EINGEBEN
-		String ip = "";
+		String ip = "46.20.34.173";
 				
 		String url = "jdbc:mysql://" + ip + "/s1440177";
 		
 		// BENUTZERKENNUNG HIER EINGEBEN
-		String user = "";
-		String password = "";
+		String user = "s1440177";
+		String password = "vitafriona";
 		
 		try (Connection con = DriverManager.getConnection(url, user, password)) {
 			
