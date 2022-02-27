@@ -2,7 +2,12 @@
 package test;
 import java.sql.*;
 
-public class Testclass {
+/**
+ * Testcode für den Verbindungsaufbau der Datenbank mit dem Server
+ * Kein "richtiger" Test, einfdach zum ausprobieren 
+ */
+
+public class SQLVerbindungsaufbauTest {
 	
 	public static void main(String[] args) {
 		
