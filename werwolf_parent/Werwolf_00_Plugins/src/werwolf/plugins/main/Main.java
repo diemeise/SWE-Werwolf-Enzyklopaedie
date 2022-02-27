@@ -1,5 +1,6 @@
 package werwolf.plugins.main;
 
+import java.io.File;
 import java.sql.SQLException;
 
 import werwolf.application.game.library.LibraryManager;
@@ -23,7 +24,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		datei = "C:\\Users\\tamar\\eclipse-workspace\\SWE-Werwolf-Enzyklopaedie\\auth.txt";
+		String basePath = new File("").getAbsolutePath();
+		String relativePath = "\\data\\auth.txt";
+	    String authconfigPath = basePath + relativePath;
+		datei = authconfigPath;//"C:\\Users\\tamar\\eclipse-workspace\\SWE-Werwolf-Enzyklopaedie\\auth.txt";
 		MySQLAuthentifizierung.ladeDatei(datei);
 		
 		url = MySQLAuthentifizierung.getUrl();
