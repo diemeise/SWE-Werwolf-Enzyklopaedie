@@ -58,7 +58,7 @@ public class SQLKartenRepository implements KartenRepository{
 	public void initialisiereKarten(ResultSet resultSet) {
 		try {
 			while (resultSet.next()) {
-				this.karten.put(resultSet.getString("Name"), new Karte(
+				this.initialisiereKarte(resultSet.getString("Name"), new Karte(
 																							null,
 																							""));
 			}
@@ -90,9 +90,8 @@ public class SQLKartenRepository implements KartenRepository{
 	}
 
 	@Override
-	public void initialisiereKarte(Rolle rolle, String text) {
-		// TODO Auto-generated method stub
-		
+	public void initialisiereKarte(String name , Karte karte) {
+		this.karten.put(name, karte);
 	}
 
 	
