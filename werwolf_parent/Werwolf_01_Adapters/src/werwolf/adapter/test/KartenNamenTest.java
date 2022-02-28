@@ -20,6 +20,7 @@ public class KartenNamenTest {
 		ResultSet rs = EasyMock.createMock(ResultSet.class);
 		EasyMock.expect(rs.next()).andReturn(true);
 		EasyMock.expect(rs.getString("Name")).andReturn("Dorfbewohner");
+		EasyMock.expect(rs.next()).andReturn(true);
 		EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
 		EasyMock.expect(rs.next()).andReturn(false);
 		
@@ -27,6 +28,8 @@ public class KartenNamenTest {
 				
 		//Arrange
 		SQLKartenRepository repo = new SQLKartenRepository(null);
+		repo.initialisiereKarten(rs);
+		
 		ArrayList<String> namen = new ArrayList<String>();
 		ArrayList<String> testListe = new ArrayList<String>();
 		testListe.add("Dorfbewohner");

@@ -53,10 +53,6 @@ public class SQLRollenRepository implements RollenRepository{
 			e.printStackTrace();
 		}
 	}
-	
-//	public void erstelleRolle(Map<String, String> map) {
-//		
-//	
 
 	@Override
 	public void ladeRollenAusSpeicher() {
@@ -66,6 +62,12 @@ public class SQLRollenRepository implements RollenRepository{
 		ladeRollenArgs.put("Spalten","Rolle.Name, Rolle.Funktion, Rolle.Name, Rolle.istBoese, Rolle.istSpezial");
 		
 		initialisiereRollen(verbindung.fuehreAus(ladeRollenArgs));
+	}
+
+	@Override
+	public void initialisiereRolle(String name, String funktion, boolean istBoese, boolean istSpezial) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

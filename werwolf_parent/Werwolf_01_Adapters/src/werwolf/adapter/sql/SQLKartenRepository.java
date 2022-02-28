@@ -3,6 +3,7 @@ package werwolf.adapter.sql;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,14 +46,16 @@ public class SQLKartenRepository implements KartenRepository{
 	}
 	
 	//TODO implementieren
+	//Gibt eine alphabetisch sortierte Liste der Namen aller vorhandenen Karten aus 
 	public ArrayList<String> listeAllerNamen(){		
-		return new ArrayList<>(this.karten.keySet());
+		ArrayList<String> kartenNamenListe = new ArrayList<String>(this.karten.keySet());
+		Collections.sort( kartenNamenListe );
+		return kartenNamenListe;
 	}
 	
 
 	//TODO besser im interface implementieren
-
-	private void initialisiereKarten(ResultSet resultSet) {
+	public void initialisiereKarten(ResultSet resultSet) {
 		try {
 			while (resultSet.next()) {
 				this.karten.put(resultSet.getString("Name"), new Karte(
@@ -84,6 +87,12 @@ public class SQLKartenRepository implements KartenRepository{
 		ladeKartenArgs.put("Join", "Rolle");
 		ladeKartenArgs.put("JoinArgument", "Karte.Rolle_idRolle = Rolle.idRolle");
 		initialisiereKarten(verbindung.fuehreAus(ladeKartenArgs));
+	}
+
+	@Override
+	public void initialisiereKarte(Rolle rolle, String text) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

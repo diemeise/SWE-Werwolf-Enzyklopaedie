@@ -12,7 +12,9 @@ public interface RollenRepository {
 	
 	public List<Rolle> findeAlleRollen();
 	
+	//lade Rollen aus externen Speicher
 	public void ladeRollenAusSpeicher();
 	
-	//public void initialisiereRollen();
+	//füge eine einzelne Rolle dem internen Set hinzu
+	public void initialisiereRolle(String name, String funktion, boolean istBoese, boolean istSpezial);
 }
