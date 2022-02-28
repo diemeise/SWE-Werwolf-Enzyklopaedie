@@ -4,7 +4,7 @@ import java.io.File;
 import java.sql.SQLException;
 
 import werwolf.application.game.library.LibraryManager;
-import werwolf.adapter.sql.SQLKartenRespository;
+import werwolf.adapter.sql.SQLKartenRepository;
 import werwolf.adapter.sql.SQLRollenRepository;
 import werwolf.adapter.sql.SQLVerbindung;
 import werwolf.domain.game.content.KartenRepository;
@@ -37,7 +37,7 @@ public class Main {
 		//Fehler kann ignoriert werden?
 		try{
 			SQLVerbindung mysql = new MySQLVerbindung(url, nutzer, passwort);
-			LibraryManager gameLibrary= new LibraryManager(new SQLKartenRespository(mysql), new SQLRollenRepository(mysql));
+			LibraryManager gameLibrary= new LibraryManager(new SQLKartenRepository(mysql), new SQLRollenRepository(mysql));
 			gameLibrary.initialisiereLibrary();
 			System.out.println("meep moop");
 		}catch(Exception e) {

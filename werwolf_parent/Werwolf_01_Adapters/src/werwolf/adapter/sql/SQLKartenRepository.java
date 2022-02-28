@@ -2,6 +2,7 @@ package werwolf.adapter.sql;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,13 +14,13 @@ import werwolf.domain.game.content.KartenRepository;
 import werwolf.domain.game.content.Rolle;
 import werwolf.domain.game.content.RollenRepository;
 
-public class SQLKartenRespository implements KartenRepository{
+public class SQLKartenRepository implements KartenRepository{
 
 	//Key = Name? TODO
 	private HashMap<String, Karte> karten;
 	private SQLVerbindung verbindung;
 
-	public SQLKartenRespository(SQLVerbindung verbindung) {
+	public SQLKartenRepository(SQLVerbindung verbindung) {
 		this.karten = new HashMap<>();
 		this.verbindung = verbindung;
 
@@ -40,6 +41,11 @@ public class SQLKartenRespository implements KartenRepository{
 	@Override
 	public List<Rolle> findeAlleKarten() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	//TODO implementieren
+	public ArrayList<String> listeAllerNamen(){
 		return null;
 	}
 
