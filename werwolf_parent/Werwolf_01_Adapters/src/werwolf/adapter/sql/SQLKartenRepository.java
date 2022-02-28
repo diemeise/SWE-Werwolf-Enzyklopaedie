@@ -45,9 +45,10 @@ public class SQLKartenRepository implements KartenRepository{
 	}
 	
 	//TODO implementieren
-	public ArrayList<String> listeAllerNamen(){
-		return null;
+	public ArrayList<String> listeAllerNamen(){		
+		return new ArrayList<>(this.karten.keySet());
 	}
+	
 
 	//TODO besser im interface implementieren
 
@@ -56,7 +57,7 @@ public class SQLKartenRepository implements KartenRepository{
 			while (resultSet.next()) {
 				this.karten.put(resultSet.getString("Name"), new Karte(
 																							null,
-																							"PenisPenis123"));
+																							""));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
