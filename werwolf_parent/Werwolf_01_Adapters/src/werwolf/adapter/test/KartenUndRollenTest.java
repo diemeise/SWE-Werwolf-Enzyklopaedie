@@ -14,8 +14,14 @@ import werwolf.adapter.sql.SQLRollenRepository;
 
 public class KartenUndRollenTest {
 	
-	@Test
-	public void alleKartenNamenTest() throws SQLException  {
+	/**
+	 * Testet SQLKartenRepository.listeKartenNamen() 
+	 * -> werden die Karten alle und in der richtigen Reihenfolge ausgegeben
+	 *
+	 * @throws SQLException
+	 */
+	@Test 
+	public void listeKartenNamenTest() throws SQLException  {
 			
 		//Capture
 		ResultSet rs = EasyMock.createMock(ResultSet.class);
@@ -47,19 +53,16 @@ public class KartenUndRollenTest {
 	}
 	
 	
+	
+	/**
+	 * Testet die Methode initialiserRolle() im SQLRollenRepository
+	 * 
+	 * @throws SQLException
+	 */
 	@Test
-	public void rollenInitialisierenTest() throws SQLException  {
+	public void initialisiereRolleTest() throws SQLException  {
 			
-//		//Capture
-//		ResultSet rs = EasyMock.createMock(ResultSet.class);
-//		EasyMock.expect(rs.next()).andReturn(true);
-//		EasyMock.expect(rs.getString("Name")).andReturn("Dorfbewohner");
-//		EasyMock.expect(rs.next()).andReturn(true);
-//		EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
-//		EasyMock.expect(rs.next()).andReturn(false);
-//		
-//		EasyMock.replay(rs);
-				
+
 		//Arrange
 		SQLRollenRepository repo = new SQLRollenRepository(null);
 //		repo.initialisiereKarten(rs);
@@ -76,10 +79,7 @@ public class KartenUndRollenTest {
 		
 		//Assert
 		Assertions.assertEquals(testListe, namen);
-		
-		//Verify
-//		EasyMock.verify(rs);
-		
+
 	}
 	
 }
