@@ -19,7 +19,6 @@ public class RollenGesinnungTest {
 		ResultSet rs = EasyMock.createMock(ResultSet.class);
 		EasyMock.expect(rs.next()).andReturn(true);
 		EasyMock.expect(rs.getString("Name")).andReturn("Dorfbewohner");
-		EasyMock.expect(rs.getString("Name")).andReturn("Dorfbewohner");
 		EasyMock.expect(rs.getString("Funktion")).andReturn("Lebt");
 		EasyMock.expect(rs.getBoolean("istBoese")).andReturn(false);
 		EasyMock.expect(rs.getBoolean("istSpezial")).andReturn(false);
@@ -47,8 +46,7 @@ public class RollenGesinnungTest {
 		ResultSet rs = EasyMock.createMock(ResultSet.class);
 		EasyMock.expect(rs.next()).andReturn(true);
 		EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
-		EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
-		EasyMock.expect(rs.getString("Funktion")).andReturn("Frisst Dorfbewohner");
+	EasyMock.expect(rs.getString("Funktion")).andReturn("Frisst Dorfbewohner");
 		EasyMock.expect(rs.getBoolean("istBoese")).andReturn(true);
 		EasyMock.expect(rs.getBoolean("istSpezial")).andReturn(true);
 		EasyMock.expect(rs.next()).andReturn(false);
@@ -72,9 +70,8 @@ public class RollenGesinnungTest {
 		//Capture
 		ResultSet rs = EasyMock.createMock(ResultSet.class);
 		EasyMock.expect(rs.next()).andReturn(true);
-		EasyMock.expect(rs.getString("Name")).andReturn("Weißer Werwolf");
-		EasyMock.expect(rs.getString("Name")).andReturn("Weißer Werwolf");
-		EasyMock.expect(rs.getString("Funktion")).andReturn("Frisst Dorfbewohner und Werwölfe");
+		EasyMock.expect(rs.getString("Name")).andReturn("Weiï¿½er Werwolf");
+		EasyMock.expect(rs.getString("Funktion")).andReturn("Frisst Dorfbewohner und Werwï¿½lfe");
 		EasyMock.expect(rs.getBoolean("istBoese")).andReturn(true);
 		EasyMock.expect(rs.getBoolean("istSpezial")).andReturn(true);
 		EasyMock.expect(rs.next()).andReturn(false);
@@ -87,7 +84,7 @@ public class RollenGesinnungTest {
 		repo.initialisiereRollen(rs);
 		
 		//Assert
-		Assertions.assertTrue(repo.findeDurch("Weißer Werwolf").get().istSpezial());
+		Assertions.assertTrue(repo.findeDurch("Weiï¿½er Werwolf").get().istSpezial());
 		
 		//Verify
 		EasyMock.verify(rs);
@@ -98,7 +95,6 @@ public class RollenGesinnungTest {
 		//Capture
 				ResultSet rs = EasyMock.createMock(ResultSet.class);
 				EasyMock.expect(rs.next()).andReturn(true);
-				EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
 				EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
 				EasyMock.expect(rs.getString("Funktion")).andReturn("Frisst Dorfbewohner");
 				EasyMock.expect(rs.getBoolean("istBoese")).andReturn(false);

@@ -4,7 +4,7 @@ package werwolf.domain.game.content;
 public class Karte {
 	private Rolle rolle;
 	//private final Rule rule;
-	private final String displayText;
+	private String displayText;
 	//private final Image image;
 	
 	
@@ -26,6 +26,7 @@ public class Karte {
 	
 	public void setRolle(Rolle rolle) {
 		this.rolle = rolle;
+		this.displayText = rolle.getName();
 	}
 	public String getDisplayText() {
 		return displayText;

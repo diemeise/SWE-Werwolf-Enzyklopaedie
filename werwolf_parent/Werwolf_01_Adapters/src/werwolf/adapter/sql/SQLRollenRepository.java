@@ -3,6 +3,7 @@ package werwolf.adapter.sql;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,26 +38,29 @@ public class SQLRollenRepository implements RollenRepository{
 	public List<Rolle> findeAlleRollen() {
 		return new ArrayList<Rolle>(rollen.values());
 	}
+
+	//Gibt eine alphabetisch sortierte Liste der Namen aller vorhandenen Rollen aus 
+	@Override
+	public ArrayList<String> listeAllerNamen() {
+		ArrayList<String> rollenNamenListe = new ArrayList<String>(this.rollen.keySet());
+		Collections.sort( rollenNamenListe );
+		return rollenNamenListe;
+	}
 	
 	//TODO besser im interface implementieren
 	public void initialisiereRollen(ResultSet resultSet) {
 		try {
 			while (resultSet.next()) {
-				this.rollen.put(resultSet.getString("Name"), new Rolle(
-																		resultSet.getString("Name"),
-																		resultSet.getString("Funktion"),
-																		"test",
-																		resultSet.getBoolean("istBoese"),
-																		resultSet.getBoolean("istSpezial")));
+				this.initialisiereRolle(resultSet.getString("Name"),
+											resultSet.getString("Funktion"),
+											"test",
+											resultSet.getBoolean("istBoese"),
+											resultSet.getBoolean("istSpezial"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-//	public void erstelleRolle(Map<String, String> map) {
-//		
-//	
 
 	@Override
 	public void ladeRollenAusSpeicher() {
@@ -67,6 +71,14 @@ public class SQLRollenRepository implements RollenRepository{
 		
 		initialisiereRollen(verbindung.fuehreAus(ladeRollenArgs));
 	}
+
+	//nur falls Datenbankserver abfackelt oder wir einen anderen usecase finden
+	@Override
+	public void initialisiereRolle(String name, String funktion, String beschreibung, boolean istBoese, boolean istSpezial) {
+		this.rollen.put(name, new Rolle(name, funktion, beschreibung, istSpezial, istBoese));
+		
+	}
+
 
 	
 
