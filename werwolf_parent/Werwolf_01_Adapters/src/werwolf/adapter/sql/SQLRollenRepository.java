@@ -63,7 +63,7 @@ public class SQLRollenRepository implements RollenRepository{
 		Map<String, String> ladeRollenArgs= new HashMap<>();
 		//TODO wie geht das besser lol?
 		ladeRollenArgs.put("Tabellen","Rolle");
-		ladeRollenArgs.put("Spalten","Rolle.Name, Rolle.Funktion, Rolle.Name");
+		ladeRollenArgs.put("Spalten","Rolle.Name, Rolle.Funktion, Rolle.Name, Rolle.istBoese, Rolle.istSpezial");
 		
 		initialisiereRollen(verbindung.fuehreAus(ladeRollenArgs));
 	}
