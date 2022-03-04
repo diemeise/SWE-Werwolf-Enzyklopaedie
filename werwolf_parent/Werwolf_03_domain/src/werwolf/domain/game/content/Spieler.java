@@ -6,4 +6,10 @@ public class Spieler {
 	private boolean lebendig;
 	private boolean aktiv;
 	
+	public Spieler(Rolle rolle) {
+		this.rolle = rolle;
+		this.lebendig = true;
+		this.aktiv = false;
+	}
+	
 }
