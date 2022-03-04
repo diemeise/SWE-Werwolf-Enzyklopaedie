@@ -12,4 +12,12 @@ public class Spieler {
 		this.aktiv = false;
 	}
 	
+	public boolean istBoese() {
+		return this.rolle.istBoese();
+	}
+	
+	public String getRollenName() {
+		return this.rolle.getName();
+	}
+	
 }
