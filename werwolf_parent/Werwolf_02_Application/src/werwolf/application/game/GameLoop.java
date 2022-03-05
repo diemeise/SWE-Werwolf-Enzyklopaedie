@@ -10,14 +10,14 @@ public class GameLoop {
 	
 	private List<Spieler> spieler;
 	//TODO 
-	private List<Object> phasen;
+	private List<SpielPhase> phasen;
 	private boolean aktiv;
 	private boolean gespielt;
 
 	public GameLoop(List<Spieler> spieler) throws GameException{
  		this.ueberpruefeSpieler(spieler);
 		this.spieler = spieler;
-		this.phasen = new LinkedList<Object>();
+		this.phasen = new LinkedList<SpielPhase>();
 		this.aktiv = false;
 	}
 	
@@ -38,7 +38,8 @@ public class GameLoop {
 		}
 	}
 
-	public void starte() {		
+	public void starte() {	
+		
 	}
 	
 	public void beende() {
@@ -49,8 +50,12 @@ public class GameLoop {
 		
 	}
 	
-	public void naechstePhase() {
+	public void neachsterSchritt() {
 		
+	}
+	
+	public SpielPhase getAktuellePhase() {
+		return this.phasen.get(this.phasen.size()-1);
 	}
 	
 	
@@ -69,7 +74,13 @@ public class GameLoop {
 	}
 
 
-	public List<Object> getPhasen() {
+	public List<SpielPhase> getPhasen() {
 		return phasen;
+	}
+
+
+	public void naechstePhase() {
+		// TODO Auto-generated method stub
+		
 	}
 }
