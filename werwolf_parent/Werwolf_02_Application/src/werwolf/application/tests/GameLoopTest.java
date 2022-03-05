@@ -20,12 +20,12 @@ import werwolf.domain.game.exceptions.GameException;
 
 public class GameLoopTest {
 	
-	static Spieler spieler1 = new Spieler(new Rolle("Werwolf", "frisst", "ist böse", false, true ), "Adam");
-	static Spieler spieler2 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinärer Bürger", false, false), "Berta");
-	static Spieler spieler3 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinärer Bürger", false, false), "Claus");
-	static Spieler spieler4 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinärer Bürger", false, false), "Donald");
-	static Spieler spieler5 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinärer Bürger", false, false), "Emilia");
-	static Spieler spieler6 = new Spieler(new Rolle("Hexe", "zaubert", "Magie", false, false), "Fabian");
+	static Spieler spieler1 = new Spieler(new Rolle("Werwolf", "frisst", "ist böse", false, true, 1 ), "Adam");
+	static Spieler spieler2 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinärer Bürger", false, false, 0), "Berta");
+	static Spieler spieler3 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinärer Bürger", false, false, 0), "Claus");
+	static Spieler spieler4 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinärer Bürger", false, false, 0), "Donald");
+	static Spieler spieler5 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinärer Bürger", false, false, 0), "Emilia");
+	static Spieler spieler6 = new Spieler(new Rolle("Hexe", "zaubert", "Magie", false, false, 2), "Fabian");
 	static List<Spieler> spieler;
 	
 	@BeforeEach

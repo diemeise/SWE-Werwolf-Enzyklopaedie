@@ -55,7 +55,8 @@ public class SQLRollenRepository implements RollenRepository{
 											resultSet.getString("Funktion"),
 											"test",
 											resultSet.getBoolean("istBoese"),
-											resultSet.getBoolean("istSpezial"));
+											resultSet.getBoolean("istSpezial"),
+											resultSet.getInt("prioritaet"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -67,15 +68,15 @@ public class SQLRollenRepository implements RollenRepository{
 		Map<String, String> ladeRollenArgs= new HashMap<>();
 		//TODO wie geht das besser lol?
 		ladeRollenArgs.put("Tabellen","Rolle");
-		ladeRollenArgs.put("Spalten","Rolle.Name, Rolle.Funktion, Rolle.Name, Rolle.istBoese, Rolle.istSpezial");
+		ladeRollenArgs.put("Spalten","Rolle.Name, Rolle.Funktion, Rolle.Name, Rolle.istBoese, Rolle.istSpezial, Rolle.Prioritaet");
 		
 		initialisiereRollen(verbindung.fuehreAus(ladeRollenArgs));
 	}
 
 	//nur falls Datenbankserver abfackelt oder wir einen anderen usecase finden
 	@Override
-	public void initialisiereRolle(String name, String funktion, String beschreibung, boolean istBoese, boolean istSpezial) {
-		this.rollen.put(name, new Rolle(name, funktion, beschreibung, istSpezial, istBoese));
+	public void initialisiereRolle(String name, String funktion, String beschreibung, boolean istBoese, boolean istSpezial, int prioritaet) {
+		this.rollen.put(name, new Rolle(name, funktion, beschreibung, istSpezial, istBoese, prioritaet));
 		
 	}
 

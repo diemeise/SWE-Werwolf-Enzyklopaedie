@@ -67,7 +67,7 @@ public class SQLKartenRepository implements KartenRepository{
 		}
 	}
 
-	//Karten werden vor initialisiert, danach wird nur noch die Rolle verlinkt
+	//Karten werden vorinitialisiert, danach wird  noch die Rolle verlinkt
 	@Override
 	public void verknuepfeKartenMit(RollenRepository rollenRepository) {
 		//key = Karten-Name = Rollen-Name
