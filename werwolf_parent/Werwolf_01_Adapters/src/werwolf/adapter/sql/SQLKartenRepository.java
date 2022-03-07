@@ -95,6 +95,8 @@ public class SQLKartenRepository implements KartenRepository{
 		this.karten.put(name, karte);
 	}
 
+	
+	//TODO In eigene Klasse auslagern?
 	@Override
 	public HashMap<String, String> zeigeNameUndFunktion() {
 		// TODO Auto-generated method stub
