@@ -3,6 +3,7 @@ package werwolf.adapter.test;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Assertions;
@@ -60,7 +61,7 @@ public class KartenUndRollenTest {
 	 * @throws SQLException
 	 */
 	@Test
-	public void initialisiereRolleTest() throws SQLException  {
+	public void initialisiereRolleTest() {
 			
 
 		//Arrange
@@ -82,4 +83,35 @@ public class KartenUndRollenTest {
 
 	}
 	
+	
+	@Test
+	public void zeigeNameUndFunktionTest() throws SQLException  {
+		
+		//Capture
+		ResultSet rs = EasyMock.createMock(ResultSet.class);
+		EasyMock.expect(rs.next()).andReturn(true);
+		EasyMock.expect(rs.getString("Name")).andReturn("Dorfbewohner");
+		EasyMock.expect(rs.getString("Funktion")).andReturn("lebt");
+		EasyMock.expect(rs.next()).andReturn(true);
+		EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
+		EasyMock.expect(rs.getString("Funktion")).andReturn("frisst");
+		EasyMock.expect(rs.next()).andReturn(false);
+		
+		EasyMock.replay(rs);
+				
+		//Arrange
+		SQLKartenRepository repo = new SQLKartenRepository(null);
+		repo.initialisiereKarten(rs);
+		
+		HashMap<String, String> namenFunk = new HashMap<String, String>();
+		HashMap<String, String> testHash = new HashMap<String, String>();
+		testHash.put("Dorfbewohner", "lebt");
+		testHash.put("Werwolf", "frisst");
+		
+		//Act
+		namenFunk = repo.zeigeNameUndFunktion();
+		
+		//Assert
+		Assertions.assertEquals(testHash, namenFunk);
+	}
 }

@@ -19,6 +19,7 @@ public class SQLKartenRepository implements KartenRepository{
 
 	//Key = Name? TODO
 	private HashMap<String, Karte> karten;
+	private HashMap<String, String> kartenFunk;
 	private SQLVerbindung verbindung;
 
 	public SQLKartenRepository(SQLVerbindung verbindung) {
@@ -92,6 +93,13 @@ public class SQLKartenRepository implements KartenRepository{
 	@Override
 	public void initialisiereKarte(String name , Karte karte) {
 		this.karten.put(name, karte);
+	}
+
+	@Override
+	public HashMap<String, String> zeigeNameUndFunktion() {
+		// TODO Auto-generated method stub
+	
+		return null;
 	}
 
 	
