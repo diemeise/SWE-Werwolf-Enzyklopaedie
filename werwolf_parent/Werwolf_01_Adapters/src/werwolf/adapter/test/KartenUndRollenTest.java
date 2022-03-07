@@ -117,5 +117,8 @@ public class KartenUndRollenTest {
 		
 		//Assert
 		Assertions.assertEquals(testHash, namenFunk);
+		
+		//Verify
+		EasyMock.verify(rs);
 	}
 }

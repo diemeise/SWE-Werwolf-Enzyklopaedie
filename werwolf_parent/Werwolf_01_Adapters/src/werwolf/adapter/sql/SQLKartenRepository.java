@@ -60,8 +60,8 @@ public class SQLKartenRepository implements KartenRepository{
 		try {
 			while (resultSet.next()) {
 				this.initialisiereKarte(resultSet.getString("Name"), new Karte(
-																							null,
-																							""));
+																				null,
+																				""));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -98,8 +98,18 @@ public class SQLKartenRepository implements KartenRepository{
 	@Override
 	public HashMap<String, String> zeigeNameUndFunktion() {
 		// TODO Auto-generated method stub
+		String name;
+		String funk;
+		kartenFunk = new HashMap<>();
+		
+		for (String key: karten.keySet()) {
+			name = karten.get(key).getRolle().getName();
+			funk = karten.get(key).getRolle().getFunktion();
+			
+			kartenFunk.put(name, funk);
+		}
 	
-		return null;
+		return kartenFunk;
 	}
 
 	
