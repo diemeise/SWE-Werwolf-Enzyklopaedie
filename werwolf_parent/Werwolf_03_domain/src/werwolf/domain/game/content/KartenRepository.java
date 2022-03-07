@@ -18,8 +18,11 @@ public interface KartenRepository {
 	//lade Karten aus externen Speicher
 	public void ladeKartenAusSpeicher();
 	
-	//füge eine einzelne Karte dem interne Set hinzu
+	//fuege eine einzelne Karte dem interne Set hinzu
 	public void initialisiereKarte(String name, Karte karte);
 	
 	public void verknuepfeKartenMit(RollenRepository rollenRepository);
+	
+	//Erstelle eine HashMap mit Name und Funktion fuer den spaeteren output
+	public HashMap<String, String> zeigeNameUndFunktion();
 }
