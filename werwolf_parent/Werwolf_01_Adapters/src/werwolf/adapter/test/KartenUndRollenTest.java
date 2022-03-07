@@ -91,10 +91,8 @@ public class KartenUndRollenTest {
 		ResultSet rs = EasyMock.createMock(ResultSet.class);
 		EasyMock.expect(rs.next()).andReturn(true);
 		EasyMock.expect(rs.getString("Name")).andReturn("Dorfbewohner");
-		EasyMock.expect(rs.getString("Funktion")).andReturn("lebt");
 		EasyMock.expect(rs.next()).andReturn(true);
 		EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
-		EasyMock.expect(rs.getString("Funktion")).andReturn("frisst");
 		EasyMock.expect(rs.next()).andReturn(false);
 		
 		EasyMock.replay(rs);
@@ -102,6 +100,13 @@ public class KartenUndRollenTest {
 		//Arrange
 		SQLKartenRepository repo = new SQLKartenRepository(null);
 		repo.initialisiereKarten(rs);
+		repo.verknuepfeKartenMit(null);
+		
+		SQLRollenRepository role = new SQLRollenRepository(null);
+		role.initialisiereRolle("Dorfbewohner", "lebt", "", false, false);
+		role.initialisiereRolle("Werwolf", "frisst", "", false, false);
+		
+		repo.verknuepfeKartenMit(role);
 		
 		HashMap<String, String> namenFunk = new HashMap<String, String>();
 		HashMap<String, String> testHash = new HashMap<String, String>();
