@@ -76,6 +76,10 @@ public class Nacht {
 		return ueberlebendeSpieler;
 	}
 	
+	public List<Spieler> getEliminierteSpieler(){
+		return this.eliminierteSpieler;
+	}
+	
 	public boolean istAbgeschlossen() {
 		return phaseAbgeschlossen;
 	}
@@ -115,7 +119,7 @@ public class Nacht {
 			}			
 		}
 		//keine weiteren Spieler vorhanden
-		throw new GameException("Keine weiteren Spieler diese Nacht!");
+		throw new GameException("Keine weiteren Spieler diese Nacht!"); 
 	}
 	
 

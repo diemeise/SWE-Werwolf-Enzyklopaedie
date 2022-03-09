@@ -1,13 +1,14 @@
 package werwolf.domain.game.content;
 
-public class Spieler {
+
+public class Spieler  implements Comparable<Spieler> {
 	
 	private final Rolle rolle;
 	private boolean lebendig;
 	private boolean aktiv;
 	private final String name;
 	
-	public Spieler(Rolle rolle, String name) {
+	public Spieler(Rolle rolle, String name){ 
 		this.rolle = rolle;
 		this.lebendig = true;
 		this.aktiv = false;
@@ -31,4 +32,16 @@ public class Spieler {
 	public int getPrio() {
 		return this.rolle.getPrioritaet();
 	}
+
+	/**
+	 * Vergleicht die Rollenprio
+	 */
+	@Override
+	public int compareTo(Spieler o) {
+		return this.getRolle().compareTo(o.getRolle());
+	}
+
+	
+	
+	
 }

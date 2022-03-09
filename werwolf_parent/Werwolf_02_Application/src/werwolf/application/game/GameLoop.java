@@ -1,8 +1,10 @@
 package werwolf.application.game;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import werwolf.domain.game.content.Rolle;
 import werwolf.domain.game.content.Spieler;
 import werwolf.domain.game.exceptions.GameException;
 
@@ -15,11 +17,12 @@ public class GameLoop {
 
 	/**
 	 * 
-	 * @param spieler NACH ROLLEN-PRIORITAET sortierte Liste an Spielern
+	 * @param 
 	 * @throws GameException wenn keine Spieler oder keine "bösen" Spieler vorhanden sind
 	 */
 	public GameLoop(List<Spieler> spieler) throws GameException{
  		this.ueberpruefeSpieler(spieler); 
+ 		Collections.sort(spieler);
  		this.spieler = spieler;
 		this.phasen = new LinkedList<Nacht>();
 		this.aktiv = false;
@@ -27,14 +30,17 @@ public class GameLoop {
 	}
 	
 	
-	
+
+
+
 /**
- * startet den GameLoop
+ * startet den GameLoop und führt den ersten Schritt in der ersten Nacht aus
  */
 	public void starteErstePhase() {	
 		//startet die erste Phase mit allen Spielern
 		this.phasen.add(new Nacht(spieler));
 		this.aktiv = true;
+		this.naechsterSchritt();
 	}
 	
 	/**
@@ -62,7 +68,7 @@ public class GameLoop {
 	 * führt einen Schritt in der aktuellen Phase aus
 	 * gibt false zurück wenn die aktuelle Phase abgeschlossen ist
 	 */
-	public boolean neachsterSchritt() {
+	public boolean naechsterSchritt() {
 		try {
 			getAktuellePhase().naechsterSpielschritt();
 			return true;
@@ -70,6 +76,10 @@ public class GameLoop {
 			System.err.print(e.getMessage());
 			return false;
 		}
+	}
+	
+	public void eliminiereSpieler(Spieler spieler) {
+		getAktuellePhase().eliminiere(spieler);
 	}
 	
 	
@@ -100,9 +110,6 @@ public class GameLoop {
 	public List<Nacht> getPhasen() {
 		return phasen;
 	}
-
-
-
 	
 	private void ueberpruefeSpieler(List<Spieler> spieler2) throws GameException {
 		if(spieler2.isEmpty()) {
@@ -118,4 +125,7 @@ public class GameLoop {
 			throw new GameException("Es muss ein Wolf / eine boese Karte vorhanden sein!");
 		}
 	}
+	
+
+
 }

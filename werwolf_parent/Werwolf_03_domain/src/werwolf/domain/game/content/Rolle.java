@@ -1,6 +1,7 @@
 package werwolf.domain.game.content;
 
-public class Rolle {
+
+public class Rolle implements Comparable<Rolle>{
 
 	private final String name;
 	private final String funktion;
@@ -69,6 +70,14 @@ public class Rolle {
 	public int getPrioritaet() {
 		return prioritaet;
 	}
+
+
+
+	@Override
+	public int compareTo(Rolle o) {
+		return Integer.compare(prioritaet, o.prioritaet);
+	}
+
 	
 	
 	

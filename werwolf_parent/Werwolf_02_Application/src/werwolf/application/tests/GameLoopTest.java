@@ -1,6 +1,7 @@
 package werwolf.application.tests;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.hamcrest.MatcherAssert;
@@ -38,6 +39,7 @@ public class GameLoopTest {
 		spieler.add(spieler4);
 		spieler.add(spieler5);
 		spieler.add(spieler6);
+		Collections.sort(spieler);
 	}
 	//Spielerstellung
 	@Test
@@ -132,7 +134,7 @@ public class GameLoopTest {
 		//act
 		game.starteErstePhase();
 		//eine phase muss "durchgespielt" werden damit die nächste aufgerufen werden kann 
-		while (game.neachsterSchritt()) {
+		while (game.naechsterSchritt()) {
 		}
 		game.naechstePhase();
 		
@@ -141,4 +143,47 @@ public class GameLoopTest {
 		Assertions.assertTrue(game.istAktiv());
 	}
 
+	 @Test
+	public void eliminiereSpielerTest() {
+		//arrange
+		GameLoop game = null;
+		try {
+			game = new GameLoop(spieler);
+			
+		} catch (GameException e) {
+		fail("Spiel konnte nicht erstellt werden");
+		}
+		
+		//act
+		game.starteErstePhase();
+		game.eliminiereSpieler(spieler4);
+		game.eliminiereSpieler(spieler3);
+		
+		List<Spieler> expected = new ArrayList<>();
+		expected.add(spieler4);
+		expected.add(spieler3);
+		//assert
+		MatcherAssert.assertThat(game.getAktuellePhase().getEliminierteSpieler(), is(expected));
+	}
+	 
+	 @Test
+	 public void startePhaseWennAltePhaseNochLaufendTest() {
+		//arrange
+			GameLoop game = null;
+			try {
+				game = new GameLoop(spieler);
+				
+			} catch (GameException e) {
+			fail("Spiel konnte nicht erstellt werden");
+			}
+			
+			//act
+			game.starteErstePhase();
+			game.naechstePhase();
+			
+			
+			//assert dass nur eine Phase vorhanden ist (in der linked List sind trotzdem 2 Einträge, da dieselbe Nacht)
+			int expected = 1;
+			MatcherAssert.assertThat(game.getPhasen().size(), is(expected));
+	 }
 }
