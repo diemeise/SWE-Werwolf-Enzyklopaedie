@@ -18,13 +18,13 @@ import werwolf.domain.game.content.Rolle;
 import werwolf.domain.game.content.Spieler;
 import werwolf.domain.game.exceptions.GameException;
 
-public class GameLoopTest {
+public class GameLoopTest { 
 	
-	static Spieler spieler1 = new Spieler(new Rolle("Werwolf", "frisst", "ist böse", false, true, 1 ), "Adam");
-	static Spieler spieler2 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinärer Bürger", false, false, 0), "Berta");
-	static Spieler spieler3 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinärer Bürger", false, false, 0), "Claus");
-	static Spieler spieler4 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinärer Bürger", false, false, 0), "Donald");
-	static Spieler spieler5 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinärer Bürger", false, false, 0), "Emilia");
+	static Spieler spieler1 = new Spieler(new Rolle("Werwolf", "frisst", "ist boese", false, true, 1 ), "Adam");
+	static Spieler spieler2 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinaerer Buerger", false, false, 0), "Berta");
+	static Spieler spieler3 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinaerer Buerger", false, false, 0), "Claus");
+	static Spieler spieler4 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinaerer Buerger", false, false, 0), "Donald");
+	static Spieler spieler5 = new Spieler(new Rolle("Dorfbewohner", "lebt", "ordinaerer Buerger", false, false, 0), "Emilia");
 	static Spieler spieler6 = new Spieler(new Rolle("Hexe", "zaubert", "Magie", false, false, 2), "Fabian");
 	static List<Spieler> spieler;
 	
@@ -39,7 +39,7 @@ public class GameLoopTest {
 		spieler.add(spieler5);
 		spieler.add(spieler6);
 	}
-	
+	//Spielerstellung
 	@Test
 	public void erstelleSpielTest() {
 		//act
@@ -81,7 +81,7 @@ public class GameLoopTest {
 	
 	
 	
-	
+	//Spieldurchfuehrung
 	@Test
 	public void starteSpielTest() {
 		//arrange
@@ -93,7 +93,7 @@ public class GameLoopTest {
 		fail("Spiel konnte nicht erstellt werden");
 		}
 		//act
-		game.starte();
+		game.starteErstePhase();
 		//assert
 		Assertions.assertTrue(game.istAktiv());
 		Assertions.assertFalse(game.istGespielt());
@@ -111,14 +111,13 @@ public class GameLoopTest {
 		fail("Spiel konnte nicht erstellt werden");
 		}
 		//act
-		game.starte();
+		game.starteErstePhase();
 		game.beende();
 		//assert
 		Assertions.assertFalse(game.istAktiv());
 		Assertions.assertTrue(game.istGespielt());
 	}
-	
-		
+			
 	@Test
 	public void neueSpielPhaseTest() {
 		//arrange
@@ -131,10 +130,15 @@ public class GameLoopTest {
 		}
 		
 		//act
-		game.starte();
+		game.starteErstePhase();
+		//eine phase muss "durchgespielt" werden damit die nÃ¤chste aufgerufen werden kann 
+		while (game.neachsterSchritt()) {
+		}
 		game.naechstePhase();
+		
 		//assert
-		Assertions.assertEquals(game.getPhasen().size(), 2);
+		Assertions.assertEquals(2, game.getPhasen().size());
+		Assertions.assertTrue(game.istAktiv());
 	}
 
 }

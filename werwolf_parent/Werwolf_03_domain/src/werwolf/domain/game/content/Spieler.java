@@ -18,6 +18,9 @@ public class Spieler {
 		return this.rolle.istBoese();
 	}
 	
+	public void setAktiv(boolean aktiv) {
+		this.aktiv = aktiv;
+	}
 	public String getRollenName() {
 		return this.rolle.getName();
 	}
@@ -25,6 +28,7 @@ public class Spieler {
 	public Rolle getRolle() {
 		return this.rolle;
 	}
-		
-	
+	public int getPrio() {
+		return this.rolle.getPrioritaet();
+	}
 }

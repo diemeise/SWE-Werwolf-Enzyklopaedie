@@ -9,52 +9,75 @@ import werwolf.domain.game.exceptions.GameException;
 public class GameLoop {
 	
 	private List<Spieler> spieler;
-	//TODO 
-	private List<SpielPhase> phasen;
+	private List<Nacht> phasen;
 	private boolean aktiv;
 	private boolean gespielt;
 
+	/**
+	 * 
+	 * @param spieler NACH ROLLEN-PRIORITAET sortierte Liste an Spielern
+	 * @throws GameException wenn keine Spieler oder keine "bösen" Spieler vorhanden sind
+	 */
 	public GameLoop(List<Spieler> spieler) throws GameException{
- 		this.ueberpruefeSpieler(spieler);
-		this.spieler = spieler;
-		this.phasen = new LinkedList<SpielPhase>();
+ 		this.ueberpruefeSpieler(spieler); 
+ 		this.spieler = spieler;
+		this.phasen = new LinkedList<Nacht>();
 		this.aktiv = false;
+		this.gespielt = false;
 	}
 	
 	
-	private void ueberpruefeSpieler(List<Spieler> spieler2) throws GameException {
-		if(spieler2.isEmpty()) {
-			throw new GameException("Keine Spieler uebergeben!");
-		}
-		
-		boolean boeseRolleVorhanden = false;
-		for (Spieler s : spieler2) {
-			if (s.istBoese()) {
-				boeseRolleVorhanden = true;
-			}
-		}
-		if (!boeseRolleVorhanden) {
-			throw new GameException("Es muss ein Wolf / eine boese Karte vorhanden sein!");
-		}
-	}
-
-	public void starte() {	
-		
+	
+/**
+ * startet den GameLoop
+ */
+	public void starteErstePhase() {	
+		//startet die erste Phase mit allen Spielern
+		this.phasen.add(new Nacht(spieler));
+		this.aktiv = true;
 	}
 	
+	/**
+	 * Ein SPiel kann immer beendet werden
+	 */
 	public void beende() {
-		
+		this.aktiv = false;
+		this.gespielt = true;
 	}
 	
-	public void fuehrePhaseAus() {
-		
+	/**
+	 * startet eine neue Phase 
+	 * nur möglich wenn die aktuelle Phase abgeschlossen ist
+	 */
+	public void naechstePhase() {
+		try {
+				phasen.add(new Nacht(getAktuellePhase().getUeberlebendeSpieler()));
+		} catch (GameException e) {
+			//Spielphase noch nicht abgeschlossen
+				System.err.print(e.getMessage());
+		}
 	}
 	
-	public void neachsterSchritt() {
-		
+	/**
+	 * führt einen Schritt in der aktuellen Phase aus
+	 * gibt false zurück wenn die aktuelle Phase abgeschlossen ist
+	 */
+	public boolean neachsterSchritt() {
+		try {
+			getAktuellePhase().naechsterSpielschritt();
+			return true;
+		} catch (GameException e) {
+			System.err.print(e.getMessage());
+			return false;
+		}
 	}
 	
-	public SpielPhase getAktuellePhase() {
+	
+	public Spieler getAktiverSpieler() {
+		return getAktuellePhase().getAktiverSpieler();
+	}
+	
+	public Nacht getAktuellePhase() {
 		return this.phasen.get(this.phasen.size()-1);
 	}
 	
@@ -74,13 +97,25 @@ public class GameLoop {
 	}
 
 
-	public List<SpielPhase> getPhasen() {
+	public List<Nacht> getPhasen() {
 		return phasen;
 	}
 
 
-	public void naechstePhase() {
-		// TODO Auto-generated method stub
-		
+
+	
+	private void ueberpruefeSpieler(List<Spieler> spieler2) throws GameException {
+		if(spieler2.isEmpty()) {
+			throw new GameException("Keine Spieler uebergeben!");
+		}
+		boolean boeseRolleVorhanden = false;
+		for (Spieler s : spieler2) {
+			if (s.istBoese()) {
+				boeseRolleVorhanden = true;
+			}
+		}
+		if (!boeseRolleVorhanden) {
+			throw new GameException("Es muss ein Wolf / eine boese Karte vorhanden sein!");
+		}
 	}
 }
