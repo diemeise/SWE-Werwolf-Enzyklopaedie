@@ -20,7 +20,7 @@ public class OutputAdapter {
 		return gamelib.getKartenRepository().zeigeNameUndFunktion();
 	}
 	
-	//TODO Das ist zu viel Code, da lieber ne Methode machen mit der dem put und die dann aufrufen mit irgendeinem Paramerter oder so 
+	//TODO Das ist zu viel Code, da lieber ne Methode machen mit der dem put und die dann aufrufen mit irgendeinem Paramerter oder so [DRY]
 	public HashMap<String, String> getAlleSpezialKarten(){
 		String name;
 		String funk;
@@ -41,6 +41,8 @@ public class OutputAdapter {
 		
 		return spezial;
 	}
+	
+
 	
 
 }

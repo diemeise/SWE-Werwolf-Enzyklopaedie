@@ -13,7 +13,6 @@ import werwolf.adapter.sql.SQLKartenRepository;
 
 public enum Kommandos {
 	
-	//TODO: Liste alle Spezialrollen auf
 	//TODO: Suche nach Name
 	//TODO Liste alle guten Rollen auf
 	//TODO Liste alle bösen Rollen auf 
@@ -35,6 +34,16 @@ public enum Kommandos {
     		karten = out.getAlleSpezialKarten();
     		karten.forEach((k,v) -> System.out.println(k+": "+v));
         }
+    },
+    
+    SUCHE_NAMEN("suche ^[a-zA-Z]+$") {
+
+		@Override
+		public void execute(MatchResult matcher, OutputAdapter out) {
+			// TODO Auto-generated method stub
+			
+		}
+    	
     },
     	
    QUIT("quit") {
