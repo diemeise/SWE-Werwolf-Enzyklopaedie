@@ -99,11 +99,64 @@ public class KonsolenEingabenTests{
 		
 		
 	}
-}
 	
-//	@Test
-//	public void err() {
-//	    System.err.print("hello again");
-//	    assertEquals("hello again", errContent.toString());
-//	}
-//}
+	@Test
+	public void fuerSpezialListe() throws SQLException  {
+			
+				
+		//Capture
+			ResultSet rs = EasyMock.createMock(ResultSet.class);
+			EasyMock.expect(rs.next()).andReturn(true);
+			EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
+			EasyMock.expect(rs.next()).andReturn(true);
+			EasyMock.expect(rs.getString("Name")).andReturn("Dorfbewohner");
+			EasyMock.expect(rs.next()).andReturn(true);
+			EasyMock.expect(rs.getString("Name")).andReturn("Weiﬂer Werwolf");
+			EasyMock.expect(rs.next()).andReturn(false);
+			
+			EasyMock.replay(rs);
+				
+		//Arrange
+			
+		
+			//Karten init
+			SQLKartenRepository repo = new SQLKartenRepository(null);
+			repo.initialisiereKarten(rs);
+			
+			//Rollen init
+			SQLRollenRepository role = new SQLRollenRepository(null);
+			role.initialisiereRolle("Werwolf", "frisst", "", true, false);
+			role.initialisiereRolle("Dorfbewohner", "lebt", "", false, false);
+			role.initialisiereRolle("Weiﬂer Werwolf", "frisst Dorfbewohner und Woelfe", "", true, true);
+			
+			
+			
+			//Karten und Rollen verkn¸pfen
+			repo.verknuepfeKartenMit(role);
+			LibraryManager gamelib = new LibraryManager(repo, role);
+			OutputAdapter out = new OutputAdapter(gamelib);
+			
+			//Kommando Arrange
+			String eingabe = "list-spezial";
+			
+			
+		
+		//Act
+			try {
+				Kommandos.executeMatching(eingabe, out);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
+		//Assert
+		Assertions.assertEquals("Weiﬂer Werwolf: frisst Dorfbewohner und Woelfe" + System.lineSeparator() , outContent.toString());
+		
+		//Verify
+		EasyMock.verify(rs);
+		
+		
+	}
+}
+

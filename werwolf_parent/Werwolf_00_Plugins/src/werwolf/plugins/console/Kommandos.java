@@ -13,6 +13,11 @@ import werwolf.adapter.sql.SQLKartenRepository;
 
 public enum Kommandos {
 	
+	//TODO: Liste alle Spezialrollen auf
+	//TODO: Suche nach Name
+	//TODO Liste alle guten Rollen auf
+	//TODO Liste alle bösen Rollen auf 
+	
     LIST_KARTEN("list-karten") {
     	@Override
         public void execute(MatchResult matcher, OutputAdapter out) {
@@ -20,6 +25,13 @@ public enum Kommandos {
     		HashMap<String, String> karten = new HashMap<>();
     		karten = out.getAlleKartenByFunktion();
     		karten.forEach((k,v) -> System.out.println(k+": "+v));
+        }
+    },
+    
+    LIST_SPEZIAL("list-spezial") {
+    	@Override
+        public void execute(MatchResult matcher, OutputAdapter out) {
+            
         }
     },
     	

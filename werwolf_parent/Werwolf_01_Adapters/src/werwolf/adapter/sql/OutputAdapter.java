@@ -19,5 +19,9 @@ public class OutputAdapter {
 		return gamelib.getKartenRepository().zeigeNameUndFunktion();
 	}
 	
+	public HashMap<String, String> getAlleSpezialKarten(){
+		return null;
+	}
+	
 
 }
