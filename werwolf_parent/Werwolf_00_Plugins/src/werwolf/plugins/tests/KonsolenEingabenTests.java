@@ -78,7 +78,6 @@ public class KonsolenEingabenTests{
 			
 			//Kommando Arrange
 			String eingabe = "list-karten";
-			String ausgabe = "";
 			
 			
 		
@@ -92,7 +91,7 @@ public class KonsolenEingabenTests{
 		
 		
 		//Assert
-		Assertions.assertEquals(":(" + System.lineSeparator(), outContent.toString());
+		Assertions.assertEquals("Dorfbewohner: lebt" + System.lineSeparator() + "Werwolf: frisst" + System.lineSeparator(), outContent.toString());
 		
 		//Verify
 		EasyMock.verify(rs);
