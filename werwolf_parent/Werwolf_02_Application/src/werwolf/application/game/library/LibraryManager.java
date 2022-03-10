@@ -20,6 +20,14 @@ public class LibraryManager {
 		kartenRepository.verknuepfeKartenMit(rollenRepository);
 	}
 	
+	public KartenRepository getKartenRepository() {
+		return kartenRepository;
+	}
+	
+	public RollenRepository getRollenRepository() {
+		return rollenRepository;
+	}
+	
 	
 
 }

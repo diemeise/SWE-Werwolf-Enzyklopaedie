@@ -5,8 +5,10 @@ import java.sql.SQLException;
 
 import werwolf.application.game.library.LibraryManager;
 import werwolf.adapter.sql.SQLRollenRepository;
+import werwolf.adapter.sql.OutputAdapter;
 import werwolf.adapter.sql.SQLKartenRepository;
 import werwolf.adapter.sql.SQLVerbindung;
+import werwolf.plugins.console.KonsolenMain;
 import werwolf.plugins.sql.MySQLAuthentifizierung;
 import werwolf.plugins.sql.MySQLVerbindung;
 
@@ -38,11 +40,12 @@ public class Main {
 			LibraryManager gameLibrary= new LibraryManager(new SQLKartenRepository(mysql), new SQLRollenRepository(mysql));
 			gameLibrary.initialisiereLibrary();
 			System.out.println("meep moop");
+			KonsolenMain.exeKonsole(new OutputAdapter(gameLibrary));
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
 		}
 		
-
+		
 	}
 
 }

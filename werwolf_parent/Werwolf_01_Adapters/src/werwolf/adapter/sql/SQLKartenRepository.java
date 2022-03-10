@@ -47,6 +47,7 @@ public class SQLKartenRepository implements KartenRepository{
 	}
 	
 	//TODO implementieren
+	//TODO DRY -> wegwerfen weil die Hash mit Funktion hier reicht?
 	//Gibt eine alphabetisch sortierte Liste der Namen aller vorhandenen Karten aus 
 	public ArrayList<String> listeAllerNamen(){		
 		ArrayList<String> kartenNamenListe = new ArrayList<String>(this.karten.keySet());

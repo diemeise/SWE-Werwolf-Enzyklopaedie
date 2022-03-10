@@ -18,8 +18,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import werwolf.adapter.sql.OutputAdapter;
 import werwolf.adapter.sql.SQLKartenRepository;
 import werwolf.adapter.sql.SQLRollenRepository;
+import werwolf.application.game.library.LibraryManager;
 import werwolf.plugins.console.Kommandos;
 
 public class KonsolenEingabenTests{
@@ -50,9 +52,9 @@ public class KonsolenEingabenTests{
 		//Capture
 			ResultSet rs = EasyMock.createMock(ResultSet.class);
 			EasyMock.expect(rs.next()).andReturn(true);
-			EasyMock.expect(rs.getString("Name")).andReturn("Dorfbewohner");
-			EasyMock.expect(rs.next()).andReturn(true);
 			EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
+			EasyMock.expect(rs.next()).andReturn(true);
+			EasyMock.expect(rs.getString("Name")).andReturn("Dorfbewohner");
 			EasyMock.expect(rs.next()).andReturn(false);
 			
 			EasyMock.replay(rs);
@@ -66,15 +68,14 @@ public class KonsolenEingabenTests{
 			
 			//Rollen init
 			SQLRollenRepository role = new SQLRollenRepository(null);
-			role.initialisiereRolle("Dorfbewohner", "lebt", "", false, false);
 			role.initialisiereRolle("Werwolf", "frisst", "", false, false);
+			role.initialisiereRolle("Dorfbewohner", "lebt", "", false, false);
+			
 			
 			//Karten und Rollen verknüpfen
 			repo.verknuepfeKartenMit(role);
-			
-			//Hashmap mit Name und Funktion erstellen
-			HashMap<String, String> namenFunk = new HashMap<String, String>();
-			namenFunk = repo.zeigeNameUndFunktion();
+			LibraryManager gamelib = new LibraryManager(repo, role);
+			OutputAdapter out = new OutputAdapter(gamelib);
 			
 			//Kommando Arrange
 			String eingabe = "list-karten";
@@ -83,7 +84,7 @@ public class KonsolenEingabenTests{
 		
 		//Act
 			try {
-				Kommandos.executeMatching(eingabe);
+				Kommandos.executeMatching(eingabe, out);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -91,7 +92,7 @@ public class KonsolenEingabenTests{
 		
 		
 		//Assert
-		Assertions.assertEquals("Dorfbewohner: lebt" + System.lineSeparator() + "Werwolf: frisst" + System.lineSeparator(), outContent.toString());
+		Assertions.assertEquals("Werwolf: frisst" + System.lineSeparator() + "Dorfbewohner: lebt" + System.lineSeparator(), outContent.toString());
 		
 		//Verify
 		EasyMock.verify(rs);
