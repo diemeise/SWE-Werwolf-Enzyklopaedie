@@ -25,4 +25,7 @@ public interface KartenRepository {
 	
 	//Erstelle eine HashMap mit Name und Funktion fuer den spaeteren output
 	public HashMap<String, String> zeigeNameUndFunktion();
+	
+	//Get HashMap mit Name und Karte
+	public HashMap<String, Karte> getKarten();
 }

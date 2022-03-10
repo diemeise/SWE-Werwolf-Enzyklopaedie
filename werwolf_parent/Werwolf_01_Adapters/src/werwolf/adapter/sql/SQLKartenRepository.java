@@ -100,7 +100,6 @@ public class SQLKartenRepository implements KartenRepository{
 	//TODO In eigene Klasse auslagern?
 	@Override
 	public HashMap<String, String> zeigeNameUndFunktion() {
-		// TODO Auto-generated method stub
 		String name;
 		String funk;
 		kartenFunk = new HashMap<>();
@@ -115,7 +114,9 @@ public class SQLKartenRepository implements KartenRepository{
 		return kartenFunk;
 	}
 
-	
+	public HashMap<String, Karte> getKarten() {
+		return karten;
+	}
 
 	
 

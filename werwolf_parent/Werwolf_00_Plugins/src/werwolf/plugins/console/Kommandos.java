@@ -31,7 +31,9 @@ public enum Kommandos {
     LIST_SPEZIAL("list-spezial") {
     	@Override
         public void execute(MatchResult matcher, OutputAdapter out) {
-            
+    		HashMap<String, String> karten = new HashMap<>();
+    		karten = out.getAlleSpezialKarten();
+    		karten.forEach((k,v) -> System.out.println(k+": "+v));
         }
     },
     	
