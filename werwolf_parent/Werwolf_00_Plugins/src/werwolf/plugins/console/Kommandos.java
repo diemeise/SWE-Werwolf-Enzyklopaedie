@@ -36,11 +36,29 @@ public enum Kommandos {
         }
     },
     
-    SUCHE_NAMEN("suche ^[a-zA-Z]+$") {
+    SUCHE_NAMEN("suche ([a-zA-Z]+)") {
 
 		@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
 			// TODO Auto-generated method stub
+			String name = matcher.group(1);
+			//System.out.println(name);
+			
+			HashMap<String, String> karten = new HashMap<>();
+			karten = out.getKartenDetails(name);
+			//karten.forEach((k,v) -> System.out.println(k+": "+v)); //Sad das ist natürlich dann nicht sortiert :c
+			
+			String n = karten.get("Name");
+			String f = karten.get("Funktion");
+			String b = karten.get("Beschreibung");
+			String g = karten.get("Gesinnung");
+			String s = karten.get("Spezialrolle");
+			
+			System.out.println("Name: " + n);
+			System.out.println("Funktion: " + f);
+			System.out.println("Beschreibung: " + b);
+			System.out.println("Gesinnung: " + g);
+			System.out.println("Spezialrolle: " + s);
 			
 		}
     	

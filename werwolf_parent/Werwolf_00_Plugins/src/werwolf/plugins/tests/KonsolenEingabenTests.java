@@ -210,7 +210,7 @@ public class KonsolenEingabenTests{
 								"Funktion: frisst" + System.lineSeparator() +
 								"Beschreibung: Erwacht Nachts und sucht mit seinem Rudel ein Opfer zum fressen" + System.lineSeparator() +
 								"Gesinnung: boese" + System.lineSeparator() +
-								"Spezialrolle: nein", outContent.toString());
+								"Spezialrolle: nein" + System.lineSeparator(), outContent.toString());
 		
 		
 		//Verify
