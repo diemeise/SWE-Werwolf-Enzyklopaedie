@@ -158,5 +158,65 @@ public class KonsolenEingabenTests{
 		
 		
 	}
+	
+	@Test
+	public void fuerSucheNachNamen() throws SQLException  {
+			
+				
+		//Capture
+			ResultSet rs = EasyMock.createMock(ResultSet.class);
+			EasyMock.expect(rs.next()).andReturn(true);
+			EasyMock.expect(rs.getString("Name")).andReturn("Werwolf");
+			EasyMock.expect(rs.next()).andReturn(true);
+			EasyMock.expect(rs.getString("Name")).andReturn("Dorfbewohner");
+			EasyMock.expect(rs.next()).andReturn(false);
+			
+			EasyMock.replay(rs);
+				
+		//Arrange
+			
+		
+			//Karten init
+			SQLKartenRepository repo = new SQLKartenRepository(null);
+			repo.initialisiereKarten(rs);
+			
+			//Rollen init
+			SQLRollenRepository role = new SQLRollenRepository(null);
+			role.initialisiereRolle("Werwolf", "frisst", "Erwacht Nachts und sucht mit seinem Rudel ein Opfer zum fressen", true, false);
+			role.initialisiereRolle("Dorfbewohner", "lebt", "", false, false);
+						
+			
+			//Karten und Rollen verknüpfen
+			repo.verknuepfeKartenMit(role);
+			LibraryManager gamelib = new LibraryManager(repo, role);
+			OutputAdapter out = new OutputAdapter(gamelib);
+			
+			//Kommando Arrange
+			String eingabe = "suche Werwolf";
+			
+			
+		
+		//Act
+			try {
+				Kommandos.executeMatching(eingabe, out);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
+		//Assert
+		Assertions.assertEquals("Name: Werwolf" + System.lineSeparator() +
+								"Funktion: frisst" + System.lineSeparator() +
+								"Beschreibung: Erwacht Nachts und sucht mit seinem Rudel ein Opfer zum fressen" + System.lineSeparator() +
+								"Gesinnung: boese" + System.lineSeparator() +
+								"Spezialrolle: nein", outContent.toString());
+		
+		
+		//Verify
+		EasyMock.verify(rs);
+		
+		
+	}
 }
 
