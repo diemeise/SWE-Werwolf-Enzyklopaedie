@@ -49,6 +49,47 @@ public class OutputAdapter {
 		return spezial;
 	}
 	
+	//TODO Das hier und Spezial und gut macht ja quasi das gleiche? Irgendwie in eine Methode zusammen fassen?
+	public HashMap<String, String> getAlleBoesenKarten(){
+		
+		HashMap<String, String> boese = new HashMap<>();
+		
+		karten = gamelib.getKartenRepository().getKarten(); //TODO auﬂerhalb der Methoden initialisieren?
+		
+		for (String key: karten.keySet()) {
+			
+			if(karten.get(key).getRolle().istBoese()) {
+				name = karten.get(key).getRolle().getName();
+				funk = karten.get(key).getRolle().getFunktion();
+				
+				boese.put(name, funk);
+			}
+			
+		}
+		
+		return boese;
+	}
+	
+public HashMap<String, String> getAlleGutenKarten(){
+		
+		HashMap<String, String> gut = new HashMap<>();
+		
+		karten = gamelib.getKartenRepository().getKarten(); //TODO auﬂerhalb der Methoden initialisieren?
+		
+		for (String key: karten.keySet()) {
+			
+			if(!karten.get(key).getRolle().istBoese()) {
+				name = karten.get(key).getRolle().getName();
+				funk = karten.get(key).getRolle().getFunktion();
+				
+				gut.put(name, funk);
+			}
+			
+		}
+		
+		return gut;
+	}
+	
 	public HashMap<String, String> getKartenDetails(String k){
 		Karte karte;
 		karten = gamelib.getKartenRepository().getKarten(); //TODO auﬂerhalb der Methoden initialisieren?
