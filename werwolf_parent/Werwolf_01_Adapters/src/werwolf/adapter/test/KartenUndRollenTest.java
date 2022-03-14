@@ -102,8 +102,8 @@ public class KartenUndRollenTest {
 		repo.initialisiereKarten(rs);
 		
 		SQLRollenRepository role = new SQLRollenRepository(null);
-		role.initialisiereRolle("Dorfbewohner", "lebt", "", false, false);
-		role.initialisiereRolle("Werwolf", "frisst", "", false, false);
+		role.initialisiereRolle("Dorfbewohner", "lebt", "", false, false,0);
+		role.initialisiereRolle("Werwolf", "frisst", "", false, false,3);
 		
 		repo.verknuepfeKartenMit(role);
 		

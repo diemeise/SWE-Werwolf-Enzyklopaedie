@@ -68,11 +68,11 @@ public class KonsolenEingabenTests{
 			
 			//Rollen init
 			SQLRollenRepository role = new SQLRollenRepository(null);
-			role.initialisiereRolle("Werwolf", "frisst", "", false, false);
-			role.initialisiereRolle("Dorfbewohner", "lebt", "", false, false);
+			role.initialisiereRolle("Werwolf", "frisst", "", false, false,1);
+			role.initialisiereRolle("Dorfbewohner", "lebt", "", false, false,0);
 			
 			
-			//Karten und Rollen verknüpfen
+			//Karten und Rollen verknï¿½pfen
 			repo.verknuepfeKartenMit(role);
 			LibraryManager gamelib = new LibraryManager(repo, role);
 			OutputAdapter out = new OutputAdapter(gamelib);
@@ -111,7 +111,7 @@ public class KonsolenEingabenTests{
 			EasyMock.expect(rs.next()).andReturn(true);
 			EasyMock.expect(rs.getString("Name")).andReturn("Dorfbewohner");
 			EasyMock.expect(rs.next()).andReturn(true);
-			EasyMock.expect(rs.getString("Name")).andReturn("Weißer Werwolf");
+			EasyMock.expect(rs.getString("Name")).andReturn("Weiï¿½er Werwolf");
 			EasyMock.expect(rs.next()).andReturn(false);
 			
 			EasyMock.replay(rs);
@@ -125,13 +125,13 @@ public class KonsolenEingabenTests{
 			
 			//Rollen init
 			SQLRollenRepository role = new SQLRollenRepository(null);
-			role.initialisiereRolle("Werwolf", "frisst", "", true, false);
-			role.initialisiereRolle("Dorfbewohner", "lebt", "", false, false);
-			role.initialisiereRolle("Weißer Werwolf", "frisst Dorfbewohner und Woelfe", "", true, true);
+			role.initialisiereRolle("Werwolf", "frisst", "", true, false,3);
+			role.initialisiereRolle("Dorfbewohner", "lebt", "", false, false,0);
+			role.initialisiereRolle("Weiï¿½er Werwolf", "frisst Dorfbewohner und Woelfe", "", true, true,4);
 			
 			
 			
-			//Karten und Rollen verknüpfen
+			//Karten und Rollen verknï¿½pfen
 			repo.verknuepfeKartenMit(role);
 			LibraryManager gamelib = new LibraryManager(repo, role);
 			OutputAdapter out = new OutputAdapter(gamelib);
@@ -151,7 +151,7 @@ public class KonsolenEingabenTests{
 		
 		
 		//Assert
-		Assertions.assertEquals("Weißer Werwolf: frisst Dorfbewohner und Woelfe" + System.lineSeparator() , outContent.toString());
+		Assertions.assertEquals("Weiï¿½er Werwolf: frisst Dorfbewohner und Woelfe" + System.lineSeparator() , outContent.toString());
 		
 		//Verify
 		EasyMock.verify(rs);
@@ -182,11 +182,11 @@ public class KonsolenEingabenTests{
 			
 			//Rollen init
 			SQLRollenRepository role = new SQLRollenRepository(null);
-			role.initialisiereRolle("Werwolf", "frisst", "Erwacht Nachts und sucht mit seinem Rudel ein Opfer zum fressen", true, false);
-			role.initialisiereRolle("Dorfbewohner", "lebt", "", false, false);
+			role.initialisiereRolle("Werwolf", "frisst", "Erwacht Nachts und sucht mit seinem Rudel ein Opfer zum fressen", true, false,3);
+			role.initialisiereRolle("Dorfbewohner", "lebt", "", false, false,0);
 						
 			
-			//Karten und Rollen verknüpfen
+			//Karten und Rollen verknï¿½pfen
 			repo.verknuepfeKartenMit(role);
 			LibraryManager gamelib = new LibraryManager(repo, role);
 			OutputAdapter out = new OutputAdapter(gamelib);
