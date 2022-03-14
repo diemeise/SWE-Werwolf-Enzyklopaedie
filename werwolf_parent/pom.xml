@@ -10,7 +10,8 @@
   	<module>Werwolf_00_Plugins</module>	
   	<module>Werwolf_01_Adapters</module>	
   	<module>Werwolf_02_Application</module>	
-  	<module>Werwolf_03_Domain</module>	
+  	<module>Werwolf_03_Domain</module>
+  	<module>Werwolf_99_tests</module>
   </modules>
   <dependencies>
   	<dependency>
