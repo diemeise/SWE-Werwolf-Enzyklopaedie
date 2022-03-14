@@ -18,5 +18,5 @@ public interface RollenRepository {
 	public void ladeRollenAusSpeicher();
 	
 	//füge eine einzelne Rolle dem internen Set hinzu
-	public void initialisiereRolle(String name, String funktion,  String beschreibung, boolean istBoese, boolean istSpezial);
+	public void initialisiereRolle(String name, String funktion,  String beschreibung, boolean istBoese, boolean istSpezial, int prioritaet);
 }

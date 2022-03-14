@@ -67,8 +67,8 @@ public class KartenUndRollenTest {
 		//Arrange
 		SQLRollenRepository repo = new SQLRollenRepository(null);
 //		repo.initialisiereKarten(rs);
-		repo.initialisiereRolle("Dorfbewohner", "lebt", "", false, false);
-		repo.initialisiereRolle("Werwolf", "frisst", "", false, false);
+		repo.initialisiereRolle("Dorfbewohner", "lebt", "", false, false, 0);
+		repo.initialisiereRolle("Werwolf", "frisst", "", false, false, 1);
 		
 		ArrayList<String> namen = new ArrayList<String>();
 		ArrayList<String> testListe = new ArrayList<String>();
