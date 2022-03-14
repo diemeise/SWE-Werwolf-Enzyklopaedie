@@ -58,6 +58,9 @@ public class Nacht {
 		return aktiverSpieler;
 	}
 	
+	public List<Spieler> getSpieler(){
+		return lebendeSpielerBeiStart;
+	}
 	/**
 	 * funktioniert nur wenn die Spielphase als abgeschlossen markiert ist
 	 * @return

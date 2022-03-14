@@ -120,6 +120,7 @@ public class GameLoopTest {
 		Assertions.assertTrue(game.istGespielt());
 	}
 			
+	
 	@Test
 	public void neueSpielPhaseTest() {
 		//arrange
@@ -143,7 +144,10 @@ public class GameLoopTest {
 		Assertions.assertTrue(game.istAktiv());
 	}
 
-	 @Test
+	/**
+	 * überprüft ob tote Spieler in der nächsten Phase nicht mehr hinzugefügt werden 
+	 */
+	@Test
 	public void eliminiereSpielerTest() {
 		//arrange
 		GameLoop game = null;
@@ -159,12 +163,27 @@ public class GameLoopTest {
 		game.eliminiereSpieler(spieler4);
 		game.eliminiereSpieler(spieler3);
 		
-		List<Spieler> expected = new ArrayList<>();
-		expected.add(spieler4);
-		expected.add(spieler3);
+		List<Spieler> expectedKilledSpieler = new ArrayList<>();
+		expectedKilledSpieler.add(spieler4);
+		expectedKilledSpieler.add(spieler3);
+		List<Spieler> actualKilledSpieler = game.getAktuellePhase().getEliminierteSpieler();
+		
+
+		//eine phase muss "durchgespielt" werden damit die nächste aufgerufen werden kann 
+		while (game.naechsterSchritt()) {
+		}
+		game.naechstePhase();
+		List<Spieler> expectedAlivePlayers = game.getAktuellePhase().getSpieler();
+		
 		//assert
-		MatcherAssert.assertThat(game.getAktuellePhase().getEliminierteSpieler(), is(expected));
+		MatcherAssert.assertThat(actualKilledSpieler, is(expectedKilledSpieler));
+		for (Spieler killedSpieler : expectedKilledSpieler) {
+			Assertions.assertFalse(expectedAlivePlayers.contains(killedSpieler));
+		}
+		
 	}
+	 
+	 
 	 
 	 @Test
 	 public void startePhaseWennAltePhaseNochLaufendTest() {
