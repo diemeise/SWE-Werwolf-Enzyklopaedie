@@ -19,6 +19,7 @@ public class SQLKartenRepository implements KartenRepository{
 
 	//Key = Name? TODO
 	private HashMap<String, Karte> karten;
+	private HashMap<String, String> kartenFunk;
 	private SQLVerbindung verbindung;
 
 	public SQLKartenRepository(SQLVerbindung verbindung) {
@@ -46,6 +47,7 @@ public class SQLKartenRepository implements KartenRepository{
 	}
 	
 	//TODO implementieren
+	//TODO DRY -> wegwerfen weil die Hash mit Funktion hier reicht?
 	//Gibt eine alphabetisch sortierte Liste der Namen aller vorhandenen Karten aus 
 	public ArrayList<String> listeAllerNamen(){		
 		ArrayList<String> kartenNamenListe = new ArrayList<String>(this.karten.keySet());
@@ -59,8 +61,8 @@ public class SQLKartenRepository implements KartenRepository{
 		try {
 			while (resultSet.next()) {
 				this.initialisiereKarte(resultSet.getString("Name"), new Karte(
-																							null,
-																							""));
+																				null,
+																				""));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -95,6 +97,26 @@ public class SQLKartenRepository implements KartenRepository{
 	}
 
 	
+	//TODO In eigene Klasse auslagern?
+	@Override
+	public HashMap<String, String> zeigeNameUndFunktion() {
+		String name;
+		String funk;
+		kartenFunk = new HashMap<>();
+		
+		for (String key: karten.keySet()) {
+			name = karten.get(key).getRolle().getName();
+			funk = karten.get(key).getRolle().getFunktion();
+			
+			kartenFunk.put(name, funk);
+		}
+	
+		return kartenFunk;
+	}
+
+	public HashMap<String, Karte> getKarten() {
+		return karten;
+	}
 
 	
 
