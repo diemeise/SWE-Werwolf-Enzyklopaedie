@@ -32,12 +32,14 @@ public class Nacht {
 		if (!phaseAngefangen) {
 			aktiverSpieler = findeErstenSpieler();
 			phaseAngefangen = true;
+			aktiverSpieler.setAktiv(false);
+			return;
 		}
 		if(phaseAbgeschlossen) {
 			throw new GameException("Phase ist bereits abgeschlossen!");
 		}
 		
-		//setze nächsten Spieler aktiv
+		//setze naechsten Spieler aktiv
 		aktiverSpieler.setAktiv(false);
 		try {
 			aktiverSpieler = findeNaechstenSpieler();

@@ -1,15 +1,18 @@
-package werwolf.adapter.sql;
+package werwolf.adapter.output;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import werwolf.adapter.game.GameController;
 import werwolf.application.game.library.LibraryManager;
 import werwolf.domain.game.content.Karte;
+
 
 public class OutputAdapter {
 	
 	private LibraryManager gamelib;
+	private GameController gameCon;
 	private HashMap<String, Karte> karten = new HashMap<>();
 	
 	String name;
@@ -22,6 +25,7 @@ public class OutputAdapter {
 	public OutputAdapter(LibraryManager gamelib) {
 		super();
 		this.gamelib = gamelib;
+		this.gameCon = new GameController(gamelib);
 	}
 	
 	public HashMap<String,String> getAlleKartenByFunktion(){
@@ -70,7 +74,7 @@ public class OutputAdapter {
 		return boese;
 	}
 	
-public HashMap<String, String> getAlleGutenKarten(){
+	public HashMap<String, String> getAlleGutenKarten(){
 		
 		HashMap<String, String> gut = new HashMap<>();
 		
@@ -90,7 +94,7 @@ public HashMap<String, String> getAlleGutenKarten(){
 		return gut;
 	}
 	
-	public HashMap<String, String> getKartenDetails(String k){
+public HashMap<String, String> getKartenDetails(String k){
 		Karte karte;
 		karten = gamelib.getKartenRepository().getKarten(); //TODO auﬂerhalb der Methoden initialisieren?
 		HashMap<String, String> kartenDetails = new HashMap<>();
@@ -117,6 +121,21 @@ public HashMap<String, String> getAlleGutenKarten(){
 		
 		return kartenDetails;
 	}
-	
 
+	public String starteSpiel(List<String> spielerNamen, List<String> rollenNamen) {
+		return gameCon.starteSpiel(spielerNamen, rollenNamen);
+	}
+	public List<Map<String,String>> listeAlleSpieler(){
+		
+		return gameCon.listeAlleSpieler();
+	}
+	
+	public Map<String,String> getDetailsOfSpieler(String spielerName){
+		return gameCon.getSpielerDetails(spielerName);
+	}
+	
+	public Map<String,String> getAktivenSpieler(){
+		return gameCon.getAktiverSpielerDetails();
+	}
+	
 }
