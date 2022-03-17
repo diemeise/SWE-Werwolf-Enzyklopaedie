@@ -22,7 +22,7 @@ public enum Kommandos {
     	@Override
         public void execute(MatchResult matcher, OutputAdapter out) {
             //System.out.println(":(");
-    		HashMap<String, String> karten = new HashMap<>();
+    		Map<String, String> karten = new HashMap<>();
     		karten = out.getAlleKartenByFunktion();
     		karten.forEach((k,v) -> System.out.println(k+": "+v));
         }
@@ -31,7 +31,7 @@ public enum Kommandos {
     LIST_SPEZIAL("list-spezial") {
     	@Override
         public void execute(MatchResult matcher, OutputAdapter out) {
-    		HashMap<String, String> karten = new HashMap<>();
+    		Map<String, String> karten = new HashMap<>();
     		karten = out.getAlleSpezialKarten();
     		karten.forEach((k,v) -> System.out.println(k+": "+v));
         }
@@ -83,7 +83,7 @@ public enum Kommandos {
     	
     },
     	
-    
+   // ###################Spiel-Funktionen###################
     GAME_START("starte-spiel ([^\s]*,?) ([^\\s]*,?)"){
 		
     	@Override
@@ -100,11 +100,10 @@ public enum Kommandos {
 				System.out.println(errorString);
 			}
 		}
-    	
     },
     
     
-    LIST_ALLE_SPIELER("zeige-alle-spieler"){
+    LIST_ALLE_SPIELER("alle-spieler"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -113,15 +112,34 @@ public enum Kommandos {
     		for (Map<String, String> spielerMap : spielerList) {
 				String str = "Spieler "
 						+ spielerMap.get("Spielername")
-						+ "(" + spielerMap.get("Rollenname") + "): "
-						+ spielerMap.get("Rollenfunktion");
+						+ "(" + spielerMap.get("Rollenname") + "):\t"
+						+ spielerMap.get("Rollenfunktion")  + "\t"
+						+ "Status : " + spielerMap.get("Status");
 				System.out.println(str);
 			}
 		}
     	
     },
     
-    ZEIGE_SPIELER("zeige-spieler ([^\s]*)"){
+    LIST_GEWINNER("zeige-gewinner"){
+		
+    	@Override
+		public void execute(MatchResult matcher, OutputAdapter out) {
+    		System.out.println("Gewinner:");
+    		List<Map<String,String>> spielerList = out.listGewinner();
+    		for (Map<String, String> spielerMap : spielerList) {
+				String str = "Spieler "
+						+ spielerMap.get("Spielername")
+						+ "(" + spielerMap.get("Rollenname") + "):\t"
+						+ spielerMap.get("Rollenfunktion")  + "\t"
+						+ "Status : " + spielerMap.get("Status");
+				System.out.println(str);
+			}
+		}
+    	
+    },
+    
+    LIST_SPIELER("zeige-spieler ([^\s]*)"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -132,18 +150,19 @@ public enum Kommandos {
     		}
     		String str = "Spieler "
 					+ spielerMap.get("Spielername")
-					+ "(" + spielerMap.get("Rollenname") + "): "
-					+ spielerMap.get("Rollenfunktion");
+					+ "(" + spielerMap.get("Rollenname") + "):\t"
+					+ spielerMap.get("Rollenfunktion") + "\t"
+					+ "\tStatus : " + spielerMap.get("Status");
 			System.out.println(str);
 		}
     	
     },
     
-    ZEIGE_AKTIVEN_SPIELER("zeige-aktiver-spieler"){
+    LIST_AKTIVER_SPIELER("zeige-aktiver-spieler"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
-    		Map<String,String> spielerMap = out.getAktivenSpieler();
+    		Map<String,String> spielerMap = out.getAktiverSpieler();
     		if(spielerMap.containsKey("Error")) {
     			System.out.println(spielerMap.get("Error"));
     			return;
@@ -151,12 +170,76 @@ public enum Kommandos {
     		String str = "Spieler "
 					+ spielerMap.get("Spielername")
 					+ "(" + spielerMap.get("Rollenname") + "): "
-					+ spielerMap.get("Rollenfunktion");
+					+ spielerMap.get("Rollenfunktion")
+					+ "Status : " + spielerMap.get("Status");
 			System.out.println(str);
-		}
-    	
+		}    	
+    },
+    
+    /**
+     * gibt info über die aktuelle Phase
+     * lebende Spieler am Start
+     * aktueller Spieler
+     * bereits eliminierte Spieler
+     *TODO
+     */
+    LIST_PHASE("zeige-spielphase"){
+		
+    	@Override
+		public void execute(MatchResult matcher, OutputAdapter out) {
+    		Map<String,String> map = out.listSpielphase();
+    		String str = "Nacht Nummer: " + map.get("Anzahl")  + "\t"
+    						+ "Aktiver Spieler: " + map.get("Aktiver_Spieler") + "\t"
+    						+"Phase abgeschlossen: " + map.get("Abgeschlossen");
+    		System.out.println(str);
+    	}    	
+    },
+    
+    /**
+     * zeige:
+     * alle Spieler
+     * aktuelle Phase
+     * aktueller Spieler
+     * 
+     */
+    GAME_STATS("spiel-uebersicht"){
+		
+    	@Override
+		public void execute(MatchResult matcher, OutputAdapter out) {
+    		System.out.println("--Alle Spieler--");
+    		LIST_ALLE_SPIELER.execute(null, out);
+    		System.out.println("--Aktuelle Phase--");
+    		LIST_PHASE.execute(null, out);
+    		System.out.println("--Aktueller Spieler--");
+    		LIST_AKTIVER_SPIELER.execute(null, out);
+    		
+    	}    	
+    },
+    
+    GAME_END("stopp-spiel"){
+		
+    	@Override
+		public void execute(MatchResult matcher, OutputAdapter out) {
+    		System.out.println(out.beendeSpiel());
+    	}    	
+    },
+  
+  GAME_CONTINUE("spielschritt"){
+		
+    	@Override
+		public void execute(MatchResult matcher, OutputAdapter out) {
+    		System.out.println(out.neachsterSpielSchritt());
+    	}    	
     },
 
+ ELIMINIERE_SPIELER("kill ([^\s]*)"){
+		
+    	@Override
+		public void execute(MatchResult matcher, OutputAdapter out) {
+    		System.out.println(out.eliminereSpieler(matcher.group(1)));
+    	}    	
+    },
+ 
     QUIT("quit") {
         @Override
         public void execute(MatchResult matcher, OutputAdapter out) {

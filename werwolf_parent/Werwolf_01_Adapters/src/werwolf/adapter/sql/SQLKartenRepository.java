@@ -16,8 +16,8 @@ import werwolf.domain.game.content.RollenRepository;
 
 public class SQLKartenRepository implements KartenRepository{
 
-	//Key = Name? TODO
-	private HashMap<String, Karte> karten;
+	//Key = Name in LOWER CASE? TODO
+	private Map<String, Karte> karten;
 	private HashMap<String, String> kartenFunk;
 	private SQLVerbindung verbindung;
 
@@ -29,14 +29,13 @@ public class SQLKartenRepository implements KartenRepository{
 	
 	@Override
 	public void speichere(Rolle rolle) {
-		// TODO Auto-generated method stub
+		// TODO Implementierung nicht vorgesehen
 		
 	}
 
 	@Override
 	public Optional<Karte> findeDurch(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return Optional.ofNullable(karten.get(name.toLowerCase()));
 	}
 
 	@Override
@@ -113,7 +112,7 @@ public class SQLKartenRepository implements KartenRepository{
 		return kartenFunk;
 	}
 
-	public HashMap<String, Karte> getKarten() {
+	public Map<String, Karte> getKarten() {
 		return karten;
 	}
 

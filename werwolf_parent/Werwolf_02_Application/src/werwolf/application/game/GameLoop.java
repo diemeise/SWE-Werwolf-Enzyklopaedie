@@ -62,7 +62,7 @@ public class GameLoop {
 	/**
 	 * startet eine neue Phase 
 	 * nur moeglich wenn die aktuelle Phase abgeschlossen ist
-	 * gibt false zurück wenn Phase nicht abgeschlossen oder nach der Phase ein Gewinner feststeht
+	 * gibt false zurï¿½ck wenn Phase nicht abgeschlossen oder nach der Phase ein Gewinner feststeht
 	 * 
 	 * @throws GameException wenn kein Spiel aktiv
 	 */
@@ -103,9 +103,9 @@ public class GameLoop {
 		
 	}
 	
-	public void eliminiereSpieler(Spieler spieler) {
+	public boolean eliminiereSpieler(Spieler spieler) {
 		spieler.setLebendig(false);
-		getAktuellePhase().eliminiere(spieler);
+		return getAktuellePhase().eliminiere(spieler);
 	}
 	
 	
@@ -148,22 +148,11 @@ public class GameLoop {
 		return Optional.ofNullable(s);
 	}
 	
-	
-	
-	private void ueberpruefeSpieler(List<Spieler> spieler2) throws GameException {
-		if(spieler2.isEmpty()) {
-			throw new GameException("Keine Spieler uebergeben!");
-		}
-		boolean boeseRolleVorhanden = false;
-		for (Spieler s : spieler2) {
-			if (s.istBoese()) {
-				boeseRolleVorhanden = true;
-			}
-		}
-		if (!boeseRolleVorhanden) {
-			throw new GameException("Es muss ein Wolf / eine boese Karte vorhanden sein!");
-		}
+	public List<Spieler> getGewinner(){
+		return gewinner;
 	}
+	
+	
 	
 	/**
 	 * prueft ob nach einer Spielphase das Spiel von einer Partei gewonnen wurde
@@ -197,7 +186,22 @@ public class GameLoop {
 		}
 		//kein Gewinner 
 		return false;
-		
 	}
+	
+	private void ueberpruefeSpieler(List<Spieler> spieler2) throws GameException {
+		if(spieler2.isEmpty()) {
+			throw new GameException("Keine Spieler uebergeben!");
+		}
+		boolean boeseRolleVorhanden = false;
+		for (Spieler s : spieler2) {
+			if (s.istBoese()) {
+				boeseRolleVorhanden = true;
+			}
+		}
+		if (!boeseRolleVorhanden) {
+			throw new GameException("Es muss ein Wolf / eine boese Karte vorhanden sein!");
+		}
+	}
+	
 
 }

@@ -72,8 +72,9 @@ public class KartenUndRollenTest {
 		
 		ArrayList<String> namen = new ArrayList<String>();
 		ArrayList<String> testListe = new ArrayList<String>();
-		testListe.add("Dorfbewohner");
-		testListe.add("Werwolf");
+		//Rollen werden in der Map in lowerCase gespeichert
+		testListe.add("dorfbewohner");
+		testListe.add("werwolf");
 		
 		//Act
 		namen = repo.listeAllerNamen();

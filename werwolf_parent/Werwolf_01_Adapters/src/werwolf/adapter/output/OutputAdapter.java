@@ -13,7 +13,7 @@ public class OutputAdapter {
 	
 	private LibraryManager gamelib;
 	private GameController gameCon;
-	private HashMap<String, Karte> karten = new HashMap<>();
+	private Map<String, Karte> karten = new HashMap<>();
 	
 	String name;
 	String funk;
@@ -28,16 +28,16 @@ public class OutputAdapter {
 		this.gameCon = new GameController(gamelib);
 	}
 	
-	public HashMap<String,String> getAlleKartenByFunktion(){
+	public Map<String,String> getAlleKartenByFunktion(){
 		return gamelib.getKartenRepository().zeigeNameUndFunktion();
 	}
 	
 	//TODO Das ist zu viel Code, da lieber ne Methode machen mit der dem put und die dann aufrufen mit irgendeinem Paramerter oder so [DRY]
-	public HashMap<String, String> getAlleSpezialKarten(){
+	public Map<String, String> getAlleSpezialKarten(){
 		
-		HashMap<String, String> spezial = new HashMap<>();
+		Map<String, String> spezial = new HashMap<>();
 		
-		karten = gamelib.getKartenRepository().getKarten(); //TODO außerhalb der Methoden initialisieren?
+		karten = gamelib.getKartenRepository().getKarten(); //TODO auï¿½erhalb der Methoden initialisieren?
 		
 		for (String key: karten.keySet()) {
 			
@@ -58,7 +58,7 @@ public class OutputAdapter {
 		
 		HashMap<String, String> boese = new HashMap<>();
 		
-		karten = gamelib.getKartenRepository().getKarten(); //TODO außerhalb der Methoden initialisieren?
+		karten = gamelib.getKartenRepository().getKarten(); //TODO auï¿½erhalb der Methoden initialisieren?
 		
 		for (String key: karten.keySet()) {
 			
@@ -78,7 +78,7 @@ public class OutputAdapter {
 		
 		HashMap<String, String> gut = new HashMap<>();
 		
-		karten = gamelib.getKartenRepository().getKarten(); //TODO außerhalb der Methoden initialisieren?
+		karten = gamelib.getKartenRepository().getKarten(); //TODO auï¿½erhalb der Methoden initialisieren?
 		
 		for (String key: karten.keySet()) {
 			
@@ -96,7 +96,7 @@ public class OutputAdapter {
 	
 public HashMap<String, String> getKartenDetails(String k){
 		Karte karte;
-		karten = gamelib.getKartenRepository().getKarten(); //TODO außerhalb der Methoden initialisieren?
+		karten = gamelib.getKartenRepository().getKarten(); //TODO auï¿½erhalb der Methoden initialisieren?
 		HashMap<String, String> kartenDetails = new HashMap<>();
 		
 		karte = karten.get(k);
@@ -122,20 +122,43 @@ public HashMap<String, String> getKartenDetails(String k){
 		return kartenDetails;
 	}
 
+//###################Spiel-Funktionen###################
+
 	public String starteSpiel(List<String> spielerNamen, List<String> rollenNamen) {
 		return gameCon.starteSpiel(spielerNamen, rollenNamen);
 	}
-	public List<Map<String,String>> listeAlleSpieler(){
-		
-		return gameCon.listeAlleSpieler();
+	
+	
+	public String beendeSpiel() {
+		return gameCon.beendeSpiel();
+	}
+	
+	public String neachsterSpielSchritt() {
+		return gameCon.naechsterSchritt();
+	}
+	
+	public String eliminereSpieler(String spielerName) {
+		return gameCon.eliminiereSpieler(spielerName);
 	}
 	
 	public Map<String,String> getDetailsOfSpieler(String spielerName){
 		return gameCon.getSpielerDetails(spielerName);
 	}
 	
-	public Map<String,String> getAktivenSpieler(){
+	public Map<String,String> getAktiverSpieler(){
 		return gameCon.getAktiverSpielerDetails();
 	}
 	
+	public List<Map<String,String>> listeAlleSpieler(){
+		
+		return gameCon.listeAlleSpieler();
+	}
+
+	public List<Map<String,String>> listGewinner(){
+		return gameCon.listGewinner();
+	}
+	
+	public Map<String,String> listSpielphase(){
+		return gameCon.listSpielphase();
+	}
 }

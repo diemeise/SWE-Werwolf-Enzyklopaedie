@@ -14,8 +14,8 @@ import werwolf.domain.game.content.RollenRepository;
 
 public class SQLRollenRepository implements RollenRepository{
 	
-	//Key = Name? TODO
-	private HashMap<String, Rolle> rollen;
+	//Key = Name IN LOWER CASE? TODO
+	private Map<String, Rolle> rollen;
 	private SQLVerbindung verbindung;
 
 	public SQLRollenRepository(SQLVerbindung verbindung) {
@@ -31,7 +31,7 @@ public class SQLRollenRepository implements RollenRepository{
 
 	@Override
 	public Optional<Rolle> findeDurch(String name) {
-		return Optional.ofNullable(rollen.get(name));
+		return Optional.ofNullable(rollen.get(name.toLowerCase()));
 	}
 
 	@Override
@@ -74,9 +74,10 @@ public class SQLRollenRepository implements RollenRepository{
 	}
 
 	//nur falls Datenbankserver abfackelt oder wir einen anderen usecase finden
+	
 	@Override
 	public void initialisiereRolle(String name, String funktion, String beschreibung, boolean istBoese, boolean istSpezial, int prioritaet) {
-		this.rollen.put(name, new Rolle(name, funktion, beschreibung, istSpezial, istBoese, prioritaet));
+		this.rollen.put(name.toLowerCase(), new Rolle(name, funktion, beschreibung, istSpezial, istBoese, prioritaet));
 		
 	}
 

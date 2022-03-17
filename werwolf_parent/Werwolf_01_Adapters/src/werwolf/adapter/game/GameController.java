@@ -8,17 +8,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.print.attribute.HashAttributeSet;
-
 import werwolf.application.game.GameLoop;
+import werwolf.application.game.Nacht;
 import werwolf.application.game.library.LibraryManager;
 import werwolf.domain.game.content.Rolle;
 import werwolf.domain.game.content.Spieler;
 import werwolf.domain.game.exceptions.GameException;
 
 /**
- * adapter für die Kontrolle über ein Spiel.
- * Gibt in jeder Methode einen String zurück, der dem User angezeigt werden kann
+ * adapter fï¿½r die Kontrolle ï¿½ber ein Spiel.
+ * Gibt in jeder Methode einen String zurï¿½ck, der dem User angezeigt werden kann
  * @author meise
  *
  */
@@ -51,26 +50,18 @@ public class GameController {
 			return "Neues Spiel gestartet.";
 		}
 
-	/**
-	 * fuehrt ein Spielschritt aus
-	 * Dies kann sein:
-	 * 		Nachster Schritt in der aktuellen Phase;
-	 * 		Start der neachsten Phase;
-	 * @return
-	 */
+
 	
 	/**
-	 * Erstellt ein Spiel mit einer zufälligen Kombination aus Spielern und Rollen.
-	 * Für alle nicht erkannten oder zu wenig vorhandenen Rollen wird ein Dorfbewohner erzeugt.
+	 * Erstellt ein Spiel mit einer zufaelligen Kombination aus Spielern und Rollen.
+	 * Fï¿½r alle nicht erkannten oder zu wenig vorhandenen Rollen wird ein Dorfbewohner erzeugt.
 	 * Alle vorhandenen Rollen werden aus dem LibraryManager entnommen.
-	 * TODO andere Standardspieler ermöglichen
+	 * TODO andere Standardspieler ermï¿½glichen
 	 * @param spielerNamen 	Liste aller Spielernamen
 	 * @param rollenNamen	Liste an Rollennamen
 	 * @return
 	 */
-	public String starteSpiel(List<String> spielerNamen, List<String> rollenNamen) {
-		;
-		
+	public String starteSpiel(List<String> spielerNamen, List<String> rollenNamen) {	
 		List<Spieler> spieler = erzeugeSpieler(spielerNamen, rollenNamen, "Dorfbewohner");
 		return starteSpiel(spieler);
 		
@@ -84,9 +75,16 @@ public class GameController {
 		return "Spiel noch nicht gestartet!";
 	}
 	
+	/**
+	 * fuehrt ein Spielschritt aus
+	 * Dies kann sein:
+	 * 		Nachster Schritt in der aktuellen Phase;
+	 * 		Start der neachsten Phase;
+	 * @return
+	 */
 	public String naechsterSchritt() {
 		try{
-			//üeberpfuefe zuerst ob ein neuer Schritt in dieser Phase möglich ist
+			//ueberpfuefe zuerst ob ein neuer Schritt in dieser Phase mï¿½glich ist
 			if(game.naechsterSchritt()) {
 				return "Nacht wird fortgefuehrt";
 			}
@@ -97,12 +95,24 @@ public class GameController {
 			//wenn beides false, dann ist das Spiel vorbei.
 			return "Das Spiel ist vorbei";
 		}catch (GameException e) {
-			return e.getMessage();
+			return e.getMessage() + System.lineSeparator();
+			
+			
 		}
 		
 	}
 	
-
+	public String eliminiereSpieler(String spielerName) {
+		Optional<Spieler> so = game.getSpielerBy(spielerName);
+		if(so.isEmpty()) {
+			return "Spieler " + spielerName + "nicht gefunden";
+		}
+		if (game.eliminiereSpieler(so.get())) {
+			return "Spieler " + spielerName + " eliminiert.";
+		}
+		return "Spieler konnte nicht eliminiert werden.";
+		
+	}
 
 	public Map<String, String> getAktiverSpielerDetails(){
 		Spieler s = game.getAktiverSpieler();
@@ -121,13 +131,49 @@ public class GameController {
 		return getDetailsOfSpieler(s);
 	}
 	
+	//TODO entzerren
+	public List<Map<String, String>> listeAlleSpieler() {
+		List< Map<String,String>> returnList = new ArrayList<>();
+		List<Spieler> alleSpieler = game.getSpieler();
+		for (Spieler spieler : alleSpieler) {
+			returnList.add(getDetailsOfSpieler(spieler));
+		}
+		return returnList;
+	}
 	
+	//TODO entzerren
+	public List<Map<String,String>> listGewinner(){
+		List< Map<String,String>> returnList = new ArrayList<>();
+		List<Spieler> gewinner = game.getGewinner();
+		if(gewinner == null) {
+			Map<String,String> map = new HashMap<String,String>();
+			map.put("Error", "Spiel ist noch nicht vorbei");
+			returnList.add(map);
+		}
+		for (Spieler spieler : gewinner) {
+			returnList.add(getDetailsOfSpieler(spieler));
+		}
+		return returnList;
+	}
+	
+
+	public Map<String,String> listSpielphase() {
+		Nacht n = game.getAktuellePhase();
+		Map<String,String> returnMap = new HashMap<>();
+		returnMap.put("Aktiver_Spieler", n.getAktiverSpieler().getName());
+		returnMap.put("Anzahl", String.valueOf(game.getPhasen().size()));
+		returnMap.put("Abgeschlossen", String.valueOf(n.istAbgeschlossen()));
+		
+		return returnMap;
+	}
 	
 	
 	
 	
 	//eigentlich privat, nur wegen einem Test public
-	public List<Spieler> erzeugeSpieler(List<String> spielerNamen, List<String> rollenNamen, String standardRollenString) {
+	//TODO zu komplex fÃ¼r eine Methode?
+	//TODO nicht schoen :(((
+ 	public List<Spieler> erzeugeSpieler(List<String> spielerNamen, List<String> rollenNamen, String standardRollenString) {
 		List<Rolle> rollen =  new ArrayList<Rolle>();
 		List<Spieler> spieler = new LinkedList<Spieler>();
 		//ueberpruefe die uebergebenen Rollennamen und erzeuge die dazugehoerigen Rollen
@@ -135,9 +181,8 @@ public class GameController {
 			Optional<Rolle>passendeRolle = gameLib.getRollenRepository().findeDurch(rname);
 			passendeRolle.ifPresent( rolle -> rollen.add(rolle));
 		}
-		//fuelle  mit Dorfbewohner auf;
-		//TODO nicht schoen :(((
 		
+		//fuelle  mit Standardrolle (->Dorfbewohner) auf;
 		Optional<Rolle> standardRolle = gameLib.getRollenRepository().findeDurch(standardRollenString);
 		Rolle standard = standardRolle.get();
 		while (rollen.size() < spielerNamen.size()) {
@@ -156,22 +201,18 @@ public class GameController {
 		return spieler;
 	}
 
-	public List<Map<String, String>> listeAlleSpieler() {
-		List< Map<String,String>> returnList = new ArrayList<>();
-		List<Spieler> alleSpieler = game.getSpieler();
-		for (Spieler spieler : alleSpieler) {
-			returnList.add(getDetailsOfSpieler(spieler));
-		}
-		return returnList;
-	}
 
 	private Map<String,String> getDetailsOfSpieler(Spieler s) {
 		Map<String,String> returnMap = new HashMap<>();
+		String status = "lebt";
+		if (!s.istLebendig()) status = "verstorben";
 		returnMap.put("Spielername", s.getName());
-		returnMap.put("Status", String.valueOf(s.istLebendig()));
+		
+		returnMap.put("Status", status);
 		returnMap.put("Rollenname", s.getRollenName());
 		returnMap.put("Rollenfunktion", s.getRolle().getFunktion());
 		returnMap.put("Rollenbeschreibung", s.getRolle().getBeschreibung());
+		
 		return returnMap;
 	}
 }

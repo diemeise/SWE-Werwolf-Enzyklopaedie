@@ -28,15 +28,16 @@ public class Nacht {
 	 * @throws GameException
 	 */
 	public void naechsterSpielschritt() throws GameException {
+		if(phaseAbgeschlossen) {
+			throw new GameException("Phase ist bereits abgeschlossen!");
+		}
+		
 		//setze ersten Spieler auf aktiv
 		if (!phaseAngefangen) {
 			aktiverSpieler = findeErstenSpieler();
 			phaseAngefangen = true;
 			aktiverSpieler.setAktiv(false);
 			return;
-		}
-		if(phaseAbgeschlossen) {
-			throw new GameException("Phase ist bereits abgeschlossen!");
 		}
 		
 		//setze naechsten Spieler aktiv
@@ -49,10 +50,12 @@ public class Nacht {
 	}
 
 	
-	public void eliminiere(Spieler spieler) {
+	public boolean eliminiere(Spieler spieler) {
 		if (lebendeSpielerBeiStart.contains(spieler) && !eliminierteSpieler.contains(spieler)) {
 			eliminierteSpieler.add(spieler);
+			return true;
 		}
+		return false;
 	}
 		
 
