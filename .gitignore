@@ -31,3 +31,5 @@ werwolf_parent/Werwolf_00_Plugins/.classpath
 *.prefs
 werwolf_parent/Werwolf_99_tests/.classpath
 *.prefs
+werwolf_parent/Werwolf_02_Application/.classpath
+werwolf_parent/Werwolf_01_Adapters/.classpath
