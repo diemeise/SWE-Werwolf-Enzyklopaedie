@@ -16,7 +16,7 @@ import werwolf.adapter.output.OutputAdapter;
 public enum Kommandos {
 	
 	//TODO Liste alle guten Rollen auf
-	//TODO Liste alle bösen Rollen auf 
+	//TODO Liste alle boesen Rollen auf 
 	
     LIST_KARTEN("list-karten") {
     	@Override
@@ -65,7 +65,7 @@ public enum Kommandos {
 			
 			HashMap<String, String> karten = new HashMap<>();
 			karten = out.getKartenDetails(name);
-			//karten.forEach((k,v) -> System.out.println(k+": "+v)); //Sad das ist natürlich dann nicht sortiert :c
+			//karten.forEach((k,v) -> System.out.println(k+": "+v)); //Sad das ist natuerlich dann nicht sortiert :c
 			
 			String n = karten.get("Name");
 			String f = karten.get("Funktion");
@@ -189,7 +189,7 @@ public enum Kommandos {
             }
         }
     	System.out.println("Kommando Unbekannt!");
-		throw new Exception("Ungültiges Kommando!");
+		throw new Exception("Ungueltiges Kommando!");
     }
 
 	public boolean isRunning() {

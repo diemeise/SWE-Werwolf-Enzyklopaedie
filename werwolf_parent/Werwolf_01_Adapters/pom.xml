@@ -10,6 +10,12 @@
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
+  		<artifactId>Werwolf_03_Domain</artifactId>
+  		<groupId>Werwolf_03_Domain</groupId>
+  		<version>0.0.1</version>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
 	    <groupId>mysql</groupId>
 	    <artifactId>mysql-connector-java</artifactId>
 	    <version>8.0.28</version>

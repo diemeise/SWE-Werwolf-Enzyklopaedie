@@ -9,6 +9,18 @@
   		<version>0.0.1</version>
   		<scope>compile</scope>
   	</dependency>
+  	<dependency>
+  		<artifactId>Werwolf_02_Application</artifactId>
+  		<groupId>Werwolf_02_Application</groupId>
+  		<version>0.0.1</version>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<artifactId>Werwolf_03_Domain</artifactId>
+  		<groupId>Werwolf_03_Domain</groupId>
+  		<version>0.0.1</version>
+  		<scope>compile</scope>
+  	</dependency>
   </dependencies>
   <parent>
   	<groupId>werwolf</groupId>
