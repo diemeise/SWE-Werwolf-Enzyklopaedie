@@ -10,7 +10,7 @@ public class Spieler  implements Comparable<Spieler> {
 	
 	public Spieler(Rolle rolle, String name){ 
 		this.rolle = rolle;
-		this.lebendig = true;
+		this.setLebendig(true);
 		this.aktiv = false;
 		this.name = name;
 	}
@@ -32,6 +32,18 @@ public class Spieler  implements Comparable<Spieler> {
 	public int getPrio() {
 		return this.rolle.getPrioritaet();
 	}
+	
+	public String getName() {
+		return this.name;
+	}
+
+	public boolean istLebendig() {
+		return lebendig;
+	}
+
+	public void setLebendig(boolean lebendig) {
+		this.lebendig = lebendig;
+	}
 
 	/**
 	 * Vergleicht die Rollenprio
@@ -41,7 +53,11 @@ public class Spieler  implements Comparable<Spieler> {
 		return this.getRolle().compareTo(o.getRolle());
 	}
 
-	
+	@Override
+	public String toString() {
+		String r = "Spieler " + this.name + "("+ this.getRollenName() + "): " + this.getRolle().getFunktion();
+		return r;
+	}
 	
 	
 }

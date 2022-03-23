@@ -11,14 +11,14 @@ public class Rolle implements Comparable<Rolle>{
 	private boolean istBoese;
 	
 	
-	private Rolle() {
-		this.name = "";
-		this.funktion = "";
-		this.beschreibung = "";
-		this.istSpezial = false;
-		this.istBoese = false;
-		this.prioritaet = 1;
-	}
+//	private Rolle() {
+//		this.name = "";
+//		this.funktion = "";
+//		this.beschreibung = "";
+//		this.istSpezial = false;
+//		this.istBoese = false;
+//		this.prioritaet = 1;
+//	}
 	
 
 	
@@ -37,9 +37,9 @@ public class Rolle implements Comparable<Rolle>{
 	public void setAlignment(boolean alignment) {
 		this.istBoese = alignment;
 	}
-	
-	
-	
+
+
+
 	/*
 	 * just getters here
 	 */
@@ -78,7 +78,5 @@ public class Rolle implements Comparable<Rolle>{
 		return Integer.compare(prioritaet, o.prioritaet);
 	}
 
-	
-	
-	
+
 }

@@ -22,3 +22,14 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 auth.txt
+werwolf_parent/Werwolf_02_Application/.classpath
+werwolf_parent/Werwolf_01_Adapters/.settings/org.eclipse.jdt.core.prefs
+werwolf_parent/Werwolf_01_Adapters/.classpath
+werwolf_parent/Werwolf_01_Adapters/.settings/org.eclipse.jdt.core.prefs
+werwolf_parent/Werwolf_00_Plugins/.settings/org.eclipse.jdt.core.prefs
+werwolf_parent/Werwolf_00_Plugins/.classpath
+*.prefs
+werwolf_parent/Werwolf_99_tests/.classpath
+*.prefs
+werwolf_parent/Werwolf_02_Application/.classpath
+werwolf_parent/Werwolf_01_Adapters/.classpath
