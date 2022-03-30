@@ -26,7 +26,7 @@ public class Main {
 		String basePath = new File("").getAbsolutePath();
 		String relativePath = "\\data\\auth.txt";
 	    String authconfigPath = basePath + relativePath;
-		datei = authconfigPath;//"C:\\Users\\tamar\\eclipse-workspace\\SWE-Werwolf-Enzyklopaedie\\auth.txt";
+		datei = authconfigPath;
 		MySQLAuthentifizierung.ladeDatei(datei);
 		
 		url = MySQLAuthentifizierung.getUrl();

@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Arc?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="werwolf.plugins.gui.EventController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="werwolf.plugins.gui.EventController">
    <children>
-      <Button layoutX="634.0" layoutY="378.0" mnemonicParsing="false" text="click me " />
-      <Button layoutX="715.0" layoutY="378.0" mnemonicParsing="false" text="hit me " />
-      <Button layoutX="789.0" layoutY="378.0" mnemonicParsing="false" text="eat me " />
-      <Arc fx:id="pacman" fill="#dfff1f" layoutX="556.0" layoutY="391.0" length="270.0" radiusX="100.0" radiusY="100.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" />
-      <Button layoutX="989.0" layoutY="347.0" mnemonicParsing="false" onAction="#right" prefHeight="112.0" prefWidth="184.0" text="RIGHT" />
-      <Button layoutX="130.0" layoutY="347.0" mnemonicParsing="false" onAction="#left" prefHeight="112.0" prefWidth="184.0" text="LEFT" />
+      <Button fx:id="play_btn" layoutX="485.0" layoutY="416.0" mnemonicParsing="false" prefHeight="128.0" prefWidth="315.0">
+         <graphic>
+            <ImageView fx:id="play_img" fitHeight="167.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Pixelart/PLAY.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="enzy_btn" layoutX="485.0" layoutY="569.0" mnemonicParsing="false" prefHeight="128.0" prefWidth="315.0">
+         <graphic>
+            <ImageView fx:id="enzy_img" fitHeight="167.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Pixelart/ENZY.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

@@ -11,16 +11,12 @@ public class EventController {
 	private double x;
 	
 	
-	public void right(ActionEvent e) {
-		System.out.println("RIGHT");
-		x = pacman.getCenterX();
-		pacman.setCenterX(x+=10);
+	public void play(ActionEvent e) {
+		//TODO Play Button
 	}
 	
-	public void left(ActionEvent e) {
-		System.out.println("LEFT");
-		x = pacman.getCenterX();
-		pacman.setCenterX(x-=10);
+	public void enzy(ActionEvent e) {
+		//TODO Enzy Button
 	}
 
 }
