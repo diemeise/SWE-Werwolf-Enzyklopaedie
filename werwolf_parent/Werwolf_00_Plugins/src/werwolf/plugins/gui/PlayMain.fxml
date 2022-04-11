@@ -35,6 +35,6 @@
       <Line endX="14.0" endY="540.0" layoutX="663.0" layoutY="175.0" startX="4.0" startY="-108.0" />
       <TilePane fx:id="sonderRollenPane" layoutX="884.0" layoutY="228.0" prefHeight="200.0" prefWidth="200.0" />
       <ChoiceBox fx:id="spielerAnzahl" layoutX="195.0" layoutY="108.0" prefWidth="150.0" />
-      <Button fx:id="starteSpielButton" layoutX="1109.0" layoutY="679.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="118.0" text="Start!" />
+      <Button fx:id="starteSpielButton" layoutX="1109.0" layoutY="679.0" mnemonicParsing="false" onAction="#starteSpiel" prefHeight="37.0" prefWidth="118.0" text="Start!" />
    </children>
 </AnchorPane>

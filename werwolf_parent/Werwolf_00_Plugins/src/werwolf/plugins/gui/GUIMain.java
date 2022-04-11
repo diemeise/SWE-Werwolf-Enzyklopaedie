@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import werwolf.adapter.output.OutputAdapter;
 
 public class GUIMain extends Application {
 	
@@ -18,11 +19,14 @@ public class GUIMain extends Application {
 	private static final int STAGE_HEIGHT = 760;
 	
 	//GUI Komponenten
-	Parent root;
-	Scene scene;
-	Image icon;
+	 Parent root;
+	 Scene scene;
+	 Image icon;
 	
-	String css;
+	 String css;
+	
+	//Adapter
+	OutputAdapter out;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -44,7 +48,7 @@ public class GUIMain extends Application {
 	}
 	
 	/**
-	 * Layout für die Stage der GUI
+	 * Layout fï¿½r die Stage der GUI
 	 * @param stage
 	 */
 	public void definiereStage(Stage stage) {

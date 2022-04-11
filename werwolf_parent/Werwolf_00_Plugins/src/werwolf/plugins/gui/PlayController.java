@@ -2,17 +2,29 @@ package werwolf.plugins.gui;
 
 
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Stage;
 
 public class PlayController {
+	
+	private Parent root;
+	private Stage stage;
+	private Scene scene;
+	
+	String css;
 	
 	@FXML private TextField name0, name1, name2, name3, name4, name5, name6,
 													name7, name8, name9, name10, name11, name12, name13, name14;
@@ -41,6 +53,23 @@ public class PlayController {
 		int teilnehmende = spielerAnzahl.getValue();
 		setzeSichtbareTextfelder(teilnehmende);
 		
+	}
+	
+	//TODO Bei Button Click Spieler Namen + Sonderrollen speichern und an nächste Szene übergeben oder so
+	public void starteSpiel(ActionEvent e) throws IOException {
+	
+		root = FXMLLoader.load(getClass().getResource("SpielScene.fxml"));
+		css = getClass().getResource("application.css").toExternalForm();
+		
+		
+		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+		
+		scene = new Scene(root);
+		
+		scene.getStylesheets().add(css);
+		
+		stage.setScene(scene);
+		stage.show();
 	}
 	
 	//TODO Mit richtigen Sonderrollen verbinden
