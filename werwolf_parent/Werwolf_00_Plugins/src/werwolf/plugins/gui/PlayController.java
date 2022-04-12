@@ -57,7 +57,8 @@ public class PlayController {
 	public void getSpielerAnzahl(ActionEvent e) {
 		int teilnehmende = spielerAnzahlBox.getValue();
 		setzeSichtbareTextfelder(teilnehmende);
-		
+		//NUR FUER TESTMODUS, SONST AUSKOMMENTIEREN
+		testNamenEintragen(teilnehmende);		
 	}
 	
 	//TODO Bei Button Click Spieler Namen + Sonderrollen speichern und an nächste Szene übergeben oder so
@@ -186,6 +187,13 @@ public class PlayController {
 			spielerNamenArray[feld].setVisible(false);
 		}
 		
+	}
+	
+	//%%%%%%TEST METHODE UM NICHT ALLE NAMEN TIPPEN ZU MUESSEN %%%%%%%
+	public void testNamenEintragen(int spieleranzahl){
+		for(int feld = spieleranzahl-1; feld >= 0; feld-- ) {
+			spielerNamenArray[feld].setText("Testname");
+		}
 	}
 }
 

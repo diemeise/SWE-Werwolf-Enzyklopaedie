@@ -34,8 +34,12 @@ public class SpielerModel {
 		return status.get();
 	}
 	
-	public void setStatus() {
-		
+	public void toeteSpieler() {
+		this.status.set("verstorben");
+	}
+	
+	public void belebeSpieler() {
+		this.status.set("lebendig");
 	}
 	
 	

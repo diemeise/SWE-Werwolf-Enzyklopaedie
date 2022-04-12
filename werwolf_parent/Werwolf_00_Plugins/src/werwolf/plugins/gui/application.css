@@ -5,12 +5,16 @@
 }
 
 .button{
+	-fx-background-color: green;
+}
+
+#enzy_btn{
+	-fx-background-color: transparent;
+}
+#play_btn{
 	-fx-background-color: transparent;
 }
 
-#starteSpielButton{
-	-fx-background-color: green;
-}
 
 .check-box .box {
 	-fx-background-color: white;

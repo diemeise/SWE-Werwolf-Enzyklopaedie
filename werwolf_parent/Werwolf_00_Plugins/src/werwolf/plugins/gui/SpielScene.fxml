@@ -18,13 +18,10 @@
             <TableColumn fx:id="colRollenFunktion" prefWidth="281.0" text="Rollenfunktion" />
         </columns>
       </TableView>
-      <Label layoutX="87.0" layoutY="163.0" text="Ich sage was zu tun ist label" />
-      <Button layoutX="268.0" layoutY="159.0" mnemonicParsing="false" text="NächsterSchritt" />
-      <Pane layoutX="87.0" layoutY="264.0" prefHeight="218.0" prefWidth="525.0">
-         <children>
-            <Label layoutX="20.0" layoutY="14.0" text="Töte Spieler Box" />
-         </children>
-      </Pane>
-      <Button layoutX="604.0" layoutY="667.0" mnemonicParsing="false" text="Spiel Beenden" />
+      <Label fx:id="spielTextLabel" layoutX="87.0" layoutY="163.0" text="Ich sage was zu tun ist label" />
+      <Button fx:id="neachsterSchrittButton" layoutX="268.0" layoutY="159.0" mnemonicParsing="false" onAction="#neachsterSpielSchritt" text="NächsterSchritt" />
+      <Pane fx:id="toeteSpielerPane" layoutX="93.0" layoutY="263.0" prefHeight="218.0" prefWidth="525.0" />
+      <Button fx:id="beendeSpielButton" layoutX="604.0" layoutY="667.0" mnemonicParsing="false" onAction="#beendeSpiel" text="Spiel Beenden" />
+      <Label layoutX="93.0" layoutY="243.0" text="Töte Spieler Box" />
    </children>
 </AnchorPane>
