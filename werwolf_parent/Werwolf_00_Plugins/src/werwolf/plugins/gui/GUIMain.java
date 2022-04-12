@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import werwolf.adapter.output.OutputAdapter;
+import werwolf.plugins.main.Main;
 
 public class GUIMain extends Application {
 	
@@ -19,14 +20,14 @@ public class GUIMain extends Application {
 	private static final int STAGE_HEIGHT = 760;
 	
 	//GUI Komponenten
-	 Parent root;
-	 Scene scene;
-	 Image icon;
+	 private Parent root;
+	 private Scene scene;
+	 private Image icon;
 	
-	 String css;
+	 private String css;
 	
-	//Adapter
-	OutputAdapter out;
+	//OutputAdapter
+	 protected static OutputAdapter outputAdapter = Main.getOutputAdapter();
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -34,7 +35,6 @@ public class GUIMain extends Application {
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		
 		root = FXMLLoader.load(getClass().getResource("MainFX.fxml"));
 		css = getClass().getResource("application.css").toExternalForm();
 		
@@ -62,5 +62,8 @@ public class GUIMain extends Application {
 		
 		stage.setScene(scene);
 	}
+	
+	//TODO bessere Implementierung
+	
 
 }

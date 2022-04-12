@@ -20,9 +20,11 @@ public class Main {
 	
 	private static String datei;
 	
+	private static OutputAdapter outputAdapter;
 
 	public static void main(String[] args) {
 
+		
 		String basePath = new File("").getAbsolutePath();
 		String relativePath = "\\data\\auth.txt";
 	    String authconfigPath = basePath + relativePath;
@@ -38,6 +40,7 @@ public class Main {
 			SQLVerbindung mysql = new MySQLVerbindung(url, nutzer, passwort);
 			LibraryManager gameLibrary= new LibraryManager(new SQLKartenRepository(mysql), new SQLRollenRepository(mysql));
 			gameLibrary.initialisiereLibrary();
+			outputAdapter = new OutputAdapter(gameLibrary);
 			System.out.println("meep moop");
 			GUIMain.main(args);
 			
@@ -45,9 +48,11 @@ public class Main {
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
 		}
-		
-		
-		
+	}
+	
+	//
+	public static OutputAdapter getOutputAdapter() {
+		return outputAdapter;		
 	}
 
 }

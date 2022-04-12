@@ -204,7 +204,7 @@ public class GameController {
 
 	private Map<String,String> getDetailsOfSpieler(Spieler s) {
 		Map<String,String> returnMap = new HashMap<>();
-		String status = "lebt";
+		String status = "lebendig";
 		if (!s.istLebendig()) status = "verstorben";
 		returnMap.put("Spielername", s.getName());
 		

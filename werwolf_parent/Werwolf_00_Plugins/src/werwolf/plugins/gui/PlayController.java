@@ -5,13 +5,18 @@ package werwolf.plugins.gui;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -30,7 +35,7 @@ public class PlayController {
 													name7, name8, name9, name10, name11, name12, name13, name14;
 	private TextField[] spielerNamenArray = new TextField[15];
 	@FXML private TilePane sonderRollenPane;
-	@FXML private ChoiceBox<Integer> spielerAnzahl;
+	@FXML private ChoiceBox<Integer> spielerAnzahlBox;
 	private CheckBox c;
 	
 	private Integer[] anzahl;
@@ -41,23 +46,32 @@ public class PlayController {
 		befuelleSpielerAnzahlArray();
 		initTextfelder();
 		
-		spielerAnzahl.getItems().addAll(anzahl);
-		spielerAnzahl.getSelectionModel().select(0);
+		spielerAnzahlBox.getItems().addAll(anzahl);
+		spielerAnzahlBox.getSelectionModel().select(0);
 		
-		spielerAnzahl.setOnAction(this::getSpielerAnzahl);
+		spielerAnzahlBox.setOnAction(this::getSpielerAnzahl);
 		
 		
 	}
 	
 	public void getSpielerAnzahl(ActionEvent e) {
-		int teilnehmende = spielerAnzahl.getValue();
+		int teilnehmende = spielerAnzahlBox.getValue();
 		setzeSichtbareTextfelder(teilnehmende);
 		
 	}
 	
 	//TODO Bei Button Click Spieler Namen + Sonderrollen speichern und an nächste Szene übergeben oder so
 	public void starteSpiel(ActionEvent e) throws IOException {
-	
+		List<String> spielerNamen =  getSpielerNamen();
+		List<String> rollen = getRollen(); 
+		if(!(pruefeSpielerUndRollen(spielerNamen.size(), rollen.size()))) {
+			Alert alert = new Alert(AlertType.INFORMATION, "Spieleranzahl oder Rollenanzahl nicht korrekt!");
+			alert.showAndWait();
+			return;
+		}
+		GUIMain.outputAdapter.starteSpiel(spielerNamen, rollen);
+		
+		//naechster Screeen
 		root = FXMLLoader.load(getClass().getResource("SpielScene.fxml"));
 		css = getClass().getResource("application.css").toExternalForm();
 		
@@ -72,17 +86,55 @@ public class PlayController {
 		stage.show();
 	}
 	
+	private List<String> getRollen() {
+		List<String> rollenNamen = new ArrayList<String>(0);
+		//TODO fuers erste immer zwei woelfe
+		rollenNamen.add("werwolf");
+		rollenNamen.add("werwolf");
+		//alle Checkboxen durchgehen (Panel hat nur checkboxen )
+		ObservableList<Node> checkboxen = sonderRollenPane.getChildren();
+		for (Node node : checkboxen) {
+			CheckBox checkbox = (CheckBox) node;
+			if(checkbox.isSelected()) {
+				rollenNamen.add(checkbox.getText());
+			}
+		}
+		return rollenNamen;
+	}
+
+	//Spielernamen aus den sichtbaren Textfeldern speichern
+	private List<String> getSpielerNamen() {
+		List<String> spielerNamen = new ArrayList<String>(0);
+		for (TextField t: spielerNamenArray) {
+			if(t.isVisible()) {
+				if(!(t.getText().isBlank())) {
+					spielerNamen.add(t.getText());
+
+				}
+			}
+		}
+		return spielerNamen;
+	}
+	
+	private boolean pruefeSpielerUndRollen(int spielerNamenAnzahl, int rollenAnzahl) {
+		int spielerAnzahl = spielerAnzahlBox.getValue();
+		if ((spielerAnzahl > spielerNamenAnzahl) || (spielerAnzahl <= rollenAnzahl)) {
+			return false;
+		}
+		
+		return true;
+	}
+
 	//TODO Mit richtigen Sonderrollen verbinden
 	@FXML
 	private void baueCheckboxen() {
-		ArrayList<String> list = new ArrayList<>();
-		list.add("Weißer Werwolf");
-		list.add("Super duper Bauer");
-		list.add("Hexe");
+		//Sonderrollen finden (Key: Name, Value: Funktion)
+		Map<String,String> spezialKarten = GUIMain.outputAdapter.getAlleSpezialKarten();
+		ArrayList<String> listeDerKarten = new ArrayList<String>( spezialKarten.keySet());
 		
-		for(int i = 0; i < list.size(); i++) {
-			 c = new CheckBox(list.get(i));
-			
+		
+		for(int i = 0; i < listeDerKarten.size(); i++) {
+			 c = new CheckBox(listeDerKarten.get(i));			
 			sonderRollenPane.getChildren().add(c);
 			c.setIndeterminate(false);
 			

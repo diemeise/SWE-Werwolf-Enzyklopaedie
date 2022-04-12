@@ -7,15 +7,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="760.0" maxWidth="1300.0" minHeight="760.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="760.0" maxWidth="1300.0" minHeight="760.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="werwolf.plugins.gui.SpielController">
    <children>
-      <Label fx:id="phasenLabel" layoutX="40.0" layoutY="48.0" text="Aktuelle Phase: Nacht1" />
-      <TableView layoutX="776.0" layoutY="130.0" prefHeight="250.0" prefWidth="453.0">
+      <Label fx:id="phasenLabel" layoutX="40.0" layoutY="48.0" text="Aktuelle Phase: Nacht 1" />
+      <TableView fx:id="spielerTabelle" layoutX="686.0" layoutY="130.0" prefHeight="454.0" prefWidth="543.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Spielername" />
-          <TableColumn prefWidth="75.0" text="Rolle" />
-            <TableColumn prefWidth="75.0" text="Lebend" />
-            <TableColumn prefWidth="180.0" text="Rollenfunktion" />
+          <TableColumn fx:id="colSpielername" prefWidth="105.0" text="Spielername" />
+          <TableColumn fx:id="colSpielerRolle" prefWidth="72.0" text="Rolle" />
+            <TableColumn fx:id="colSpielerLeben" prefWidth="84.0" text="Lebend" />
+            <TableColumn fx:id="colRollenFunktion" prefWidth="281.0" text="Rollenfunktion" />
         </columns>
       </TableView>
       <Label layoutX="87.0" layoutY="163.0" text="Ich sage was zu tun ist label" />
