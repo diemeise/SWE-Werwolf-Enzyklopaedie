@@ -17,7 +17,7 @@ public class GUIMain extends Application {
 	//FINALS
 	private static final String STAGE_TITLE = "Werw" + oe + "lfe vom D" + ue + "sterwald!";
 	private static final int STAGE_WIDTH = 1300;
-	private static final int STAGE_HEIGHT = 760;
+	private static final int STAGE_HEIGHT = 800;
 	
 	//GUI Komponenten
 	 private Parent root;
