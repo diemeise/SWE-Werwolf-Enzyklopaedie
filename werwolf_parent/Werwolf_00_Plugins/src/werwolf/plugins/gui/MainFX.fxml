@@ -20,7 +20,7 @@
          <graphic>
             <ImageView fx:id="enzy_img" fitHeight="167.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Pixelart/ENZY.png" />
+                  <Image url="@Pixelart/HELP.png" />
                </image>
             </ImageView>
          </graphic>
