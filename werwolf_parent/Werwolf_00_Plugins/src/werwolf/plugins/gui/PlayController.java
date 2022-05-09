@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,6 +22,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class PlayController {
@@ -34,7 +36,7 @@ public class PlayController {
 	@FXML private TextField name0, name1, name2, name3, name4, name5, name6,
 													name7, name8, name9, name10, name11, name12, name13, name14;
 	private TextField[] spielerNamenArray = new TextField[15];
-	@FXML private TilePane sonderRollenPane;
+	@FXML private VBox cBox;
 	@FXML private ChoiceBox<Integer> spielerAnzahlBox;
 	private CheckBox c;
 	
@@ -93,7 +95,7 @@ public class PlayController {
 		rollenNamen.add("werwolf");
 		rollenNamen.add("werwolf");
 		//alle Checkboxen durchgehen (Panel hat nur checkboxen )
-		ObservableList<Node> checkboxen = sonderRollenPane.getChildren();
+		ObservableList<Node> checkboxen = cBox.getChildren();
 		for (Node node : checkboxen) {
 			CheckBox checkbox = (CheckBox) node;
 			if(checkbox.isSelected()) {
@@ -135,11 +137,18 @@ public class PlayController {
 		
 		
 		for(int i = 0; i < listeDerKarten.size(); i++) {
-			 c = new CheckBox(listeDerKarten.get(i));			
-			sonderRollenPane.getChildren().add(c);
+			 c = new CheckBox(listeDerKarten.get(i));	
+			 
+			 
+			cBox.getChildren().add(c);
 			c.setIndeterminate(false);
 			
+			
 		}
+		
+		cBox.setSpacing(9);
+		
+		
 	}
 
 	/**

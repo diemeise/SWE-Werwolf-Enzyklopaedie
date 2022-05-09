@@ -1,5 +1,5 @@
 .root{
-	 -fx-background-color:"#0a0000"; 
+	 -fx-background-color:"#1c0a08"; 
 	
 
 }
@@ -15,10 +15,15 @@
 	-fx-background-color: transparent;
 }
 
+#starteSpielButton{
+	-fx-background-color: transparent;
+}
+
 
 .check-box .box {
 	-fx-background-color: white;
 	-fx-border-color: grey;
 	-fx-border-radius: 3; 
+	
 }
 
