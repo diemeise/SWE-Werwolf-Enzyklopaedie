@@ -9,6 +9,7 @@ import werwolf.adapter.output.OutputAdapter;
 import werwolf.adapter.sql.SQLKartenRepository;
 import werwolf.adapter.sql.SQLVerbindung;
 import werwolf.plugins.console.KonsolenMain;
+import werwolf.plugins.gui.GUIMain;
 import werwolf.plugins.sql.MySQLAuthentifizierung;
 import werwolf.plugins.sql.MySQLVerbindung;
 public class Main {
@@ -19,13 +20,15 @@ public class Main {
 	
 	private static String datei;
 	
+	private static OutputAdapter outputAdapter;
 
 	public static void main(String[] args) {
 
+		
 		String basePath = new File("").getAbsolutePath();
 		String relativePath = "\\data\\auth.txt";
 	    String authconfigPath = basePath + relativePath;
-		datei = authconfigPath;//"C:\\Users\\tamar\\eclipse-workspace\\SWE-Werwolf-Enzyklopaedie\\auth.txt";
+		datei = authconfigPath;
 		MySQLAuthentifizierung.ladeDatei(datei);
 		
 		url = MySQLAuthentifizierung.getUrl();
@@ -37,13 +40,19 @@ public class Main {
 			SQLVerbindung mysql = new MySQLVerbindung(url, nutzer, passwort);
 			LibraryManager gameLibrary= new LibraryManager(new SQLKartenRepository(mysql), new SQLRollenRepository(mysql));
 			gameLibrary.initialisiereLibrary();
+			outputAdapter = new OutputAdapter(gameLibrary);
 			System.out.println("meep moop");
-			KonsolenMain.exeKonsole(new OutputAdapter(gameLibrary));
+			GUIMain.main(args);
+			
+			//KonsolenMain.exeKonsole(new OutputAdapter(gameLibrary));
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
 		}
-		
-		
+	}
+	
+	//
+	public static OutputAdapter getOutputAdapter() {
+		return outputAdapter;		
 	}
 
 }
