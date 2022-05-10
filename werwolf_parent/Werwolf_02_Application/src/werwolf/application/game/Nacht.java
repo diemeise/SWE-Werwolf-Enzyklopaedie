@@ -25,28 +25,47 @@ public class Nacht {
 	
 	/**
 	 * setzt den naechsten Spieler auf aktiv
-	 * @throws GameException
+	 * @return false, wenn Phase abgeschlossen, sonst true
 	 */
-	public void naechsterSpielschritt() throws GameException {
-		if(phaseAbgeschlossen) {
-			throw new GameException("Phase ist bereits abgeschlossen!");
+	public boolean naechsterSpielschritt(){
+	
+//		if(phaseAbgeschlossen) {
+//			throw new GameException("Phase ist bereits abgeschlossen!");
+//		}
+		if (phaseAbgeschlossen) {
+			return false;
 		}
 		
 		//setze ersten Spieler auf aktiv
 		if (!phaseAngefangen) {
-			aktiverSpieler = findeErstenSpieler();
 			phaseAngefangen = true;
-			aktiverSpieler.setAktiv(false);
-			return;
+			//aktiverSpieler = findeErstenSpieler();
+			
+			if(setErstenSpieler()) {
+				aktiverSpieler.setAktiv(true);
+				return true;
+			}			
+			phaseAbgeschlossen = true;
+			return false;			
 		}
 		
 		//setze naechsten Spieler aktiv
-		aktiverSpieler.setAktiv(false);
-		try {
-			aktiverSpieler = findeNaechstenSpieler();
-		}catch (GameException e) {
+		aktiverSpieler.setAktiv(false);		
+		
+		
+		if(!setNaechstenSpieler()) {
 			phaseAbgeschlossen = true;
+			return false;
 		}
+		
+//		try {
+//			aktiverSpieler = findeNaechstenSpieler();
+//		}catch (GameException e) {
+//			phaseAbgeschlossen = true;
+//		}
+		//schauen ob das so gut ist 
+		aktiverSpieler.setAktiv(true);
+		return true;
 	}
 
 	
@@ -66,15 +85,14 @@ public class Nacht {
 	public List<Spieler> getSpieler(){
 		return lebendeSpielerBeiStart;
 	}
+	
 	/**
 	 * funktioniert nur wenn die Spielphase als abgeschlossen markiert ist
 	 * @return
 	 * @throws GameException
 	 */
 	public List<Spieler> getUeberlebendeSpieler() throws GameException{
-		if(!phaseAbgeschlossen) {
-			throw new GameException("Spielphase noch nicht beendet.");
-		}
+
 		List <Spieler> ueberlebendeSpieler = new LinkedList<>();
 		for (Spieler spieler : lebendeSpielerBeiStart) {
 			if (!eliminierteSpieler.contains(spieler)) {
@@ -98,24 +116,61 @@ public class Nacht {
 		}
 	}
 	
+//	/**
+//	 * findet den ersten Spieler, dessen Rolle eine positive Prio hat (Spielerliste ist nach Prio sortiert)
+//	 * ==> es wurden noch keine Spieler eliminiert daher keine weiteren Ueberpruefungen notwendig
+//	 * @return
+//	 * @throws GameException 
+//	 */
+//	private Spieler findeErstenSpieler() throws GameException {
+//		for (Spieler spieler : lebendeSpielerBeiStart) {
+//			if(spieler.getPrio() > 0) {
+//				return spieler;
+//			}
+//		}
+//		//TODO null ist kacke
+//		throw new GameException("Keine aktiven Spieler diese Nacht!");
+//	}
+	
 	/**
-	 * findet den ersten Spieler, dessen Rolle eine positive Prio hat
+	 * findet den ersten Spieler, dessen Rolle eine positive Prio hat (Spielerliste ist nach Prio sortiert)
 	 * ==> es wurden noch keine Spieler eliminiert daher keine weiteren Ueberpruefungen notwendig
-	 * @return
+	 * @return true wenn es einen Spieler gibt, sonst false
 	 * @throws GameException 
 	 */
-	private Spieler findeErstenSpieler() throws GameException {
+	private boolean setErstenSpieler(){
 		for (Spieler spieler : lebendeSpielerBeiStart) {
 			if(spieler.getPrio() > 0) {
-				return spieler;
+				aktiverSpieler = spieler;
+				return true;
 			}
 		}
+		return false;
 		//TODO null ist kacke
-		throw new GameException("Keine aktiven Spieler diese Nacht!");
+//		throw new GameException("Keine aktiven Spieler diese Nacht!");
 	}
 	
 	
-	private Spieler findeNaechstenSpieler() throws GameException {
+//	private Spieler findeNaechstenSpieler() throws GameException {
+//		int indexAktiverSpieler = lebendeSpielerBeiStart.indexOf(aktiverSpieler);
+//		
+//		//finde den nächsten nicht eliminerten Spieler
+//		while(indexAktiverSpieler < lebendeSpielerBeiStart.size()-1) {
+//			indexAktiverSpieler++;
+//			Spieler naechsterSpieler = lebendeSpielerBeiStart.get(indexAktiverSpieler);
+//			if (!eliminierteSpieler.contains(naechsterSpieler)) {
+//				return naechsterSpieler;
+//			}			
+//		}
+//		//keine weiteren Spieler vorhanden
+//		throw new GameException("Keine weiteren Spieler diese Nacht!"); 
+//	}
+	
+	/**
+	 * findet den naechsten aktiven Spieler, und setzt diesen auf aktiv, Falls es einen gibt
+	 * @return true wenn naechsten Spieler gefunden, sonst false
+	 */
+	private boolean setNaechstenSpieler() {
 		int indexAktiverSpieler = lebendeSpielerBeiStart.indexOf(aktiverSpieler);
 		
 		//finde den nächsten nicht eliminerten Spieler
@@ -123,12 +178,13 @@ public class Nacht {
 			indexAktiverSpieler++;
 			Spieler naechsterSpieler = lebendeSpielerBeiStart.get(indexAktiverSpieler);
 			if (!eliminierteSpieler.contains(naechsterSpieler)) {
-				return naechsterSpieler;
+				aktiverSpieler = naechsterSpieler;
+				return true;
 			}			
 		}
 		//keine weiteren Spieler vorhanden
-		throw new GameException("Keine weiteren Spieler diese Nacht!"); 
+		return false;
+		//throw new GameException("Keine weiteren Spieler diese Nacht!"); 
 	}
-	
 
 }

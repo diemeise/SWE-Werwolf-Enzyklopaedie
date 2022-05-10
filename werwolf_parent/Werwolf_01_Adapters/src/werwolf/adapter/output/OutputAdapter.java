@@ -32,6 +32,43 @@ public class OutputAdapter {
 		return gamelib.getKartenRepository().zeigeNameUndFunktion();
 	}
 	
+	
+	private Map<String,String> filterKarten(String filter){
+		Map<String, String> filteredRollen = new HashMap<>();
+		karten = gamelib.getKartenRepository().getKarten(); //TODO au�erhalb der Methoden initialisieren?
+		
+		for (String key: karten.keySet()) {
+			
+			if(filter == "spezial") {
+				if(karten.get(key).getRolle().istSpezial()) {
+					name = karten.get(key).getRolle().getName();
+					funk = karten.get(key).getRolle().getFunktion();
+					
+					filteredRollen.put(name, funk);
+				}
+			}
+			if(filter == "boese") {
+				if(karten.get(key).getRolle().istBoese()) {
+					name = karten.get(key).getRolle().getName();
+					funk = karten.get(key).getRolle().getFunktion();
+					
+					filteredRollen.put(name, funk);
+				}
+			}
+			if(filter == "gut") {
+				if(!karten.get(key).getRolle().istBoese()) {
+					name = karten.get(key).getRolle().getName();
+					funk = karten.get(key).getRolle().getFunktion();
+					
+					filteredRollen.put(name, funk);
+				}
+			}
+			
+		}
+		
+		return filteredRollen;
+		
+	}
 	//TODO Das ist zu viel Code, da lieber ne Methode machen mit der dem put und die dann aufrufen mit irgendeinem Paramerter oder so [DRY]
 	public Map<String, String> getAlleSpezialKarten(){
 		
@@ -93,6 +130,8 @@ public class OutputAdapter {
 		
 		return gut;
 	}
+
+	
 	
 public HashMap<String, String> getKartenDetails(String k){
 		Karte karte;

@@ -42,9 +42,9 @@ public class Main {
 			gameLibrary.initialisiereLibrary();
 			outputAdapter = new OutputAdapter(gameLibrary);
 			System.out.println("meep moop");
-			GUIMain.main(args);
+			//GUIMain.main(args);
 			
-			//KonsolenMain.exeKonsole(new OutputAdapter(gameLibrary));
+			KonsolenMain.exeKonsole(new OutputAdapter(gameLibrary));
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
 		}

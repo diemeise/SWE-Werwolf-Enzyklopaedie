@@ -41,7 +41,7 @@ public class GameController {
 	 */
 	private String starteSpiel(List<Spieler>spieler) {
 		try {
-			game = new GameLoop(spieler);
+			game = new GameLoop(spieler); 
 			gameCreated = true;
 			game.starteErstePhase();
 		}catch (GameException e) {

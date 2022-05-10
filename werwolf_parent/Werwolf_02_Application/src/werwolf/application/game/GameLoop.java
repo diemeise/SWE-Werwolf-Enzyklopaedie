@@ -36,16 +36,22 @@ public class GameLoop {
 
 /**
  * startet den GameLoop und führt den ersten Schritt in der ersten Nacht aus
- * @throws GameException wenn Spiel bereits gesppielt
+ * @throws GameException wenn Spiel bereits gespielt
+ * @return Statusmessage 
  */
-	public void starteErstePhase() throws GameException {	
+	public String starteErstePhase() throws GameException {	
+//		if (istGespielt()) {
+//			throw new GameException("Spiel wurde schon gespielt!");
+//		}
 		if (istGespielt()) {
-			throw new GameException("Spiel wurde schon gespielt!");
+			return "Spiel wurde schon abgeschlossen!";
 		}
 		//startet die erste Phase mit allen Spielern
 		this.phasen.add(new Nacht(spieler));
 		this.aktiv = true;
 		this.naechsterSchritt();
+		
+		return "Spiel gestartet";
 		
 	}
 	
@@ -70,17 +76,20 @@ public class GameLoop {
 		if (pruefeSpielGewonnen()) {
 			return false;
 		}
+		//zb: spiel starte ->spiel beende ->spielschritt
 		if(!this.aktiv || this.gespielt) {
 			throw new GameException("Spiel nicht aktiv!");
 		}
-		try {
+		if(getAktuellePhase().istAbgeschlossen()) {
 			phasen.add(new Nacht(getAktuellePhase().getUeberlebendeSpieler()));
 			return true;
-		} catch (GameException e) {
-			//Spielphase noch nicht abgeschlossen
-			System.err.print(e.getMessage());
-			return false;
 		}
+		//naechste Phase kann nicht gestartet werden
+		return false;
+		
+		
+		//throw new GameException("Spiel kann nicht forgesetzt werden.");
+
 	}
 	
 	
@@ -88,18 +97,21 @@ public class GameLoop {
 	 * fuehrt einen Schritt in der aktuellen Phase aus
 	 * gibt false zurueck wenn die aktuelle Phase bereits abgeschlossen ist
 	 * @throws GameException wenn kein Spiel aktiv
+	 * @return false wenn Spielphase schon abgeschlossen, sonst true
 	 */
 	public boolean naechsterSchritt() throws GameException {
 		if(!this.aktiv || this.gespielt) {
 			throw new GameException("Spiel nicht aktiv!");
 		}
-		try {
-			getAktuellePhase().naechsterSpielschritt();
-			return true;
-		} catch (GameException e) {
-			System.err.print(e.getMessage());
-			return false;
-		}
+	
+		return getAktuellePhase().naechsterSpielschritt();
+//		try {
+//			getAktuellePhase().naechsterSpielschritt();
+//			return true;
+//		} catch (GameException e) {
+//			System.err.print(e.getMessage());
+//			return false;
+//		}
 		
 	}
 	
@@ -188,6 +200,11 @@ public class GameLoop {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param spieler2
+	 * @throws GameException wenn keine Spieler oder keine bösen Spieler vorhanden sind
+	 */
 	private void ueberpruefeSpieler(List<Spieler> spieler2) throws GameException {
 		if(spieler2.isEmpty()) {
 			throw new GameException("Keine Spieler uebergeben!");
