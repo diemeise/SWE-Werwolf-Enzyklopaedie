@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import werwolf.application.game.GameLoop;
 import werwolf.application.game.Nacht;
+import werwolf.application.game.Spielphase;
 import werwolf.application.game.library.LibraryManager;
 import werwolf.domain.game.content.Rolle;
 import werwolf.domain.game.content.Spieler;
@@ -86,11 +87,11 @@ public class GameController {
 		try{
 			//ueberpfuefe zuerst ob ein neuer Schritt in dieser Phase m�glich ist
 			if(game.naechsterSchritt()) {
-				return "Nacht wird fortgefuehrt";
+				return "Phase wird fortgefuehrt";
 			}
-			//wenn false, dann neue Nacht erstellen
+			//wenn false, dann neue Phase erstellen
 			if(game.naechstePhase()) {
-				return "Die Nacht ist vorbei. Eine neue Nacht beginnt.";
+				return "Die Phase ist vorbei. Eine neue Phase beginnt.";
 			}
 			//wenn beides false, dann ist das Spiel vorbei.
 			return "Das Spiel ist vorbei";
@@ -158,7 +159,7 @@ public class GameController {
 	
 
 	public Map<String,String> listSpielphase() {
-		Nacht n = game.getAktuellePhase();
+		Spielphase n = game.getAktuellePhase();
 		Map<String,String> returnMap = new HashMap<>();
 		returnMap.put("Aktiver_Spieler", n.getAktiverSpieler().getName());
 		returnMap.put("Anzahl", String.valueOf(game.getPhasen().size()));

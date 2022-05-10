@@ -6,58 +6,43 @@ import java.util.List;
 import werwolf.domain.game.content.Spieler;
 import werwolf.domain.game.exceptions.GameException;
 
-public class Nacht extends Spielphase{
+public class Tag extends Spielphase{
 	
-	
-	public Nacht(List<Spieler> lebendeSpieler) {
+	//nach Prio sortierte Liste aller aktivern Spieler bei Start
+	boolean temp;
+	public Tag(List<Spieler> lebendeSpieler) {
 		super(lebendeSpieler);
+		temp = false;
 	}
 	
-	/**
-	 * setzt den naechsten Spieler auf aktiv
+	
+	/*
+	 *  waehlt bei Bedarf einen neuen Buergermeister
+	 *  danach wird dieser auf Aktiv gesetzt, da er die Diskussion leitet
 	 * @return false, wenn Phase abgeschlossen, sonst true
 	 */
 	public boolean naechsterSpielschritt(){
-		
-//		if(phaseAbgeschlossen) {
-//			throw new GameException("Phase ist bereits abgeschlossen!");
+		aktiverSpieler = lebendeSpielerBeiStart.get(0);
+		//		if(buergermeister == null || !buergermeister.istLebendig()) {
+//			return false;
 //		}
-		if (phaseAbgeschlossen) {
-			return false;
+		
+		if(!temp) {
+			temp = true;
+			return true;
 		}
 		
-		//setze ersten Spieler auf aktiv
-		if (!phaseAngefangen) {
-			phaseAngefangen = true;
-			//aktiverSpieler = findeErstenSpieler();
-			
-			if(setErstenSpieler()) {
-				aktiverSpieler.setAktiv(true);
-				return true;
-			}			
+		if(!phaseAbgeschlossen) {
 			phaseAbgeschlossen = true;
-			return false;			
+			return true;
 		}
 		
-		//setze naechsten Spieler aktiv
-		aktiverSpieler.setAktiv(false);		
 		
-		
-		if(!setNaechstenSpieler()) {
-			phaseAbgeschlossen = true;
-			return false;
-		}
-		
-//		try {
-//			aktiverSpieler = findeNaechstenSpieler();
-//		}catch (GameException e) {
-//			phaseAbgeschlossen = true;
-//		}
-		//schauen ob das so gut ist 
-		aktiverSpieler.setAktiv(true);
-		return true;
+		return false;
 	}
 
+
+	
 	
 //	/**
 //	 * findet den ersten Spieler, dessen Rolle eine positive Prio hat (Spielerliste ist nach Prio sortiert)
@@ -89,6 +74,8 @@ public class Nacht extends Spielphase{
 			}
 		}
 		return false;
+		//TODO null ist kacke
+//		throw new GameException("Keine aktiven Spieler diese Nacht!");
 	}
-	
+		
 }

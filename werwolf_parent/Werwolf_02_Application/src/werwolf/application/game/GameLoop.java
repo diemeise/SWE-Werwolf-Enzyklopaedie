@@ -12,7 +12,8 @@ public class GameLoop {
 	
 	private List<Spieler> spieler;
 	private List<Spieler> gewinner;
-	private List<Nacht> phasen;
+	private List<Spielphase> phasen;
+	private Spieler buergermeister;
 	private boolean aktiv;
 	private boolean gespielt;
 	
@@ -26,7 +27,7 @@ public class GameLoop {
  		this.ueberpruefeSpieler(spieler); 
  		Collections.sort(spieler);
  		this.spieler = spieler;
-		this.phasen = new LinkedList<Nacht>();
+		this.phasen = new LinkedList<Spielphase>();
 		this.aktiv = false;
 		this.gespielt = false;
 	}
@@ -46,8 +47,9 @@ public class GameLoop {
 		if (istGespielt()) {
 			return "Spiel wurde schon abgeschlossen!";
 		}
+		
 		//startet die erste Phase mit allen Spielern
-		this.phasen.add(new Nacht(spieler));
+		this.phasen.add(new Tag(spieler));
 		this.aktiv = true;
 		this.naechsterSchritt();
 		
@@ -81,6 +83,11 @@ public class GameLoop {
 			throw new GameException("Spiel nicht aktiv!");
 		}
 		if(getAktuellePhase().istAbgeschlossen()) {
+			if(getAktuellePhase().getClass() == Tag.class)
+			{
+				phasen.add(new Nacht(getAktuellePhase().getUeberlebendeSpieler()));
+				return true;
+			}
 			phasen.add(new Nacht(getAktuellePhase().getUeberlebendeSpieler()));
 			return true;
 		}
@@ -105,13 +112,7 @@ public class GameLoop {
 		}
 	
 		return getAktuellePhase().naechsterSpielschritt();
-//		try {
-//			getAktuellePhase().naechsterSpielschritt();
-//			return true;
-//		} catch (GameException e) {
-//			System.err.print(e.getMessage());
-//			return false;
-//		}
+
 		
 	}
 	
@@ -125,7 +126,7 @@ public class GameLoop {
 		return getAktuellePhase().getAktiverSpieler();
 	}
 	
-	public Nacht getAktuellePhase() {
+	public Spielphase getAktuellePhase() {
 		return this.phasen.get(this.phasen.size()-1);
 	}
 	
@@ -145,7 +146,7 @@ public class GameLoop {
 	}
 
 
-	public List<Nacht> getPhasen() {
+	public List<Spielphase> getPhasen() {
 		return phasen;
 	}
 	
@@ -172,12 +173,7 @@ public class GameLoop {
 	 */
 	public boolean pruefeSpielGewonnen() {
 		List<Spieler> lebendeSpieler;
-		try {
-			lebendeSpieler = this.getAktuellePhase().getUeberlebendeSpieler();
-		} catch (GameException e) {
-			//Spielphase nicht vorbei
-			return false;
-		}
+		lebendeSpieler = this.getAktuellePhase().getUeberlebendeSpieler();
 		
 		//wenn alle Spieler "boese" oder alle Spieler "nichtBoese" dann ist das Spiel vorbei
 		boolean boeseUebrig = false;

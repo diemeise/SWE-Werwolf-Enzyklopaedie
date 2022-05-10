@@ -247,7 +247,7 @@ public class GameLoopTest {
 			}
 			
 			
-			//assert dass nur eine Phase vorhanden ist (in der linked List sind trotzdem 2 Einträge, da dieselbe Nacht)
+			//assert dass nur eine Phase vorhanden ist
 			int expected = 1;
 			MatcherAssert.assertThat(game.getPhasen().size(), is(expected));
 	 }
