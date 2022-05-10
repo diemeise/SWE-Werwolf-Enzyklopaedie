@@ -109,7 +109,7 @@ public class SpielController {
 		
 		if(option.get() == ButtonType.OK) {
 			//Wieder auf den Startbildschirm
-			root = FXMLLoader.load(getClass().getResource("fxml\\MainFX.fxml"));
+			root = FXMLLoader.load(getClass().getResource("fxml\\Startseite.fxml"));
 			css = getClass().getResource("fxml\\application.css").toExternalForm();
 			
 			

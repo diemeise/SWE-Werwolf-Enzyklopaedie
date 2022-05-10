@@ -14,7 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
-public class SceneController {
+public class StartseiteController {
 	
 	private Parent root;
 	private Stage stage;
@@ -29,7 +29,7 @@ public class SceneController {
 	public void play(ActionEvent e) throws IOException {
 		//TODO Play Button
 		System.out.println("Play");
-		root = FXMLLoader.load(getClass().getResource("fxml\\PlayMain.fxml"));
+		root = FXMLLoader.load(getClass().getResource("fxml\\SpielErstellen.fxml"));
 		css = getClass().getResource("fxml\\application.css").toExternalForm();
 		
 		

@@ -25,7 +25,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class PlayController {
+public class SpielErstellenController {
 	
 	private Parent root;
 	private Stage stage;
