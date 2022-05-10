@@ -29,8 +29,8 @@ public class SceneController {
 	public void play(ActionEvent e) throws IOException {
 		//TODO Play Button
 		System.out.println("Play");
-		root = FXMLLoader.load(getClass().getResource("PlayMain.fxml"));
-		css = getClass().getResource("application.css").toExternalForm();
+		root = FXMLLoader.load(getClass().getResource("fxml\\PlayMain.fxml"));
+		css = getClass().getResource("fxml\\application.css").toExternalForm();
 		
 		
 		stage = (Stage)((Node)e.getSource()).getScene().getWindow();

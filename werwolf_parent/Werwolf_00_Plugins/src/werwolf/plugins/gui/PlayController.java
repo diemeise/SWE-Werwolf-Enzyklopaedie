@@ -75,8 +75,8 @@ public class PlayController {
 		GUIMain.outputAdapter.starteSpiel(spielerNamen, rollen);
 		
 		//naechster Screeen
-		root = FXMLLoader.load(getClass().getResource("SpielScene.fxml"));
-		css = getClass().getResource("application.css").toExternalForm();
+		root = FXMLLoader.load(getClass().getResource("fxml\\SpielScene.fxml"));
+		css = getClass().getResource("fxml\\application.css").toExternalForm();
 		
 		
 		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
@@ -201,7 +201,7 @@ public class PlayController {
 	//%%%%%%TEST METHODE UM NICHT ALLE NAMEN TIPPEN ZU MUESSEN %%%%%%%
 	public void testNamenEintragen(int spieleranzahl){
 		for(int feld = spieleranzahl-1; feld >= 0; feld-- ) {
-			spielerNamenArray[feld].setText("Testname");
+			spielerNamenArray[feld].setText("Testname" + feld);
 		}
 	}
 }
