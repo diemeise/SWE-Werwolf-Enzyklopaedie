@@ -14,6 +14,7 @@ public class GameLoop {
 	private List<Spieler> gewinner;
 	private List<Spielphase> phasen;
 	private Spieler buergermeister;
+	private String status;
 	private boolean aktiv;
 	private boolean gespielt;
 	
@@ -41,19 +42,16 @@ public class GameLoop {
  * @return Statusmessage 
  */
 	public String starteErstePhase() throws GameException {	
-//		if (istGespielt()) {
-//			throw new GameException("Spiel wurde schon gespielt!");
-//		}
+
 		if (istGespielt()) {
 			return "Spiel wurde schon abgeschlossen!";
 		}
 		
 		//startet die erste Phase mit allen Spielern
-		this.phasen.add(new Tag(spieler));
+		this.phasen.add(new Tag(spieler, this));
 		this.aktiv = true;
-		this.naechsterSchritt();
-		
-		return "Spiel gestartet";
+		//this.naechsterSchritt();
+		return getStatus();
 		
 	}
 	
@@ -85,10 +83,12 @@ public class GameLoop {
 		if(getAktuellePhase().istAbgeschlossen()) {
 			if(getAktuellePhase().getClass() == Tag.class)
 			{
-				phasen.add(new Nacht(getAktuellePhase().getUeberlebendeSpieler()));
+				this.buergermeister = getAktuellePhase().getBuergermeister();
+				phasen.add(new Nacht(getAktuellePhase().getUeberlebendeSpieler(), this));
 				return true;
 			}
-			phasen.add(new Nacht(getAktuellePhase().getUeberlebendeSpieler()));
+			//
+			phasen.add(new Tag(getAktuellePhase().getUeberlebendeSpieler(), this, buergermeister));
 			return true;
 		}
 		//naechste Phase kann nicht gestartet werden
@@ -120,6 +120,14 @@ public class GameLoop {
 		spieler.setLebendig(false);
 		return getAktuellePhase().eliminiere(spieler);
 	}
+	
+	public boolean setBuergermeister(Spieler bg) {
+		return getAktuellePhase().setBuergermeister(bg);
+	}
+	public Spieler getBuergermeister() {
+		return getAktuellePhase().getBuergermeister();
+	}
+	
 	
 	
 	public Spieler getAktiverSpieler() {
@@ -164,7 +172,12 @@ public class GameLoop {
 	public List<Spieler> getGewinner(){
 		return gewinner;
 	}
-	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	
 	
 	/**
@@ -215,6 +228,4 @@ public class GameLoop {
 			throw new GameException("Es muss ein Wolf / eine boese Karte vorhanden sein!");
 		}
 	}
-	
-
 }

@@ -112,6 +112,10 @@ public HashMap<String, String> getKartenDetails(String k){
 		return gameCon.eliminiereSpieler(spielerName);
 	}
 	
+	public String setBuergermeister(String spielerName) {
+		return gameCon.setBuergermeister(spielerName);
+	}
+	
 	public Map<String,String> getDetailsOfSpieler(String spielerName){
 		return gameCon.getSpielerDetails(spielerName);
 	}
@@ -120,6 +124,9 @@ public HashMap<String, String> getKartenDetails(String k){
 		return gameCon.getAktiverSpielerDetails();
 	}
 	
+	public String getSpielStatus() {
+		return gameCon.getSpielStatus();
+	}
 	public List<Map<String,String>> listeAlleSpieler(){
 		
 		return gameCon.listeAlleSpieler();
@@ -131,5 +138,9 @@ public HashMap<String, String> getKartenDetails(String k){
 	
 	public Map<String,String> listSpielphase(){
 		return gameCon.listSpielphase();
+	}
+
+	public String getBuergermeister() {
+		return gameCon.getBuergermeister().getName();
 	}
 }

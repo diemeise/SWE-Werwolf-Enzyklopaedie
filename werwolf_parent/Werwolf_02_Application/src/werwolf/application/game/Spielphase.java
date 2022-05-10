@@ -10,24 +10,31 @@ public abstract class Spielphase {
 	protected List<Spieler> lebendeSpielerBeiStart;
 	protected List<Spieler> eliminierteSpieler;
 	protected Spieler aktiverSpieler;
+	protected Spieler buergermeister;
 	protected boolean phaseAngefangen;
 	protected boolean phaseAbgeschlossen;
+	protected GameLoop gm;
 	
-	public Spielphase(List<Spieler> lebendeSpieler) {
+	
+	public Spielphase(List<Spieler> lebendeSpieler, GameLoop gm) {
 		this.lebendeSpielerBeiStart = lebendeSpieler;
 		this.eliminierteSpieler = new LinkedList<>();
 		this.phaseAbgeschlossen = false;
 		this.phaseAngefangen = false;
 		setzeAlleSpielerInaktiv();
+		this.gm = gm;
 	}
 	
+
 	public abstract boolean naechsterSpielschritt();
 	
 	public boolean eliminiere(Spieler spieler) {
 		if (lebendeSpielerBeiStart.contains(spieler) && !eliminierteSpieler.contains(spieler)) {
 			eliminierteSpieler.add(spieler);
+			setStatus("Spieler " + spieler.getName() + " eliminiert!");
 			return true;
 		}
+		setStatus("Spieler " + spieler.getName() + " konnte nicht eliminiert werden!");
 		return false;
 	}
 		
@@ -54,15 +61,17 @@ public abstract class Spielphase {
 		}
 	}
 	
-	private boolean setErstenSpieler(){
-		for (Spieler spieler : lebendeSpielerBeiStart) {
-			if(spieler.getPrio() > 0) {
-				aktiverSpieler = spieler;
-				return true;
-			}
-		}
-		return false;
+	protected void setStatus(String status) {
+		this.gm.setStatus(status);
 	}
+	public String getStatus() {
+		return gm.getStatus();
+	}
+
+	public abstract boolean setBuergermeister(Spieler bg);
+	
+	public abstract boolean setErstenSpieler();
+	
 	
 	protected boolean setNaechstenSpieler() {
 		int indexAktiverSpieler = lebendeSpielerBeiStart.indexOf(aktiverSpieler);
@@ -89,5 +98,10 @@ public abstract class Spielphase {
 			}
 		}
 		return ueberlebendeSpieler;
+	}
+
+
+	protected Spieler getBuergermeister() {
+		return buergermeister;
 	}
 }

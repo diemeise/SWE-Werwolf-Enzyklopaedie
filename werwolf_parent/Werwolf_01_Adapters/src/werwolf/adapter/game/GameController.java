@@ -114,6 +114,18 @@ public class GameController {
 		return "Spieler konnte nicht eliminiert werden.";
 		
 	}
+	
+	public String setBuergermeister(String spielerName) {
+		Optional<Spieler> so = game.getSpielerBy(spielerName);
+		if(so.isEmpty()) {
+			return "Spieler " + spielerName + "nicht gefunden";
+		}
+		if (game.setBuergermeister(so.get())) {
+			return game.getStatus();
+		}
+		return "Aktion konnte nicht durchgeführt werden";
+		
+	}
 
 	public Map<String, String> getAktiverSpielerDetails(){
 		Spieler s = game.getAktiverSpieler();
@@ -215,5 +227,13 @@ public class GameController {
 		returnMap.put("Rollenbeschreibung", s.getRolle().getBeschreibung());
 		
 		return returnMap;
+	}
+
+	public String getSpielStatus() {
+		return game.getStatus();
+	}
+
+	public Spieler getBuergermeister() {
+		return game.getBuergermeister();
 	}
 }

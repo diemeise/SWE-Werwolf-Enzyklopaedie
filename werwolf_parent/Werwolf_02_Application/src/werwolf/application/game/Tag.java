@@ -8,27 +8,37 @@ import werwolf.domain.game.exceptions.GameException;
 
 public class Tag extends Spielphase{
 	
-	//nach Prio sortierte Liste aller aktivern Spieler bei Start
 	boolean temp;
-	public Tag(List<Spieler> lebendeSpieler) {
-		super(lebendeSpieler);
+	public Tag(List<Spieler> lebendeSpieler, GameLoop gm) {
+		super(lebendeSpieler, gm);
 		temp = false;
+		setStatus("Ein neuer Tag hat begonnen");
+	}
+	
+	
+	public Tag(List<Spieler> lebendeSpieler, GameLoop gm, Spieler buergermeister) {
+		super(lebendeSpieler, gm);
+		this.buergermeister = buergermeister;
+		temp = false;
+		setStatus("Ein neuer Tag hat begonnen");
 	}
 	
 	
 	/*
-	 *  waehlt bei Bedarf einen neuen Buergermeister
+	 *  waehlt bei Bedarf am Anfang des Tages einen neuen Buergermeister
 	 *  danach wird dieser auf Aktiv gesetzt, da er die Diskussion leitet
 	 * @return false, wenn Phase abgeschlossen, sonst true
 	 */
 	public boolean naechsterSpielschritt(){
-		aktiverSpieler = lebendeSpielerBeiStart.get(0);
-		//		if(buergermeister == null || !buergermeister.istLebendig()) {
-//			return false;
-//		}
-		
-		if(!temp) {
-			temp = true;
+		if(!phaseAngefangen && (buergermeister == null || !buergermeister.istLebendig())) {
+			setStatus("Ein neuer Buergermeister muss gewaehlt werden!");
+			return true;
+		}
+		if(!phaseAngefangen) {
+			//setzt den Buergermeister aktiv
+			setErstenSpieler();
+			setStatus("Das Dorf waehlt einen Schuldigen, der an diesem Tage gehaengt wird.");
+			phaseAngefangen = true;		
 			return true;
 		}
 		
@@ -37,45 +47,32 @@ public class Tag extends Spielphase{
 			return true;
 		}
 		
-		
 		return false;
 	}
 
+	public boolean setBuergermeister(Spieler bg) 
+	{
+		if(bg.istLebendig() && lebendeSpielerBeiStart.contains(bg))
+		{
+			this.buergermeister = bg;
+			setStatus("Spieler*in " + bg.getName() + " ist neue*r Buergermeister*in");
+			return true;
+		}
+		setStatus("Spieler*in " + bg.getName() + " konnte nicht zum*zur Buergermeister*in ernannt werden");
+		return false;
+	}
+	
 
 	
-	
-//	/**
-//	 * findet den ersten Spieler, dessen Rolle eine positive Prio hat (Spielerliste ist nach Prio sortiert)
-//	 * ==> es wurden noch keine Spieler eliminiert daher keine weiteren Ueberpruefungen notwendig
-//	 * @return
-//	 * @throws GameException 
-//	 */
-//	private Spieler findeErstenSpieler() throws GameException {
-//		for (Spieler spieler : lebendeSpielerBeiStart) {
-//			if(spieler.getPrio() > 0) {
-//				return spieler;
-//			}
-//		}
-//		//TODO null ist kacke
-//		throw new GameException("Keine aktiven Spieler diese Nacht!");
-//	}
-	
 	/**
-	 * findet den ersten Spieler, dessen Rolle eine positive Prio hat (Spielerliste ist nach Prio sortiert)
-	 * ==> es wurden noch keine Spieler eliminiert daher keine weiteren Ueberpruefungen notwendig
+	 * setzt den Bürgermeister auf aktiv, da es sonst keine weiteren aktiven Spieler gibt am Tag
 	 * @return true wenn es einen Spieler gibt, sonst false
 	 * @throws GameException 
 	 */
-	private boolean setErstenSpieler(){
-		for (Spieler spieler : lebendeSpielerBeiStart) {
-			if(spieler.getPrio() > 0) {
-				aktiverSpieler = spieler;
-				return true;
-			}
-		}
-		return false;
-		//TODO null ist kacke
-//		throw new GameException("Keine aktiven Spieler diese Nacht!");
+	public boolean setErstenSpieler(){
+		aktiverSpieler = buergermeister;
+		return true;
+		
 	}
 		
 }

@@ -9,8 +9,9 @@ import werwolf.domain.game.exceptions.GameException;
 public class Nacht extends Spielphase{
 	
 	
-	public Nacht(List<Spieler> lebendeSpieler) {
-		super(lebendeSpieler);
+	public Nacht(List<Spieler> lebendeSpieler, GameLoop gm) {
+		super(lebendeSpieler, gm);
+		setStatus("Eine neue Nacht hat begonnen");
 	}
 	
 	/**
@@ -26,10 +27,8 @@ public class Nacht extends Spielphase{
 			return false;
 		}
 		
-		//setze ersten Spieler auf aktiv
 		if (!phaseAngefangen) {
 			phaseAngefangen = true;
-			//aktiverSpieler = findeErstenSpieler();
 			
 			if(setErstenSpieler()) {
 				aktiverSpieler.setAktiv(true);
@@ -39,41 +38,18 @@ public class Nacht extends Spielphase{
 			return false;			
 		}
 		
-		//setze naechsten Spieler aktiv
-		aktiverSpieler.setAktiv(false);		
-		
-		
+
+		aktiverSpieler.setAktiv(false);						
 		if(!setNaechstenSpieler()) {
 			phaseAbgeschlossen = true;
 			return false;
 		}
 		
-//		try {
-//			aktiverSpieler = findeNaechstenSpieler();
-//		}catch (GameException e) {
-//			phaseAbgeschlossen = true;
-//		}
-		//schauen ob das so gut ist 
+		
 		aktiverSpieler.setAktiv(true);
 		return true;
 	}
 
-	
-//	/**
-//	 * findet den ersten Spieler, dessen Rolle eine positive Prio hat (Spielerliste ist nach Prio sortiert)
-//	 * ==> es wurden noch keine Spieler eliminiert daher keine weiteren Ueberpruefungen notwendig
-//	 * @return
-//	 * @throws GameException 
-//	 */
-//	private Spieler findeErstenSpieler() throws GameException {
-//		for (Spieler spieler : lebendeSpielerBeiStart) {
-//			if(spieler.getPrio() > 0) {
-//				return spieler;
-//			}
-//		}
-//		//TODO null ist kacke
-//		throw new GameException("Keine aktiven Spieler diese Nacht!");
-//	}
 	
 	/**
 	 * findet den ersten Spieler, dessen Rolle eine positive Prio hat (Spielerliste ist nach Prio sortiert)
@@ -81,13 +57,20 @@ public class Nacht extends Spielphase{
 	 * @return true wenn es einen Spieler gibt, sonst false
 	 * @throws GameException 
 	 */
-	private boolean setErstenSpieler(){
+	public boolean setErstenSpieler(){
 		for (Spieler spieler : lebendeSpielerBeiStart) {
 			if(spieler.getPrio() > 0) {
 				aktiverSpieler = spieler;
+				setStatus("Aktiver Spieler: " + spieler.getName());
 				return true;
 			}
 		}
+		return false;
+	}
+
+	@Override
+	public boolean setBuergermeister(Spieler bg) {
+		setStatus("Nachts kann kein neuer Buergermeister gewaehlt werden!");
 		return false;
 	}
 	
