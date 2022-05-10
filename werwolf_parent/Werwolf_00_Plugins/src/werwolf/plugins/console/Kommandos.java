@@ -40,7 +40,7 @@ public enum Kommandos {
     LIST_BOESE("list-boese") {
     	@Override
         public void execute(MatchResult matcher, OutputAdapter out) {
-    		HashMap<String, String> karten = new HashMap<>();
+    		Map<String, String> karten = new HashMap<>();
     		karten = out.getAlleBoesenKarten();
     		karten.forEach((k,v) -> System.out.println(k+": "+v));
         }
@@ -49,7 +49,7 @@ public enum Kommandos {
     LIST_GUT("list-gut") {
     	@Override
         public void execute(MatchResult matcher, OutputAdapter out) {
-    		HashMap<String, String> karten = new HashMap<>();
+    		Map<String, String> karten = new HashMap<>();
     		karten = out.getAlleGutenKarten();
     		karten.forEach((k,v) -> System.out.println(k+": "+v));
         }
