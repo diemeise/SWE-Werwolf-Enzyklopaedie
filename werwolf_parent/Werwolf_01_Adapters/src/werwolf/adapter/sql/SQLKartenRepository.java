@@ -18,7 +18,6 @@ public class SQLKartenRepository implements KartenRepository{
 
 	//Key = Name in LOWER CASE? TODO
 	private Map<String, Karte> karten;
-	private HashMap<String, String> kartenFunk;
 	private SQLVerbindung verbindung;
 
 	public SQLKartenRepository(SQLVerbindung verbindung) {
@@ -95,13 +94,41 @@ public class SQLKartenRepository implements KartenRepository{
 	}
 
 	
+	
+	/**
+	 * Gibt eine bestimmte Art von Karten zurueck
+	 * @param filter: moegliche Werte: "gut", "boese", "spezial"
+	 */
+	@Override
+	public Map<String, Karte> getKartenMitFilter(String filter) {
+		
+		Map<String, Karte> filteredKarten = new HashMap<>();
+		
+		for (String name: karten.keySet()) {
+			if(filter == "gut") {
+				if(!karten.get(name).getRolle().istBoese())
+					filteredKarten.put(name, karten.get(name));
+			}
+			if(filter == "boese") {
+				if(karten.get(name).getRolle().istBoese())
+					filteredKarten.put(name, karten.get(name));
+			}
+			if(filter == "spezial") {
+				if(karten.get(name).getRolle().istSpezial())
+					filteredKarten.put(name, karten.get(name));
+			}			
+		}	
+		return filteredKarten;
+	}
+	
 	//TODO In eigene Klasse auslagern?
+	//wird eigentlich nicht mehr benötigt!
 	@Override
 	public HashMap<String, String> zeigeNameUndFunktion() {
 		String name;
 		String funk;
-		kartenFunk = new HashMap<>();
-		
+		HashMap<String, String> kartenFunk = new HashMap<>();
+			
 		for (String key: karten.keySet()) {
 			name = karten.get(key).getRolle().getName();
 			funk = karten.get(key).getRolle().getFunktion();

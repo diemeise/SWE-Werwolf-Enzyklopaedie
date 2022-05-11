@@ -1,6 +1,7 @@
 package werwolf.adapter.output;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -29,69 +30,39 @@ public class OutputAdapter {
 	}
 	
 	public Map<String,String> getAlleKartenByFunktion(){
-		return gamelib.getKartenRepository().zeigeNameUndFunktion();
-	}
+		Map<String,Karte> alleKarten = gamelib.getKartenRepository().getKarten();
+		
+		return konvertKartenMapZuStringMap(alleKarten);
+	}	
 	
-	//TODO Das ist zu viel Code, da lieber ne Methode machen mit der dem put und die dann aufrufen mit irgendeinem Paramerter oder so [DRY]
 	public Map<String, String> getAlleSpezialKarten(){
-		
-		Map<String, String> spezial = new HashMap<>();
-		
-		karten = gamelib.getKartenRepository().getKarten(); //TODO au�erhalb der Methoden initialisieren?
-		
-		for (String key: karten.keySet()) {
-			
-			if(karten.get(key).getRolle().istSpezial()) {
-				name = karten.get(key).getRolle().getName();
-				funk = karten.get(key).getRolle().getFunktion();
-				
-				spezial.put(name, funk);
-			}
-			
-		}
-		
-		return spezial;
+		return filterKarten("spezial");
 	}
 	
-	//TODO Das hier und Spezial und gut macht ja quasi das gleiche? Irgendwie in eine Methode zusammen fassen?
-	public HashMap<String, String> getAlleBoesenKarten(){
-		
-		HashMap<String, String> boese = new HashMap<>();
-		
-		karten = gamelib.getKartenRepository().getKarten(); //TODO au�erhalb der Methoden initialisieren?
-		
-		for (String key: karten.keySet()) {
-			
-			if(karten.get(key).getRolle().istBoese()) {
-				name = karten.get(key).getRolle().getName();
-				funk = karten.get(key).getRolle().getFunktion();
-				
-				boese.put(name, funk);
-			}
-			
-		}
-		
-		return boese;
+	public Map<String, String> getAlleBoesenKarten(){
+		return filterKarten("boese");
 	}
 	
-	public HashMap<String, String> getAlleGutenKarten(){
-		
-		HashMap<String, String> gut = new HashMap<>();
-		
-		karten = gamelib.getKartenRepository().getKarten(); //TODO au�erhalb der Methoden initialisieren?
-		
+	public Map<String, String> getAlleGutenKarten(){
+		return filterKarten("gut");
+	}
+
+	
+	private Map<String, String> konvertKartenMapZuStringMap(Map<String, Karte> karten) {
+		Map<String, String> returnMap = new HashMap<>();
 		for (String key: karten.keySet()) {
-			
-			if(!karten.get(key).getRolle().istBoese()) {
-				name = karten.get(key).getRolle().getName();
-				funk = karten.get(key).getRolle().getFunktion();
-				
-				gut.put(name, funk);
-			}
-			
+			name = karten.get(key).getRolle().getName();
+			funk = karten.get(key).getRolle().getFunktion();
+			returnMap.put(name, funk);
 		}
+		return returnMap;
+	}
+	
+	public Map<String,String> filterKarten(String filter){
+		Map<String, Karte> filteredKarten = gamelib.getKartenRepository().getKartenMitFilter(filter);
+				
+		return konvertKartenMapZuStringMap(filteredKarten);
 		
-		return gut;
 	}
 	
 public HashMap<String, String> getKartenDetails(String k){
@@ -141,6 +112,10 @@ public HashMap<String, String> getKartenDetails(String k){
 		return gameCon.eliminiereSpieler(spielerName);
 	}
 	
+	public String setBuergermeister(String spielerName) {
+		return gameCon.setBuergermeister(spielerName);
+	}
+	
 	public Map<String,String> getDetailsOfSpieler(String spielerName){
 		return gameCon.getSpielerDetails(spielerName);
 	}
@@ -149,6 +124,9 @@ public HashMap<String, String> getKartenDetails(String k){
 		return gameCon.getAktiverSpielerDetails();
 	}
 	
+	public String getSpielStatus() {
+		return gameCon.getSpielStatus();
+	}
 	public List<Map<String,String>> listeAlleSpieler(){
 		
 		return gameCon.listeAlleSpieler();
@@ -160,5 +138,9 @@ public HashMap<String, String> getKartenDetails(String k){
 	
 	public Map<String,String> listSpielphase(){
 		return gameCon.listSpielphase();
+	}
+
+	public String getBuergermeister() {
+		return gameCon.getBuergermeister().getName();
 	}
 }

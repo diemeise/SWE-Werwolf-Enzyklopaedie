@@ -12,7 +12,9 @@ public class GameLoop {
 	
 	private List<Spieler> spieler;
 	private List<Spieler> gewinner;
-	private List<Nacht> phasen;
+	private List<Spielphase> phasen;
+	private Spieler buergermeister;
+	private String status;
 	private boolean aktiv;
 	private boolean gespielt;
 	
@@ -26,7 +28,7 @@ public class GameLoop {
  		this.ueberpruefeSpieler(spieler); 
  		Collections.sort(spieler);
  		this.spieler = spieler;
-		this.phasen = new LinkedList<Nacht>();
+		this.phasen = new LinkedList<Spielphase>();
 		this.aktiv = false;
 		this.gespielt = false;
 	}
@@ -36,16 +38,20 @@ public class GameLoop {
 
 /**
  * startet den GameLoop und führt den ersten Schritt in der ersten Nacht aus
- * @throws GameException wenn Spiel bereits gesppielt
+ * @throws GameException wenn Spiel bereits gespielt
+ * @return Statusmessage 
  */
-	public void starteErstePhase() throws GameException {	
+	public String starteErstePhase() throws GameException {	
+
 		if (istGespielt()) {
-			throw new GameException("Spiel wurde schon gespielt!");
+			return "Spiel wurde schon abgeschlossen!";
 		}
+		
 		//startet die erste Phase mit allen Spielern
-		this.phasen.add(new Nacht(spieler));
+		this.phasen.add(new Tag(spieler, this));
 		this.aktiv = true;
-		this.naechsterSchritt();
+		//this.naechsterSchritt();
+		return getStatus();
 		
 	}
 	
@@ -70,17 +76,27 @@ public class GameLoop {
 		if (pruefeSpielGewonnen()) {
 			return false;
 		}
+		//zb: spiel starte ->spiel beende ->spielschritt
 		if(!this.aktiv || this.gespielt) {
 			throw new GameException("Spiel nicht aktiv!");
 		}
-		try {
-			phasen.add(new Nacht(getAktuellePhase().getUeberlebendeSpieler()));
+		if(getAktuellePhase().istAbgeschlossen()) {
+			if(getAktuellePhase().getClass() == Tag.class)
+			{
+				this.buergermeister = getAktuellePhase().getBuergermeister();
+				phasen.add(new Nacht(getAktuellePhase().getUeberlebendeSpieler(), this));
+				return true;
+			}
+			//
+			phasen.add(new Tag(getAktuellePhase().getUeberlebendeSpieler(), this, buergermeister));
 			return true;
-		} catch (GameException e) {
-			//Spielphase noch nicht abgeschlossen
-			System.err.print(e.getMessage());
-			return false;
 		}
+		//naechste Phase kann nicht gestartet werden
+		return false;
+		
+		
+		//throw new GameException("Spiel kann nicht forgesetzt werden.");
+
 	}
 	
 	
@@ -88,18 +104,15 @@ public class GameLoop {
 	 * fuehrt einen Schritt in der aktuellen Phase aus
 	 * gibt false zurueck wenn die aktuelle Phase bereits abgeschlossen ist
 	 * @throws GameException wenn kein Spiel aktiv
+	 * @return false wenn Spielphase schon abgeschlossen, sonst true
 	 */
 	public boolean naechsterSchritt() throws GameException {
 		if(!this.aktiv || this.gespielt) {
 			throw new GameException("Spiel nicht aktiv!");
 		}
-		try {
-			getAktuellePhase().naechsterSpielschritt();
-			return true;
-		} catch (GameException e) {
-			System.err.print(e.getMessage());
-			return false;
-		}
+	
+		return getAktuellePhase().naechsterSpielschritt();
+
 		
 	}
 	
@@ -108,12 +121,20 @@ public class GameLoop {
 		return getAktuellePhase().eliminiere(spieler);
 	}
 	
+	public boolean setBuergermeister(Spieler bg) {
+		return getAktuellePhase().setBuergermeister(bg);
+	}
+	public Spieler getBuergermeister() {
+		return getAktuellePhase().getBuergermeister();
+	}
+	
+	
 	
 	public Spieler getAktiverSpieler() {
 		return getAktuellePhase().getAktiverSpieler();
 	}
 	
-	public Nacht getAktuellePhase() {
+	public Spielphase getAktuellePhase() {
 		return this.phasen.get(this.phasen.size()-1);
 	}
 	
@@ -133,7 +154,7 @@ public class GameLoop {
 	}
 
 
-	public List<Nacht> getPhasen() {
+	public List<Spielphase> getPhasen() {
 		return phasen;
 	}
 	
@@ -151,7 +172,12 @@ public class GameLoop {
 	public List<Spieler> getGewinner(){
 		return gewinner;
 	}
-	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	
 	
 	/**
@@ -160,12 +186,7 @@ public class GameLoop {
 	 */
 	public boolean pruefeSpielGewonnen() {
 		List<Spieler> lebendeSpieler;
-		try {
-			lebendeSpieler = this.getAktuellePhase().getUeberlebendeSpieler();
-		} catch (GameException e) {
-			//Spielphase nicht vorbei
-			return false;
-		}
+		lebendeSpieler = this.getAktuellePhase().getUeberlebendeSpieler();
 		
 		//wenn alle Spieler "boese" oder alle Spieler "nichtBoese" dann ist das Spiel vorbei
 		boolean boeseUebrig = false;
@@ -188,6 +209,11 @@ public class GameLoop {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param spieler2
+	 * @throws GameException wenn keine Spieler oder keine bösen Spieler vorhanden sind
+	 */
 	private void ueberpruefeSpieler(List<Spieler> spieler2) throws GameException {
 		if(spieler2.isEmpty()) {
 			throw new GameException("Keine Spieler uebergeben!");
@@ -202,6 +228,4 @@ public class GameLoop {
 			throw new GameException("Es muss ein Wolf / eine boese Karte vorhanden sein!");
 		}
 	}
-	
-
 }

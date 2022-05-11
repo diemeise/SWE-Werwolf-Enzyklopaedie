@@ -6,129 +6,72 @@ import java.util.List;
 import werwolf.domain.game.content.Spieler;
 import werwolf.domain.game.exceptions.GameException;
 
-public class Nacht {
+public class Nacht extends Spielphase{
 	
-	//nach Prio sortierte Liste aller aktivern Spieler bei Start
-	private List<Spieler> lebendeSpielerBeiStart;
-	private List<Spieler> eliminierteSpieler;
-	private Spieler aktiverSpieler;
-	private boolean phaseAngefangen;
-	private boolean phaseAbgeschlossen;
 	
-	public Nacht(List<Spieler> lebendeSpieler) {
-		this.lebendeSpielerBeiStart = lebendeSpieler;
-		this.eliminierteSpieler = new LinkedList<>();
-		this.phaseAbgeschlossen = false;
-		this.phaseAngefangen = false;
-		setzeAlleSpielerInaktiv();
+	public Nacht(List<Spieler> lebendeSpieler, GameLoop gm) {
+		super(lebendeSpieler, gm);
+		setStatus("Eine neue Nacht hat begonnen");
 	}
 	
 	/**
 	 * setzt den naechsten Spieler auf aktiv
-	 * @throws GameException
+	 * @return false, wenn Phase abgeschlossen, sonst true
 	 */
-	public void naechsterSpielschritt() throws GameException {
-		if(phaseAbgeschlossen) {
-			throw new GameException("Phase ist bereits abgeschlossen!");
+	public boolean naechsterSpielschritt(){
+		
+//		if(phaseAbgeschlossen) {
+//			throw new GameException("Phase ist bereits abgeschlossen!");
+//		}
+		if (phaseAbgeschlossen) {
+			return false;
 		}
 		
-		//setze ersten Spieler auf aktiv
 		if (!phaseAngefangen) {
-			aktiverSpieler = findeErstenSpieler();
 			phaseAngefangen = true;
-			aktiverSpieler.setAktiv(false);
-			return;
+			
+			if(setErstenSpieler()) {
+				aktiverSpieler.setAktiv(true);
+				return true;
+			}			
+			phaseAbgeschlossen = true;
+			return false;			
 		}
 		
-		//setze naechsten Spieler aktiv
-		aktiverSpieler.setAktiv(false);
-		try {
-			aktiverSpieler = findeNaechstenSpieler();
-		}catch (GameException e) {
+
+		aktiverSpieler.setAktiv(false);						
+		if(!setNaechstenSpieler()) {
 			phaseAbgeschlossen = true;
+			return false;
 		}
+		
+		
+		aktiverSpieler.setAktiv(true);
+		return true;
 	}
 
 	
-	public boolean eliminiere(Spieler spieler) {
-		if (lebendeSpielerBeiStart.contains(spieler) && !eliminierteSpieler.contains(spieler)) {
-			eliminierteSpieler.add(spieler);
-			return true;
+	/**
+	 * findet den ersten Spieler, dessen Rolle eine positive Prio hat (Spielerliste ist nach Prio sortiert)
+	 * ==> es wurden noch keine Spieler eliminiert daher keine weiteren Ueberpruefungen notwendig
+	 * @return true wenn es einen Spieler gibt, sonst false
+	 * @throws GameException 
+	 */
+	public boolean setErstenSpieler(){
+		for (Spieler spieler : lebendeSpielerBeiStart) {
+			if(spieler.getPrio() > 0) {
+				aktiverSpieler = spieler;
+				setStatus("Aktiver Spieler: " + spieler.getName());
+				return true;
+			}
 		}
 		return false;
 	}
-		
 
-	public Spieler getAktiverSpieler() {
-		return aktiverSpieler;
+	@Override
+	public boolean setBuergermeister(Spieler bg) {
+		setStatus("Nachts kann kein neuer Buergermeister gewaehlt werden!");
+		return false;
 	}
 	
-	public List<Spieler> getSpieler(){
-		return lebendeSpielerBeiStart;
-	}
-	/**
-	 * funktioniert nur wenn die Spielphase als abgeschlossen markiert ist
-	 * @return
-	 * @throws GameException
-	 */
-	public List<Spieler> getUeberlebendeSpieler() throws GameException{
-		if(!phaseAbgeschlossen) {
-			throw new GameException("Spielphase noch nicht beendet.");
-		}
-		List <Spieler> ueberlebendeSpieler = new LinkedList<>();
-		for (Spieler spieler : lebendeSpielerBeiStart) {
-			if (!eliminierteSpieler.contains(spieler)) {
-				ueberlebendeSpieler.add(spieler);
-			}
-		}
-		return ueberlebendeSpieler;
-	}
-	
-	public List<Spieler> getEliminierteSpieler(){
-		return this.eliminierteSpieler;
-	}
-	
-	public boolean istAbgeschlossen() {
-		return phaseAbgeschlossen;
-	}
-	
-	private void setzeAlleSpielerInaktiv() {
-		for (Spieler spieler : lebendeSpielerBeiStart) {
-			spieler.setAktiv(false);
-		}
-	}
-	
-	/**
-	 * findet den ersten Spieler, dessen Rolle eine positive Prio hat
-	 * ==> es wurden noch keine Spieler eliminiert daher keine weiteren Ueberpruefungen notwendig
-	 * @return
-	 * @throws GameException 
-	 */
-	private Spieler findeErstenSpieler() throws GameException {
-		for (Spieler spieler : lebendeSpielerBeiStart) {
-			if(spieler.getPrio() > 0) {
-				return spieler;
-			}
-		}
-		//TODO null ist kacke
-		throw new GameException("Keine aktiven Spieler diese Nacht!");
-	}
-	
-	
-	private Spieler findeNaechstenSpieler() throws GameException {
-		int indexAktiverSpieler = lebendeSpielerBeiStart.indexOf(aktiverSpieler);
-		
-		//finde den nächsten nicht eliminerten Spieler
-		while(indexAktiverSpieler < lebendeSpielerBeiStart.size()-1) {
-			indexAktiverSpieler++;
-			Spieler naechsterSpieler = lebendeSpielerBeiStart.get(indexAktiverSpieler);
-			if (!eliminierteSpieler.contains(naechsterSpieler)) {
-				return naechsterSpieler;
-			}			
-		}
-		//keine weiteren Spieler vorhanden
-		throw new GameException("Keine weiteren Spieler diese Nacht!"); 
-	}
-	
-
 }

@@ -146,6 +146,7 @@ public class GameLoopTest {
 		//act
 		try {
 			game.starteErstePhase();
+			game.setBuergermeister(spieler2);
 		} catch (GameException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -184,6 +185,7 @@ public class GameLoopTest {
 		//act
 		try {
 			game.starteErstePhase();
+			game.setBuergermeister(spieler1);
 		} catch (GameException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -247,7 +249,7 @@ public class GameLoopTest {
 			}
 			
 			
-			//assert dass nur eine Phase vorhanden ist (in der linked List sind trotzdem 2 Einträge, da dieselbe Nacht)
+			//assert dass nur eine Phase vorhanden ist
 			int expected = 1;
 			MatcherAssert.assertThat(game.getPhasen().size(), is(expected));
 	 }

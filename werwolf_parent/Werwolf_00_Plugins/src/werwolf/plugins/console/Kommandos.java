@@ -40,7 +40,7 @@ public enum Kommandos {
     LIST_BOESE("list-boese") {
     	@Override
         public void execute(MatchResult matcher, OutputAdapter out) {
-    		HashMap<String, String> karten = new HashMap<>();
+    		Map<String, String> karten = new HashMap<>();
     		karten = out.getAlleBoesenKarten();
     		karten.forEach((k,v) -> System.out.println(k+": "+v));
         }
@@ -49,7 +49,7 @@ public enum Kommandos {
     LIST_GUT("list-gut") {
     	@Override
         public void execute(MatchResult matcher, OutputAdapter out) {
-    		HashMap<String, String> karten = new HashMap<>();
+    		Map<String, String> karten = new HashMap<>();
     		karten = out.getAlleGutenKarten();
     		karten.forEach((k,v) -> System.out.println(k+": "+v));
         }
@@ -195,6 +195,14 @@ public enum Kommandos {
     	}    	
     },
     
+    LIST_BUERGERMEISTER("buergermeister"){
+		
+    	@Override
+		public void execute(MatchResult matcher, OutputAdapter out) {
+    		System.out.println(out.getBuergermeister());
+    	}    	
+    },
+    
     /**
      * zeige:
      * alle Spieler
@@ -212,7 +220,17 @@ public enum Kommandos {
     		LIST_PHASE.execute(null, out);
     		System.out.println("--Aktueller Spieler--");
     		LIST_AKTIVER_SPIELER.execute(null, out);
+    		System.out.println("--Aktueller Buergermeister--");
+    		LIST_BUERGERMEISTER.execute(null, out);
     		
+    	}    	
+    },
+    
+ GAME_STATUS("spiel-status"){
+		
+    	@Override
+		public void execute(MatchResult matcher, OutputAdapter out) {
+    		System.out.println(out.getSpielStatus());
     	}    	
     },
     
@@ -232,11 +250,19 @@ public enum Kommandos {
     	}    	
     },
 
- ELIMINIERE_SPIELER("kill ([^\s]*)"){
+  ELIMINIERE_SPIELER("kill ([^\s]*)"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
     		System.out.println(out.eliminereSpieler(matcher.group(1)));
+    	}    	
+    },
+ 
+  NEUER_BUERGERMEISTER("waehle ([^\s]*)"){
+		
+    	@Override
+		public void execute(MatchResult matcher, OutputAdapter out) {
+    		System.out.println(out.setBuergermeister(matcher.group(1)));
     	}    	
     },
  
@@ -268,6 +294,8 @@ public enum Kommandos {
             Matcher matcher = command.pattern.matcher(input);
             if (matcher.matches()) {
                 command.execute(matcher, out);
+                //nur temporär
+                GAME_STATUS.execute(matcher, out);
                 return command;
             }
         }
