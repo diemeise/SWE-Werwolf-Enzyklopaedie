@@ -16,10 +16,8 @@ public class Main {
 	
 	private static String url;
 	private static String nutzer;
-	private static String passwort;
-	
-	private static String datei;
-	
+	private static String passwort;	
+	private static String datei;	
 	private static OutputAdapter outputAdapter;
 
 	public static void main(String[] args) {
@@ -35,16 +33,19 @@ public class Main {
 		nutzer = MySQLAuthentifizierung.getNutzer();
 		passwort = MySQLAuthentifizierung.getPw();
 	 
-		//Fehler kann ignoriert werden?
+		//Fehler kann ignoriert werden
 		try{
 			SQLVerbindung mysql = new MySQLVerbindung(url, nutzer, passwort);
-			LibraryManager gameLibrary= new LibraryManager(new SQLKartenRepository(mysql), new SQLRollenRepository(mysql));
+			//Initialisierung des Library-Singletons
+			LibraryManager gameLibrary= LibraryManager.INSTANCE;
+			gameLibrary.setKartenRepository(new SQLKartenRepository(mysql));
+			gameLibrary.setRollenRepository(new SQLRollenRepository(mysql));
 			gameLibrary.initialisiereLibrary();
-			outputAdapter = new OutputAdapter(gameLibrary);
+			outputAdapter = new OutputAdapter();
 			System.out.println("meep moop");
 			//GUIMain.main(args);
 			
-			KonsolenMain.exeKonsole(new OutputAdapter(gameLibrary));
+			KonsolenMain.exeKonsole(new OutputAdapter());
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
 		}

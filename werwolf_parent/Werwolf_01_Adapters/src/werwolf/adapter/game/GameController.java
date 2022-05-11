@@ -24,15 +24,12 @@ import werwolf.domain.game.exceptions.GameException;
  */
 public class GameController {
 	
-	//private LibraryManager gameLib;
 	private GameLoop game;
 	private boolean gameCreated;
-	private LibraryManager gameLib;
 	
 	
-	public GameController(LibraryManager lib) {
+	public GameController() {
 		this.gameCreated = false;
-		this.gameLib = lib;
 	}
 	
 	/**
@@ -191,12 +188,12 @@ public class GameController {
 		List<Spieler> spieler = new LinkedList<Spieler>();
 		//ueberpruefe die uebergebenen Rollennamen und erzeuge die dazugehoerigen Rollen
 		for (String rname : rollenNamen) {
-			Optional<Rolle>passendeRolle = gameLib.getRollenRepository().findeDurch(rname);
+			Optional<Rolle>passendeRolle = LibraryManager.INSTANCE.getRollenRepository().findeDurch(rname);
 			passendeRolle.ifPresent( rolle -> rollen.add(rolle));
 		}
 		
 		//fuelle  mit Standardrolle (->Dorfbewohner) auf;
-		Optional<Rolle> standardRolle = gameLib.getRollenRepository().findeDurch(standardRollenString);
+		Optional<Rolle> standardRolle = LibraryManager.INSTANCE.getRollenRepository().findeDurch(standardRollenString);
 		Rolle standard = standardRolle.get();
 		while (rollen.size() < spielerNamen.size()) {
 			rollen.add(standard);
