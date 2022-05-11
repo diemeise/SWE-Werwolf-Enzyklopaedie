@@ -12,7 +12,6 @@ import werwolf.domain.game.content.Karte;
 
 public class OutputAdapter {
 	
-	private LibraryManager gamelib;
 	private GameController gameCon;
 	private Map<String, Karte> karten = new HashMap<>();
 	
@@ -23,14 +22,13 @@ public class OutputAdapter {
 	String spezial = "nein";
 	
 
-	public OutputAdapter(LibraryManager gamelib) {
+	public OutputAdapter() {
 		super();
-		this.gamelib = gamelib;
-		this.gameCon = new GameController(gamelib);
+		this.gameCon = new GameController();
 	}
 	
 	public Map<String,String> getAlleKartenByFunktion(){
-		Map<String,Karte> alleKarten = gamelib.getKartenRepository().getKarten();
+		Map<String,Karte> alleKarten = LibraryManager.INSTANCE.getKartenRepository().getKarten();
 		
 		return konvertKartenMapZuStringMap(alleKarten);
 	}	
@@ -59,7 +57,7 @@ public class OutputAdapter {
 	}
 	
 	public Map<String,String> filterKarten(String filter){
-		Map<String, Karte> filteredKarten = gamelib.getKartenRepository().getKartenMitFilter(filter);
+		Map<String, Karte> filteredKarten = LibraryManager.INSTANCE.getKartenRepository().getKartenMitFilter(filter);
 				
 		return konvertKartenMapZuStringMap(filteredKarten);
 		
@@ -67,7 +65,7 @@ public class OutputAdapter {
 	
 public HashMap<String, String> getKartenDetails(String k){
 		Karte karte;
-		karten = gamelib.getKartenRepository().getKarten(); //TODO au�erhalb der Methoden initialisieren?
+		karten = LibraryManager.INSTANCE.getKartenRepository().getKarten();
 		HashMap<String, String> kartenDetails = new HashMap<>();
 		
 		karte = karten.get(k);

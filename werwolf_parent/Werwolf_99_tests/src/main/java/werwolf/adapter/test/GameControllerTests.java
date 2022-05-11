@@ -7,6 +7,8 @@ import java.util.List;
 import org.hamcrest.MatcherAssert;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.is;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import werwolf.adapter.game.GameController;
@@ -16,6 +18,11 @@ import werwolf.domain.game.content.RollenRepository;
 import werwolf.domain.game.content.Spieler;
 
 public class GameControllerTests {
+	
+	@BeforeEach
+	public void createGameLibrary() {
+		LibraryManager gameLibrary= LibraryManager.INSTANCE;
+	}
 	
 	@Test
 	public void erzeugeSpielerTest(){
@@ -45,9 +52,10 @@ public class GameControllerTests {
 		spielerNamen.add("Gundel");
 		spielerNamen.add("Herbert");
 		spielerNamen.add("Ismael");
+		
 		//act
-		LibraryManager lib = new LibraryManager(null, repo);
-		GameController game = new GameController(lib);
+		LibraryManager.INSTANCE.setRollenRepository(repo);
+		GameController game = new GameController();
 		List<Spieler> expectedSpieler = game.erzeugeSpieler(spielerNamen, rollenNamen, "Dorfbewohner");		
 
 		//Assert

@@ -31,6 +31,11 @@ public class KonsolenEingabenTests{
 	    System.setOut(new PrintStream(outContent));
 	    System.setErr(new PrintStream(errContent));
 	}
+	
+	@BeforeEach
+	public void createGameLibrary() {
+		LibraryManager gameLibrary= LibraryManager.INSTANCE;
+	}
 
 	@AfterEach
 	public void restoreStreams() {
@@ -69,8 +74,10 @@ public class KonsolenEingabenTests{
 			
 			//Karten und Rollen verkn�pfen
 			repo.verknuepfeKartenMit(role);
-			LibraryManager gamelib = new LibraryManager(repo, role);
-			OutputAdapter out = new OutputAdapter(gamelib);
+			LibraryManager.INSTANCE.setKartenRepository(repo);
+			LibraryManager.INSTANCE.setRollenRepository(role);
+			
+			OutputAdapter out = new OutputAdapter();
 			
 			//Kommando Arrange
 			String eingabe = "list-karten";
@@ -128,8 +135,9 @@ public class KonsolenEingabenTests{
 			
 			//Karten und Rollen verkn�pfen
 			repo.verknuepfeKartenMit(role);
-			LibraryManager gamelib = new LibraryManager(repo, role);
-			OutputAdapter out = new OutputAdapter(gamelib);
+			LibraryManager.INSTANCE.setKartenRepository(repo);
+			LibraryManager.INSTANCE.setRollenRepository(role);
+			OutputAdapter out = new OutputAdapter();
 			
 			//Kommando Arrange
 			String eingabe = "list-spezial";
@@ -183,8 +191,9 @@ public class KonsolenEingabenTests{
 			
 			//Karten und Rollen verkn�pfen
 			repo.verknuepfeKartenMit(role);
-			LibraryManager gamelib = new LibraryManager(repo, role);
-			OutputAdapter out = new OutputAdapter(gamelib);
+			LibraryManager.INSTANCE.setKartenRepository(repo);
+			LibraryManager.INSTANCE.setRollenRepository(role);
+			OutputAdapter out = new OutputAdapter();
 			
 			//Kommando Arrange
 			String eingabe = "suche Werwolf";
