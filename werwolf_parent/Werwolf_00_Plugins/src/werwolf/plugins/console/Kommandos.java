@@ -158,6 +158,7 @@ public enum Kommandos {
     	
     },
     
+    //TODO Exception wenn noch kein Spielschritt gemacht wurde!
     LIST_AKTIVER_SPIELER("zeige-aktiver-spieler"){
 		
     	@Override
