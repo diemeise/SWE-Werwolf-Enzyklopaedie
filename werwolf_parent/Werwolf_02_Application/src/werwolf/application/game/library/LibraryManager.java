@@ -3,14 +3,13 @@ package werwolf.application.game.library;
 import werwolf.domain.game.content.KartenRepository;
 import werwolf.domain.game.content.RollenRepository;
 
-//Singleton!
+//Singleton! 
 public enum LibraryManager {
 	
 	INSTANCE();
 	
 	 private KartenRepository kartenRepository;
 	 private RollenRepository rollenRepository;
-	//private final LibraryInterface outputInterface;
 	
 	private LibraryManager() {
 			

@@ -8,6 +8,7 @@ import org.hamcrest.MatcherAssert;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.is;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ import werwolf.domain.game.content.Spieler;
 
 public class GameControllerTests {
 	
-	@BeforeEach
+	@BeforeAll
 	public void createGameLibrary() {
 		LibraryManager gameLibrary= LibraryManager.INSTANCE;
 	}

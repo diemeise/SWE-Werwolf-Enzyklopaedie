@@ -32,7 +32,7 @@ public class KonsolenEingabenTests{
 	    System.setErr(new PrintStream(errContent));
 	}
 	
-	@BeforeEach
+	@BeforeAll
 	public void createGameLibrary() {
 		LibraryManager gameLibrary= LibraryManager.INSTANCE;
 	}
