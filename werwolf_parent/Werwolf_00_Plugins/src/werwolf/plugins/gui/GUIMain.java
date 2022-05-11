@@ -35,8 +35,8 @@ public class GUIMain extends Application {
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		root = FXMLLoader.load(getClass().getResource("MainFX.fxml"));
-		css = getClass().getResource("application.css").toExternalForm();
+		root = FXMLLoader.load(getClass().getResource("fxml\\Startseite.fxml"));
+		css = getClass().getResource("fxml\\application.css").toExternalForm();
 		
 		scene = new Scene(root);
 		scene.getStylesheets().add(css);
