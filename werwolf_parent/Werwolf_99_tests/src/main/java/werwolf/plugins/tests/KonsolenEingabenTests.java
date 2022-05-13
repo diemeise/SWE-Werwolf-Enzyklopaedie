@@ -2,23 +2,18 @@ package werwolf.plugins.tests;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.System;
 
 import org.easymock.EasyMock;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import werwolf.adapter.sql.OutputAdapter;
+import werwolf.adapter.output.OutputAdapter;
 import werwolf.adapter.sql.SQLKartenRepository;
 import werwolf.adapter.sql.SQLRollenRepository;
 import werwolf.application.game.library.LibraryManager;
@@ -35,6 +30,11 @@ public class KonsolenEingabenTests{
 	public void setUpStreams() {
 	    System.setOut(new PrintStream(outContent));
 	    System.setErr(new PrintStream(errContent));
+	}
+	
+	@BeforeAll
+	public void createGameLibrary() {
+		LibraryManager gameLibrary= LibraryManager.INSTANCE;
 	}
 
 	@AfterEach
@@ -74,8 +74,10 @@ public class KonsolenEingabenTests{
 			
 			//Karten und Rollen verkn�pfen
 			repo.verknuepfeKartenMit(role);
-			LibraryManager gamelib = new LibraryManager(repo, role);
-			OutputAdapter out = new OutputAdapter(gamelib);
+			LibraryManager.INSTANCE.setKartenRepository(repo);
+			LibraryManager.INSTANCE.setRollenRepository(role);
+			
+			OutputAdapter out = new OutputAdapter();
 			
 			//Kommando Arrange
 			String eingabe = "list-karten";
@@ -133,8 +135,9 @@ public class KonsolenEingabenTests{
 			
 			//Karten und Rollen verkn�pfen
 			repo.verknuepfeKartenMit(role);
-			LibraryManager gamelib = new LibraryManager(repo, role);
-			OutputAdapter out = new OutputAdapter(gamelib);
+			LibraryManager.INSTANCE.setKartenRepository(repo);
+			LibraryManager.INSTANCE.setRollenRepository(role);
+			OutputAdapter out = new OutputAdapter();
 			
 			//Kommando Arrange
 			String eingabe = "list-spezial";
@@ -188,8 +191,9 @@ public class KonsolenEingabenTests{
 			
 			//Karten und Rollen verkn�pfen
 			repo.verknuepfeKartenMit(role);
-			LibraryManager gamelib = new LibraryManager(repo, role);
-			OutputAdapter out = new OutputAdapter(gamelib);
+			LibraryManager.INSTANCE.setKartenRepository(repo);
+			LibraryManager.INSTANCE.setRollenRepository(role);
+			OutputAdapter out = new OutputAdapter();
 			
 			//Kommando Arrange
 			String eingabe = "suche Werwolf";

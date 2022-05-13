@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="760.0" maxWidth="1300.0" minHeight="760.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="werwolf.plugins.gui.SpielController">
+   <children>
+      <Label fx:id="phasenLabel" layoutX="40.0" layoutY="48.0" text="Aktuelle Phase: Nacht 1" />
+      <TableView fx:id="spielerTabelle" layoutX="686.0" layoutY="130.0" prefHeight="454.0" prefWidth="543.0">
+        <columns>
+          <TableColumn fx:id="colSpielername" prefWidth="105.0" text="Spielername" />
+          <TableColumn fx:id="colSpielerRolle" prefWidth="72.0" text="Rolle" />
+            <TableColumn fx:id="colSpielerLeben" prefWidth="84.0" text="Lebend" />
+            <TableColumn fx:id="colRollenFunktion" prefWidth="281.0" text="Rollenfunktion" />
+        </columns>
+      </TableView>
+      <Label fx:id="spielTextLabel" layoutX="87.0" layoutY="163.0" text="Ich sage was zu tun ist label" />
+      <Button fx:id="neachsterSchrittButton" layoutX="268.0" layoutY="159.0" mnemonicParsing="false" onAction="#neachsterSpielSchritt" text="NächsterSchritt" />
+      <Pane fx:id="toeteSpielerPane" layoutX="93.0" layoutY="263.0" prefHeight="218.0" prefWidth="525.0" />
+      <Button fx:id="beendeSpielButton" layoutX="604.0" layoutY="667.0" mnemonicParsing="false" onAction="#beendeSpiel" text="Spiel Beenden" />
+      <Label layoutX="93.0" layoutY="243.0" text="Töte Spieler Box" />
+   </children>
+</AnchorPane>

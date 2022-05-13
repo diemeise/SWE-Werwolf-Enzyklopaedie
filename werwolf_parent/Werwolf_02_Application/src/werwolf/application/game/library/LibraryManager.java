@@ -3,15 +3,16 @@ package werwolf.application.game.library;
 import werwolf.domain.game.content.KartenRepository;
 import werwolf.domain.game.content.RollenRepository;
 
-public class LibraryManager {
+//Singleton! 
+public enum LibraryManager {
 	
-	private final KartenRepository kartenRepository;
-	private final RollenRepository rollenRepository;
-	//private final LibraryInterface outputInterface;
+	INSTANCE();
 	
-	public LibraryManager(KartenRepository kartenRepository, RollenRepository rollenRepository) {
-		this.kartenRepository = kartenRepository;
-		this.rollenRepository = rollenRepository;		
+	 private KartenRepository kartenRepository;
+	 private RollenRepository rollenRepository;
+	
+	private LibraryManager() {
+			
 	}
 	
 	public void initialisiereLibrary() {
@@ -27,7 +28,13 @@ public class LibraryManager {
 	public RollenRepository getRollenRepository() {
 		return rollenRepository;
 	}
+	public void setKartenRepository(KartenRepository kr) {
+		this.kartenRepository = kr;
+	}
 	
+	public void setRollenRepository(RollenRepository rr) {
+		this.rollenRepository = rr;
+	}
 	
 
 }

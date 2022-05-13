@@ -26,6 +26,9 @@ public interface KartenRepository {
 	//Erstelle eine HashMap mit Name und Funktion fuer den spaeteren output
 	public HashMap<String, String> zeigeNameUndFunktion();
 	
+	//Erstellt eine Hashmap, die nur Karten eines bestimmten Typs enthält
+	public Map<String, Karte> getKartenMitFilter(String filter);
+	
 	//Get HashMap mit Name und Karte
-	public HashMap<String, Karte> getKarten();
+	public Map<String, Karte> getKarten();
 }

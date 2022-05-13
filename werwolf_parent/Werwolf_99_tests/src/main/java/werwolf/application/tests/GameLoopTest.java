@@ -7,7 +7,6 @@ import java.util.List;
 import org.hamcrest.MatcherAssert;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Assertions;
@@ -95,7 +94,13 @@ public class GameLoopTest {
 		fail("Spiel konnte nicht erstellt werden");
 		}
 		//act
-		game.starteErstePhase();
+		try {
+			game.starteErstePhase();
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail();
+		}
 		//assert
 		Assertions.assertTrue(game.istAktiv());
 		Assertions.assertFalse(game.istGespielt());
@@ -113,7 +118,13 @@ public class GameLoopTest {
 		fail("Spiel konnte nicht erstellt werden");
 		}
 		//act
-		game.starteErstePhase();
+		try {
+			game.starteErstePhase();
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail();
+		}
 		game.beende();
 		//assert
 		Assertions.assertFalse(game.istAktiv());
@@ -133,11 +144,24 @@ public class GameLoopTest {
 		}
 		
 		//act
-		game.starteErstePhase();
-		//eine phase muss "durchgespielt" werden damit die nächste aufgerufen werden kann 
-		while (game.naechsterSchritt()) {
+		try {
+			game.starteErstePhase();
+			game.setBuergermeister(spieler2);
+		} catch (GameException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			fail();
 		}
-		game.naechstePhase();
+		//eine phase muss "durchgespielt" werden damit die nächste aufgerufen werden kann 
+		try {
+			while (game.naechsterSchritt()) {
+			}
+			game.naechstePhase();
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail();
+		}
 		
 		//assert
 		Assertions.assertEquals(2, game.getPhasen().size());
@@ -145,7 +169,7 @@ public class GameLoopTest {
 	}
 
 	/**
-	 * überprüft ob tote Spieler in der nächsten Phase nicht mehr hinzugefügt werden 
+	 * Ueberprueft ob tote Spieler in der naechsten Phase nicht mehr hinzugefuegt werden 
 	 */
 	@Test
 	public void eliminiereSpielerTest() {
@@ -159,7 +183,14 @@ public class GameLoopTest {
 		}
 		
 		//act
-		game.starteErstePhase();
+		try {
+			game.starteErstePhase();
+			game.setBuergermeister(spieler1);
+		} catch (GameException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			fail();
+		}
 		game.eliminiereSpieler(spieler4);
 		game.eliminiereSpieler(spieler3);
 		
@@ -170,9 +201,15 @@ public class GameLoopTest {
 		
 
 		//eine phase muss "durchgespielt" werden damit die nächste aufgerufen werden kann 
-		while (game.naechsterSchritt()) {
+		try{
+			while (game.naechsterSchritt()) {
+			}		
+			game.naechstePhase();
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail();
 		}
-		game.naechstePhase();
 		List<Spieler> expectedAlivePlayers = game.getAktuellePhase().getSpieler();
 		
 		//assert
@@ -197,11 +234,22 @@ public class GameLoopTest {
 			}
 			
 			//act
-			game.starteErstePhase();
-			game.naechstePhase();
+			try {
+				game.starteErstePhase();
+			} catch (GameException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				fail();
+			}
+			try {
+				game.naechstePhase();
+			} catch (GameException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			
-			//assert dass nur eine Phase vorhanden ist (in der linked List sind trotzdem 2 Einträge, da dieselbe Nacht)
+			//assert dass nur eine Phase vorhanden ist
 			int expected = 1;
 			MatcherAssert.assertThat(game.getPhasen().size(), is(expected));
 	 }

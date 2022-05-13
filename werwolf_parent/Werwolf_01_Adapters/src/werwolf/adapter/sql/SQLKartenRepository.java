@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import werwolf.domain.game.content.Karte;
 import werwolf.domain.game.content.KartenRepository;
@@ -17,9 +16,8 @@ import werwolf.domain.game.content.RollenRepository;
 
 public class SQLKartenRepository implements KartenRepository{
 
-	//Key = Name? TODO
-	private HashMap<String, Karte> karten;
-	private HashMap<String, String> kartenFunk;
+	//Key = Name in LOWER CASE? TODO
+	private Map<String, Karte> karten;
 	private SQLVerbindung verbindung;
 
 	public SQLKartenRepository(SQLVerbindung verbindung) {
@@ -30,14 +28,13 @@ public class SQLKartenRepository implements KartenRepository{
 	
 	@Override
 	public void speichere(Rolle rolle) {
-		// TODO Auto-generated method stub
+		// TODO Implementierung nicht vorgesehen
 		
 	}
 
 	@Override
 	public Optional<Karte> findeDurch(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return Optional.ofNullable(karten.get(name.toLowerCase()));
 	}
 
 	@Override
@@ -97,13 +94,41 @@ public class SQLKartenRepository implements KartenRepository{
 	}
 
 	
+	
+	/**
+	 * Gibt eine bestimmte Art von Karten zurueck
+	 * @param filter: moegliche Werte: "gut", "boese", "spezial"
+	 */
+	@Override
+	public Map<String, Karte> getKartenMitFilter(String filter) {
+		
+		Map<String, Karte> filteredKarten = new HashMap<>();
+		
+		for (String name: karten.keySet()) {
+			if(filter == "gut") {
+				if(!karten.get(name).getRolle().istBoese())
+					filteredKarten.put(name, karten.get(name));
+			}
+			if(filter == "boese") {
+				if(karten.get(name).getRolle().istBoese())
+					filteredKarten.put(name, karten.get(name));
+			}
+			if(filter == "spezial") {
+				if(karten.get(name).getRolle().istSpezial())
+					filteredKarten.put(name, karten.get(name));
+			}			
+		}	
+		return filteredKarten;
+	}
+	
 	//TODO In eigene Klasse auslagern?
+	//wird eigentlich nicht mehr benötigt!
 	@Override
 	public HashMap<String, String> zeigeNameUndFunktion() {
 		String name;
 		String funk;
-		kartenFunk = new HashMap<>();
-		
+		HashMap<String, String> kartenFunk = new HashMap<>();
+			
 		for (String key: karten.keySet()) {
 			name = karten.get(key).getRolle().getName();
 			funk = karten.get(key).getRolle().getFunktion();
@@ -114,7 +139,7 @@ public class SQLKartenRepository implements KartenRepository{
 		return kartenFunk;
 	}
 
-	public HashMap<String, Karte> getKarten() {
+	public Map<String, Karte> getKarten() {
 		return karten;
 	}
 

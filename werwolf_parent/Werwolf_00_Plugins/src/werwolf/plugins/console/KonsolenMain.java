@@ -1,10 +1,8 @@
 package werwolf.plugins.console;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
-import werwolf.adapter.sql.OutputAdapter;
-import werwolf.adapter.sql.SQLKartenRepository;
+import werwolf.adapter.output.OutputAdapter;
 
 public class KonsolenMain {
 	
