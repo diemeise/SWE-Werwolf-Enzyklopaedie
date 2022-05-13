@@ -1,6 +1,0 @@
-In welche Schicht gehören Exceptions?
-	->(glaub das hat er in irgendeiner VL gesagt lol)
-	
-Ist eine "Spielphase" ein Usecase?
-oder ist "töte Spieler" ein Usecase, "wechsle aktiver Spieler" ein Usecase, "überprüfe Gewinnbedingun" ein UseCase, etc?
-
