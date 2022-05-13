@@ -6,6 +6,9 @@
 - Simon Meisetschläger (TINF19B1)
 - Luna Zacharias Zetsche (TINF19B1)
 
+![Pixelgrafik eines Wolfes](https://github.com/diemeise/SWE-Werwolf-Enzyklopaedie/blob/main/werwolf_parent/Werwolf_00_Plugins/src/werwolf/plugins/gui/Pixelart/WOLF1.png)
+
+
 ### Die Idee
 
 In unserer Freizeit spielen wir einmal im Monat mit Freund\*innen das Kartenspiel "Die Werwoelfe vom Duesterwald". In diesem Spiel gibt es eine Vielzahl an unterschiedlicher Rollen mit eigenen Regeln, welche gerade fuer neue Spieler\*innen schnell unuebersichtlich werden können. Aus diesem Grund wollen wir in Zukunft eine App entwickeln, welche wahrend dem Spielen als Hilfe genutzt werden kann. 
