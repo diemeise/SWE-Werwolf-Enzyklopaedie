@@ -9,6 +9,7 @@ import werwolf.adapter.output.OutputAdapter;
 import werwolf.adapter.sql.SQLKartenRepository;
 import werwolf.adapter.sql.SQLVerbindung;
 import werwolf.plugins.console.KonsolenMain;
+import werwolf.plugins.gui.GUIMain;
 import werwolf.plugins.sql.LadeSQLAuthentifizierung;
 import werwolf.plugins.sql.MySQLVerbindung;
 public class Main {
