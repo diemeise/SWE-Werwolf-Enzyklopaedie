@@ -12,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,7 +20,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -63,7 +61,6 @@ public class SpielErstellenController {
 		testNamenEintragen(teilnehmende);		
 	}
 	
-	//TODO Bei Button Click Spieler Namen + Sonderrollen speichern und an nächste Szene übergeben oder so
 	public void starteSpiel(ActionEvent e) throws IOException {
 		List<String> spielerNamen =  getSpielerNamen();
 		List<String> rollen = getRollen(); 
@@ -91,7 +88,6 @@ public class SpielErstellenController {
 	
 	private List<String> getRollen() {
 		List<String> rollenNamen = new ArrayList<String>(0);
-		//TODO fuers erste immer zwei woelfe
 		rollenNamen.add("werwolf");
 		rollenNamen.add("werwolf");
 		//alle Checkboxen durchgehen (Panel hat nur checkboxen )
@@ -128,7 +124,6 @@ public class SpielErstellenController {
 		return true;
 	}
 
-	//TODO Mit richtigen Sonderrollen verbinden
 	@FXML
 	private void baueCheckboxen() {
 		//Sonderrollen finden (Key: Name, Value: Funktion)
@@ -165,7 +160,6 @@ public class SpielErstellenController {
 			
 	}
 	
-	//TODO schoener umsetzen?
 	private void initTextfelder() {
 		//Arrayerzeugung mit = {e0, e1, e2} funktioniert nicht :(. liegt vmtl an FXML elementen
 		spielerNamenArray[0] = name0;

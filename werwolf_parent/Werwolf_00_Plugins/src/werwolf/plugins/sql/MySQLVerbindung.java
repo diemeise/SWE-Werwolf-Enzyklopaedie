@@ -1,4 +1,4 @@
-//TODO ist eigentlich ein Plugin?
+
 package werwolf.plugins.sql;
 
 import werwolf.adapter.sql.SQLVerbindung;
@@ -15,19 +15,17 @@ public class MySQLVerbindung implements SQLVerbindung {
 	private  Connection verbindung;
 
 	
-	//private Konstruktor für Testzwecke
-//	public MySQLVerbindung() throws SQLException {	
-//		
-//		
-//		this("jdbc:mysql://46.20.34.173/s1440177",nutzer,passwort);
-//	}
 	
 	public MySQLVerbindung(String url, String benutzer, String passwort) throws SQLException {
 		this.verbindung= this.connectTo(url,  benutzer, passwort);
+		System.out.println("Verbindung zur Datenbank hergestellt");
+		
 	}
 	
 	public Connection connectTo(String url, String benutzer, String passwort) throws SQLException{
-		return DriverManager.getConnection(url, benutzer, passwort);
+			return DriverManager.getConnection(url, benutzer, passwort);
+
+		
 	}
 	
 	
@@ -41,7 +39,6 @@ public class MySQLVerbindung implements SQLVerbindung {
 			ResultSet resultSet = statement.executeQuery(queryString);
 			return resultSet;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

@@ -87,7 +87,6 @@ public abstract class Spielphase {
 		}
 		//keine weiteren Spieler vorhanden
 		return false;
-		//throw new GameException("Keine weiteren Spieler diese Nacht!"); 
 	}
 
 	protected  List<Spieler> getUeberlebendeSpieler(){

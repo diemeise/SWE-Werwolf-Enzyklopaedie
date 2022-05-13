@@ -11,16 +11,6 @@ public class Rolle implements Comparable<Rolle>{
 	private boolean istBoese;
 	
 	
-//	private Rolle() {
-//		this.name = "";
-//		this.funktion = "";
-//		this.beschreibung = "";
-//		this.istSpezial = false;
-//		this.istBoese = false;
-//		this.prioritaet = 1;
-//	}
-	
-
 	
 	public Rolle(String name, String funktion, String beschreibung, boolean istSpezial, boolean istBoese, int prioritaet) {
 		super();
@@ -40,9 +30,6 @@ public class Rolle implements Comparable<Rolle>{
 
 
 
-	/*
-	 * just getters here
-	 */
 	public String getName() {
 		return name;
 	}

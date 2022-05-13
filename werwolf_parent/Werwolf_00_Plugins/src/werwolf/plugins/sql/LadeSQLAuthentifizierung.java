@@ -4,16 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException; 
 
-public class MySQLAuthentifizierung {
+public class LadeSQLAuthentifizierung {
 	
 	private static String url;
 	private static String nutzer;
 	private static String pw;
 	
-//    public static void main(String[] args) {
-//        String dateiName = "C:\\Users\\tamar\\eclipse-workspace\\SWE-Werwolf-Enzyklopaedie\\auth.txt";
-//        ladeDatei(dateiName);
-//    } 
+
 	
 	public static void ladeDatei(String datei) {
 		

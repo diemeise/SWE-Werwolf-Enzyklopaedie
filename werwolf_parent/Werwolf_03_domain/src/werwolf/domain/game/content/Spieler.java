@@ -45,9 +45,7 @@ public class Spieler  implements Comparable<Spieler> {
 		this.lebendig = lebendig;
 	}
 
-	/**
-	 * Vergleicht die Rollenprio
-	 */
+
 	@Override
 	public int compareTo(Spieler o) {
 		return this.getRolle().compareTo(o.getRolle());
