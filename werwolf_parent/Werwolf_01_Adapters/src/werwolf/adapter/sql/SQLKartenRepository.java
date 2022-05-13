@@ -16,7 +16,7 @@ import werwolf.domain.game.content.RollenRepository;
 
 public class SQLKartenRepository implements KartenRepository{
 
-	//Key = Name in LOWER CASE? TODO
+	//Key = Name der Karte in lower case 
 	private Map<String, Karte> karten;
 	private SQLVerbindung verbindung;
 
@@ -28,7 +28,7 @@ public class SQLKartenRepository implements KartenRepository{
 	
 	@Override
 	public void speichere(Rolle rolle) {
-		// TODO Implementierung nicht vorgesehen
+		// Implementierung nicht vorgesehen
 		
 	}
 
@@ -39,12 +39,9 @@ public class SQLKartenRepository implements KartenRepository{
 
 	@Override
 	public List<Rolle> findeAlleKarten() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	//TODO implementieren
-	//TODO DRY -> wegwerfen weil die Hash mit Funktion hier reicht?
 	//Gibt eine alphabetisch sortierte Liste der Namen aller vorhandenen Karten aus 
 	public ArrayList<String> listeAllerNamen(){		
 		ArrayList<String> kartenNamenListe = new ArrayList<String>(this.karten.keySet());
@@ -53,7 +50,6 @@ public class SQLKartenRepository implements KartenRepository{
 	}
 	
 
-	//TODO besser im interface implementieren
 	public void initialisiereKarten(ResultSet resultSet) {
 		try {
 			while (resultSet.next()) {
@@ -121,29 +117,11 @@ public class SQLKartenRepository implements KartenRepository{
 		return filteredKarten;
 	}
 	
-	//TODO In eigene Klasse auslagern?
-	//wird eigentlich nicht mehr benötigt!
-	@Override
-	public HashMap<String, String> zeigeNameUndFunktion() {
-		String name;
-		String funk;
-		HashMap<String, String> kartenFunk = new HashMap<>();
-			
-		for (String key: karten.keySet()) {
-			name = karten.get(key).getRolle().getName();
-			funk = karten.get(key).getRolle().getFunktion();
-			
-			kartenFunk.put(name, funk);
-		}
-	
-		return kartenFunk;
-	}
+
 
 	public Map<String, Karte> getKarten() {
 		return karten;
 	}
-
-	
 
 
 }

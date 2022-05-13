@@ -1,6 +1,5 @@
 package werwolf.application.game;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import werwolf.domain.game.content.Spieler;
@@ -15,7 +14,7 @@ public class Nacht extends Spielphase{
 	}
 	
 	/**
-	 * setzt den naechsten Spieler auf aktiv
+	 * berechnet den naechsten Schritt in einer Phase
 	 * @return false, wenn Phase abgeschlossen, sonst true
 	 */
 	public boolean naechsterSpielschritt(){

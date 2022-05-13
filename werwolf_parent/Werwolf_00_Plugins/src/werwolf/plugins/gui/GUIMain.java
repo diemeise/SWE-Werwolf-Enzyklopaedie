@@ -63,7 +63,6 @@ public class GUIMain extends Application {
 		stage.setScene(scene);
 	}
 	
-	//TODO bessere Implementierung
 	
 
 }

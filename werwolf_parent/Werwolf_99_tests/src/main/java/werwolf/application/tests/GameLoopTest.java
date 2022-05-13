@@ -97,7 +97,6 @@ public class GameLoopTest {
 		try {
 			game.starteErstePhase();
 		} catch (GameException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -121,7 +120,6 @@ public class GameLoopTest {
 		try {
 			game.starteErstePhase();
 		} catch (GameException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -148,7 +146,6 @@ public class GameLoopTest {
 			game.starteErstePhase();
 			game.setBuergermeister(spieler2);
 		} catch (GameException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			fail();
 		}
@@ -158,7 +155,6 @@ public class GameLoopTest {
 			}
 			game.naechstePhase();
 		} catch (GameException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -187,7 +183,6 @@ public class GameLoopTest {
 			game.starteErstePhase();
 			game.setBuergermeister(spieler1);
 		} catch (GameException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			fail();
 		}
@@ -206,7 +201,6 @@ public class GameLoopTest {
 			}		
 			game.naechstePhase();
 		} catch (GameException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -237,14 +231,12 @@ public class GameLoopTest {
 			try {
 				game.starteErstePhase();
 			} catch (GameException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				fail();
 			}
 			try {
 				game.naechstePhase();
 			} catch (GameException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

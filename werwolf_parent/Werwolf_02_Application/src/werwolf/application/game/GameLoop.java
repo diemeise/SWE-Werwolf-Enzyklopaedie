@@ -180,10 +180,6 @@ public class GameLoop {
 	}
 	
 	
-	/**
-	 * prueft ob nach einer Spielphase das Spiel von einer Partei gewonnen wurde
-	 * @return
-	 */
 	public boolean pruefeSpielGewonnen() {
 		List<Spieler> lebendeSpieler;
 		lebendeSpieler = this.getAktuellePhase().getUeberlebendeSpieler();

@@ -1,6 +1,5 @@
 package werwolf.domain.game.content;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,12 +22,9 @@ public interface KartenRepository {
 	
 	public void verknuepfeKartenMit(RollenRepository rollenRepository);
 	
-	//Erstelle eine HashMap mit Name und Funktion fuer den spaeteren output
-	public HashMap<String, String> zeigeNameUndFunktion();
-	
+		
 	//Erstellt eine Hashmap, die nur Karten eines bestimmten Typs enthält
 	public Map<String, Karte> getKartenMitFilter(String filter);
 	
-	//Get HashMap mit Name und Karte
 	public Map<String, Karte> getKarten();
 }

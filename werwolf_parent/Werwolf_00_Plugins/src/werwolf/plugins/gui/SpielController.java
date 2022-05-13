@@ -1,7 +1,6 @@
 package werwolf.plugins.gui;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,18 +15,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import werwolf.plugins.gui.model.SpielerModel;
 
@@ -57,7 +52,6 @@ public class SpielController {
 		colRollenFunktion.setCellValueFactory(new PropertyValueFactory<>("rollenFunktion"));
 		//spielerTabelle.getItems().add();
 		
-		//TODO in eigene Methode
 		//Spielerobjekte für die Tabelle vorbereiten
 		spielerListe = FXCollections.observableArrayList();
 		List<Map<String,String>> spielerStrings = GUIMain.outputAdapter.listeAlleSpieler();
@@ -74,7 +68,7 @@ public class SpielController {
 		
 	}
 	
-	//TODO
+	
 	public void toeteSpieler(ActionEvent e) {
 	
 		String spielerName = ((Button) e.getSource()).getText();
@@ -125,7 +119,6 @@ public class SpielController {
 		
 	}
 	
-	//TODO evtl. etwas komplexer aufbauen :P 
 	public void baueToeteButtons() {
 		
 		int positionY = 10;

@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import werwolf.application.game.GameLoop;
-import werwolf.application.game.Nacht;
 import werwolf.application.game.Spielphase;
 import werwolf.application.game.library.LibraryManager;
 import werwolf.domain.game.content.Rolle;
@@ -32,11 +31,7 @@ public class GameController {
 		this.gameCreated = false;
 	}
 	
-	/**
-	 * startet ein neues Spiel mit den gegebenen Spielern
-	 * @param spieler
-	 * @return
-	 */
+
 	private String starteSpiel(List<Spieler>spieler) {
 		try {
 			game = new GameLoop(spieler); 
@@ -54,7 +49,6 @@ public class GameController {
 	 * Erstellt ein Spiel mit einer zufaelligen Kombination aus Spielern und Rollen.
 	 * F�r alle nicht erkannten oder zu wenig vorhandenen Rollen wird ein Dorfbewohner erzeugt.
 	 * Alle vorhandenen Rollen werden aus dem LibraryManager entnommen.
-	 * TODO andere Standardspieler erm�glichen
 	 * @param spielerNamen 	Liste aller Spielernamen
 	 * @param rollenNamen	Liste an Rollennamen
 	 * @return
@@ -141,7 +135,6 @@ public class GameController {
 		return getDetailsOfSpieler(s);
 	}
 	
-	//TODO entzerren
 	public List<Map<String, String>> listeAlleSpieler() {
 		List< Map<String,String>> returnList = new ArrayList<>();
 		List<Spieler> alleSpieler = game.getSpieler();
@@ -151,7 +144,6 @@ public class GameController {
 		return returnList;
 	}
 	
-	//TODO entzerren
 	public List<Map<String,String>> listGewinner(){
 		List< Map<String,String>> returnList = new ArrayList<>();
 		List<Spieler> gewinner = game.getGewinner();
@@ -181,8 +173,6 @@ public class GameController {
 	
 	
 	//eigentlich privat, nur wegen einem Test public
-	//TODO zu komplex für eine Methode?
-	//TODO nicht schoen :(((
  	public List<Spieler> erzeugeSpieler(List<String> spielerNamen, List<String> rollenNamen, String standardRollenString) {
 		List<Rolle> rollen =  new ArrayList<Rolle>();
 		List<Spieler> spieler = new LinkedList<Spieler>();
@@ -199,11 +189,9 @@ public class GameController {
 			rollen.add(standard);
 		}
 		
-		//mische die spielerNamen und Rollen
 		Collections.shuffle(spielerNamen);
 		Collections.shuffle(rollen);
 		
-		//erzeugung der Spieler
 		for(int i = 0; i < spielerNamen.size(); i++) {
 			spieler.add(new Spieler(rollen.get(i), spielerNamen.get(i)));
 		}

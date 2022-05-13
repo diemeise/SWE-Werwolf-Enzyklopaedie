@@ -15,20 +15,17 @@ import werwolf.adapter.output.OutputAdapter;
 
 public enum Kommandos {
 	
-	//TODO Liste alle guten Rollen auf
-	//TODO Liste alle boesen Rollen auf 
 	
-    LIST_KARTEN("list-karten") {
+    LIST_KARTEN("list-karten", "list-karten", "Gibt eine Liste aller Karten aus.") {
     	@Override
         public void execute(MatchResult matcher, OutputAdapter out) {
-            //System.out.println(":(");
     		Map<String, String> karten = new HashMap<>();
     		karten = out.getAlleKartenByFunktion();
     		karten.forEach((k,v) -> System.out.println(k+": "+v));
         }
     },
     
-    LIST_SPEZIAL("list-spezial") {
+    LIST_SPEZIAL("list-spezial", "list-spezial", "Gibt eine Liste aller speziellen Karten aus") {
     	@Override
         public void execute(MatchResult matcher, OutputAdapter out) {
     		Map<String, String> karten = new HashMap<>();
@@ -37,7 +34,7 @@ public enum Kommandos {
         }
     },
     
-    LIST_BOESE("list-boese") {
+    LIST_BOESE("list-boese", "list-boese","Gibt eine Liste aller boesen Karten aus") {
     	@Override
         public void execute(MatchResult matcher, OutputAdapter out) {
     		Map<String, String> karten = new HashMap<>();
@@ -46,7 +43,7 @@ public enum Kommandos {
         }
     },
     
-    LIST_GUT("list-gut") {
+    LIST_GUT("list-gut", "list-gut", "Gibt eine Liste aller guten Karten aus") {
     	@Override
         public void execute(MatchResult matcher, OutputAdapter out) {
     		Map<String, String> karten = new HashMap<>();
@@ -55,17 +52,14 @@ public enum Kommandos {
         }
     },
     
-    SUCHE_NAMEN("suche ([a-zA-Z]+)") {
+    SUCHE_NAMEN("suche ([a-zA-Z]+)", "suche <Kartenname>", "gibt Karten aus, deren Name dem <Kartenname> entspricht") {
 
 		@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
-			// TODO Auto-generated method stub
 			String name = matcher.group(1);
-			//System.out.println(name);
 			
 			HashMap<String, String> karten = new HashMap<>();
 			karten = out.getKartenDetails(name);
-			//karten.forEach((k,v) -> System.out.println(k+": "+v)); //Sad das ist natuerlich dann nicht sortiert :c
 			
 			String n = karten.get("Name");
 			String f = karten.get("Funktion");
@@ -84,7 +78,8 @@ public enum Kommandos {
     },
     	
    // ###################Spiel-Funktionen###################
-    GAME_START("starte-spiel ([^\s]*,?) ([^\\s]*,?)"){
+    GAME_START("starte-spiel ([^\s]*,?) ([^\\s]*,?)", "starte-spiel <spieler1>,<spieler2,.. <rolle1>,<rolle2>,..", "startet ein Spiel mit den angegebenen Spielernamen und den �bergebenen Rollen. "
+    					+ "	Sind mehr Spieler als Rollen angegeben, wird der Rest als Dorfbewohner deklariert."){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -103,7 +98,7 @@ public enum Kommandos {
     },
     
     
-    LIST_ALLE_SPIELER("alle-spieler"){
+    LIST_ALLE_SPIELER("alle-spieler", "alle-Spieler", "Gibt eine Uebersicht aller Spieler und ihrer Rollen aus"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -121,7 +116,7 @@ public enum Kommandos {
     	
     },
     
-    LIST_GEWINNER("zeige-gewinner"){
+    LIST_GEWINNER("zeige-gewinner", "zeige-gewinner", "zeigt die Gewinner des letzten Spiels an"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -139,7 +134,7 @@ public enum Kommandos {
     	
     },
     
-    LIST_SPIELER("zeige-spieler ([^\s]*)"){
+    LIST_SPIELER("zeige-spieler ([^\s]*)", "zeige-spieler <spielername>", "zeigt Details zu einem Spielernamen an"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -158,8 +153,8 @@ public enum Kommandos {
     	
     },
     
-    //TODO Exception wenn noch kein Spielschritt gemacht wurde!
-    LIST_AKTIVER_SPIELER("zeige-aktiver-spieler"){
+    
+    LIST_AKTIVER_SPIELER("zeige-aktiver-spieler", "zeige-aktiver-spieler", "Zeigt den aktuelle Spieler und seine Rolle an"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -177,14 +172,8 @@ public enum Kommandos {
 		}    	
     },
     
-    /**
-     * gibt info über die aktuelle Phase
-     * lebende Spieler am Start
-     * aktueller Spieler
-     * bereits eliminierte Spieler
-     *TODO
-     */
-    LIST_PHASE("zeige-spielphase"){
+
+    LIST_PHASE("zeige-spielphase", "zeige-spielphase", "gibt Informationen zur aktuellen Spielphase an"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -196,7 +185,7 @@ public enum Kommandos {
     	}    	
     },
     
-    LIST_BUERGERMEISTER("buergermeister"){
+    LIST_BUERGERMEISTER("buergermeister", "buergermeister", "zeigt den aktuellen Buergermeister an"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -211,7 +200,7 @@ public enum Kommandos {
      * aktueller Spieler
      * 
      */
-    GAME_STATS("spiel-uebersicht"){
+    GAME_STATS("spiel-uebersicht", "spiel-uebersicht", "zeigt eine Uebersicht des Spiels mit aktueller Phase, allen Spielern und weiteren Infos"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -227,7 +216,7 @@ public enum Kommandos {
     	}    	
     },
     
- GAME_STATUS("spiel-status"){
+ GAME_STATUS("spiel-status","spiel-status", "Zeigt den aktuellen Status des Spiels"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -235,7 +224,7 @@ public enum Kommandos {
     	}    	
     },
     
-    GAME_END("stopp-spiel"){
+    GAME_END("stopp-spiel","stopp-spiel", "stoppt ein laufendes Spiel"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -243,7 +232,7 @@ public enum Kommandos {
     	}    	
     },
   
-  GAME_CONTINUE("spielschritt"){
+  GAME_CONTINUE("spielschritt", "spielschritt", "fuert ein Spielschritt aus"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -251,7 +240,7 @@ public enum Kommandos {
     	}    	
     },
 
-  ELIMINIERE_SPIELER("kill ([^\s]*)"){
+  ELIMINIERE_SPIELER("kill ([^\s]*)", "kill <spielername>", "eliminiert den angegebenen Spieler"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -259,7 +248,7 @@ public enum Kommandos {
     	}    	
     },
  
-  NEUER_BUERGERMEISTER("waehle ([^\s]*)"){
+  NEUER_BUERGERMEISTER("waehle ([^\s]*)", "waehle <spielername>", "waehlt einen neuen Buergermeister"){
 		
     	@Override
 		public void execute(MatchResult matcher, OutputAdapter out) {
@@ -267,10 +256,23 @@ public enum Kommandos {
     	}    	
     },
  
-    QUIT("quit") {
+    QUIT("quit", "quit", "beendet das Programm") {
         @Override
         public void execute(MatchResult matcher, OutputAdapter out) {
             isRunning = false;
+        }
+    },
+	
+	 
+    HILFE("hilfe", "hilfe", "zeigt diese Uebersicht") {
+        @Override
+        public void execute(MatchResult matcher, OutputAdapter out) {
+            for (Kommandos k : Kommandos.values()) {
+				System.out.println(k.getKommando()
+						+ "\t" + "|" + "\t"
+						+ k.getBeschreibung()
+						+ System.lineSeparator());
+			}
         }
     };
 
@@ -279,10 +281,16 @@ public enum Kommandos {
 	
 	
 	private Pattern pattern;
+	private String kommando;
+	private String beschreibung;
 	
-	Kommandos(String pattern) {
+	Kommandos(String pattern, String kommando, String beschreibung) {
     	this.pattern = Pattern.compile(pattern);
+    	this.kommando = kommando;
+    	this.beschreibung = beschreibung;
 	}
+	
+	
     
    
     
@@ -295,16 +303,39 @@ public enum Kommandos {
             Matcher matcher = command.pattern.matcher(input);
             if (matcher.matches()) {
                 command.execute(matcher, out);
-                //nur temporär
-                GAME_STATUS.execute(matcher, out);
                 return command;
             }
         }
     	System.out.println("Kommando Unbekannt!");
-		throw new Exception("Ungueltiges Kommando!");
+    	System.out.println("Fuer eine Uebersicht aller Kommandos <hilfe> eingeben");
+    	return null;
     }
 
 	public boolean isRunning() {
         return isRunning;
     }
+
+
+
+
+
+	public Pattern getPattern() {
+		return pattern;
+	}
+
+
+
+
+
+	public String getKommando() {
+		return kommando;
+	}
+
+
+
+
+
+	public String getBeschreibung() {
+		return beschreibung;
+	}
 }

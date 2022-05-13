@@ -1,6 +1,5 @@
 package werwolf.application.game;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import werwolf.domain.game.content.Spieler;

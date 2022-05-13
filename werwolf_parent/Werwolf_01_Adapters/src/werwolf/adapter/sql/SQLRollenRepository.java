@@ -14,7 +14,7 @@ import werwolf.domain.game.content.RollenRepository;
 
 public class SQLRollenRepository implements RollenRepository{
 	
-	//Key = Name IN LOWER CASE? TODO
+	//Key = Name in lower case
 	private Map<String, Rolle> rollen;
 	private SQLVerbindung verbindung;
 
@@ -25,7 +25,7 @@ public class SQLRollenRepository implements RollenRepository{
 	
 	@Override
 	public void speichere(Rolle rolle) {
-		// TODO implementierung nicht vorgesehen
+		//  implementierung nicht vorgesehen
 		
 	}
 
@@ -47,7 +47,6 @@ public class SQLRollenRepository implements RollenRepository{
 		return rollenNamenListe;
 	}
 	
-	//TODO besser im interface implementieren
 	public void initialisiereRollen(ResultSet resultSet) {
 		try {
 			while (resultSet.next()) {
@@ -66,7 +65,7 @@ public class SQLRollenRepository implements RollenRepository{
 	@Override
 	public void ladeRollenAusSpeicher() {
 		Map<String, String> ladeRollenArgs= new HashMap<>();
-		//TODO wie geht das besser lol?
+
 		ladeRollenArgs.put("Tabellen","Rolle");
 		ladeRollenArgs.put("Spalten","Rolle.Name, Rolle.Funktion, Rolle.Name, Rolle.istBoese, Rolle.istSpezial, Rolle.Prioritaet");
 		

@@ -3,9 +3,7 @@ package werwolf.domain.game.content;
 
 public class Karte {
 	private Rolle rolle;
-	//private final Rule rule;
 	private String displayText;
-	//private final Image image;
 	
 	
 	public Karte(Rolle rolle, String displayText) {
